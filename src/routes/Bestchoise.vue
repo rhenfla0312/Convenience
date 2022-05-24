@@ -1,19 +1,117 @@
 <script>
 export default {
-
+  data() {
+    return {
+      // hotNuddle : "치즈불닭볶음면",
+      hotNuddles : [
+        "준비중","준비중","준비중","준비중","준비중","준비중",
+        "준비중","준비중","준비중","준비중","준비중","준비중",
+        "준비중","준비중","준비중","준비중"
+      ],
+      Loading : false
+    }
+  },
+  methods: {
+    asyncMethod() {
+      // 네트워크통신할땐 -> axios로 변경
+      setTimeout(() => {
+        this.Loading = !this.Loading
+      },1000)
+    }
+  },
+  mounted() {
+    this.asyncMethod();
+  }
 }
 </script>
 
 
 <template>
-  <div class="bestchoise"></div>
+  <div class="bestchoise">
+    <div class="bestchoise__name">이달의 꿀조합</div>
+    <div class="inner">
+      <div class="bestchoise__main" v-if="Loading">
+        <div class="item" v-for="hotNuddle in hotNuddles" :key="hotNuddle">
+          <div class="itemBox">
+            <div class="__img">이미지 준비중</div>
+            <div class="__text">
+              <div class="name">이름 : {{ hotNuddle }}</div>
+              <div class="star__name">평점 : {{ hotNuddle }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 스켈레톤 UI -->
+      <div class="bestchoise__main" v-else>
+        <div class="item"  v-for="hotNuddle in hotNuddles" :key="hotNuddle">
+          <div class="skeletons_itemBox">
+
+          </div>
+          <div class="skeletons_textBox">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </template>
 
 <style lang="scss" scoped>
   .bestchoise {
     position: relative;
     top: 125px;
-    height: 600px;
-    background: blue;
+    // width: 100%;
+    padding: 0 0 80px 0;
+    min-width: 1900px;
+    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+    .bestchoise__name {
+      text-align: center;
+      font-size: 30px;
+      font-weight: bold;
+      line-height: 3;
+    }
+    .inner {
+      width: 1400px;
+      margin: auto;
+      .bestchoise__main {
+        display: grid;
+        // column 배치
+        grid-template-columns: repeat(4, 1fr);
+        .item {
+          .itemBox {
+            .__img {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              background: #e0e0e0;
+              width: 306px;
+              height: 306px;
+              border-radius: 20px;
+              margin: 12px;
+            }
+            .__text {
+              text-align: center;
+              margin-right: 17px;
+            }
+          }
+          // 스켈레톤 UI
+          .skeletons_itemBox {
+            background: #e0e0e0;
+            width: 306px;
+            height: 306px;
+            border-radius: 20px;
+            margin: 12px;
+          }
+          .skeletons_textBox {
+            background: #e0e0e0;
+            width: 306px;
+            height: 50px;
+            border-radius: 20px;
+            margin: 12px;
+          }
+        }
+      }
+    }
   }
 </style>

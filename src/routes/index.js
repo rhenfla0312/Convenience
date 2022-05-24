@@ -12,7 +12,10 @@ import SignUp from './SignUp.vue'
 import ServiceCenter from './ServiceCenter.vue'
 
 export default createRouter({
-
+  // 라우터 이동시 스크롤 최상단으로 이동
+  scrollBehavior() {
+    return { top : 0 }
+  },
   history: createWebHashHistory(),
   routes: [
     {
