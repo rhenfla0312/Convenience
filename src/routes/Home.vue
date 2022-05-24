@@ -22,21 +22,21 @@ export default {
     return {
       // swiper-item
       swiperItems: [
-        { name: '튀김)삼복치킨', img: '../../static/item1.jpg'},
-        { name: '튀김)휴게소소시지바', img: '../../static/item2.jpeg'},
-        { name: '롯데푸드)빽다방옥수수콘', img: '../../static/item3.jpeg'},
-        { name: '하겐)가나슈파인트', img: '../../static/item4.jpeg'},
-        { name: '롯)칠성사이다복숭아P500', img: '../../static/item5.jpeg'},
-        { name: 'HEYROO콘칩매콤달콤한맛', img: '../../static/item6.jpeg'},
+        { name: '튀김)삼복치킨', img: '/static/item1.jpg'},
+        { name: '튀김)휴게소소시지바', img: '/static/item2.jpeg'},
+        { name: '롯데푸드)빽다방옥수수콘', img: '/static/item3.jpeg'},
+        { name: '하겐)가나슈파인트', img: '/static/item4.jpeg'},
+        { name: '롯)칠성사이다복숭아P500', img: '/static/item5.jpeg'},
+        { name: 'HEYROO콘칩매콤달콤한맛', img: '/static/item6.jpeg'},
       ],
       // swiper-event-item
       swiperEventItems: [
-        { name: '켈로그)첵스초코', img: '../../static/itemEvent1.jpg'},
-        { name: '남양)로스터돌체라떼', img: '../../static/itemEvent2.jpg'},
-        { name: '해태)자유시간초콜릿바', img: '../../static/itemEvent3.jpg'},
-        { name: '롯데)죠스바', img: '../../static/itemEvent4.jpg'},
-        { name: '코카)스프라이트', img: '../../static/itemEvent5.jpg'},
-        { name: '푸르밀)가나쵸코우유', img: '../../static/itemEvent6.jpg'},
+        { name: '켈로그)첵스초코', img: '/static/itemEvent1.jpg'},
+        { name: '남양)로스터돌체라떼', img: '/static/itemEvent2.jpg'},
+        { name: '해태)자유시간초콜릿바', img: '/static/itemEvent3.jpg'},
+        { name: '롯데)죠스바', img: '/static/itemEvent4.jpg'},
+        { name: '코카)스프라이트', img: '/static/itemEvent5.jpg'},
+        { name: '푸르밀)가나쵸코우유', img: '/static/itemEvent6.jpg'},
       ],
 
       swiperItemsOptions: {
