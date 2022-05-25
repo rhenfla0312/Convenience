@@ -13,7 +13,7 @@ export default {
         <i class="fa-solid fa-bowl-food rank"></i>
       </div>
       <div class="leftBtnBox">
-        <button class="leftBtn">조합만들기</button>
+        <RouterLink to="/myChoise/mixMack" class="leftBtn">조합만들기</RouterLink>
       </div>
     </div>
     <div class="mychoise__right">
@@ -21,13 +21,17 @@ export default {
         <i class="fa-solid fa-shop rank"></i>
       </div>
       <div class="rightBtnBox">
-        <button class="rightBtn">조합상품보기</button>
+        <RouterLink to="/myChoise/mixProduct" class="rightBtn">조합상품보기</RouterLink>
       </div>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
+  a {
+    text-decoration: none;
+    color: #333;
+  }
   .mychoise {
     position: relative;
     top: 125px;
@@ -120,7 +124,7 @@ export default {
                         5px 5px 15px rgba(0,0,0,0.15),
                         -5px -5px 15px rgba(255,255,255, 0.15);
       &::before {
-        content: '랭킹 보기';
+        content: '조합상품보기';
         position: absolute;
         inset: 5px;
         background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);

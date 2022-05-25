@@ -94,8 +94,15 @@ export default {
         },
         { number : 8,
           item : '8번 아이템'
-        },
-      ]
+        }
+      ],
+      isActive : false,
+      totalLike : 0
+    }
+  },
+  methods: {
+    tableShow() {
+      this.isActive = !this.isActive
     }
   }
 }
@@ -143,6 +150,38 @@ export default {
               <div class="itemHead">{{ rankingItem.number }}</div>
               <div class="item">{{ rankingItem.item}}</div>
             </div>
+            <div class="allBox" :class="{ active: isActive }">
+              <div class="allBoxCheck" :class="{ active: isActive }" @click="tableShow()">
+                <span class="material-symbols-outlined arrow">expand_more</span>
+              </div>
+              <div class="allTable" :class="{ active: isActive }">
+                <div class="table__name">전체랭킹</div>
+                <div class="table__main">
+                  <table class="table">
+                    <thead class="thead">
+                      <tr class="tr">
+                        <th>순위</th>
+                        <th>번호</th>
+                        <th>닉네임</th>
+                        <th>조합</th>
+                        <th>추천수</th>
+                        <th>추천</th>
+                      </tr>
+                    </thead>
+                    <tbody class="tbody">
+                      <tr class="tr">
+                        <td>1</td>
+                        <td>3</td>
+                        <td>장준호</td>
+                        <td>민트초코 + 감자</td>
+                        <td>{{ totalLike }}</td>
+                        <td><i class="fa-solid fa-thumbs-up" style="cursor:pointer" @click="totalLike++"></i></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -172,7 +211,7 @@ export default {
     .bestranking__main {
       .graphBox {
         position: relative;
-        right: 21px;
+        right: 20px;
         width: 100%;
         padding: 20px;
         display: grid;
@@ -204,7 +243,6 @@ export default {
             padding: 20px;
             width:  250px;
             height: 280px;
-            background: dddddd;
             box-shadow: 0 7px 25px rgba(0,0,0,0.08);
             border-radius: 20px;
             .itemHead {
@@ -212,16 +250,99 @@ export default {
               font-size: 25px;
               border-bottom: 1px solid #dddddd;
             }
-              .item {
+            .item {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 200px;
+            }
+            &:hover {
+              border: 5px solid #dddddd;
+            }
+          }
+          .allBox {
+            margin-top: 30px;
+            width: 1060px;
+            height: 50px;
+            margin: auto;
+            box-shadow: 0 7px 25px rgba(0,0,0,0.08);
+            grid-column: 1 / 5;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            // transition: .5s;
+            .allBoxCheck {
+              cursor: pointer;
+              width: 1060px;
+              height: 50px;
+              .arrow {
+                display: flex;
+                margin-top: 5px;
+                justify-content: center;
+                font-size: 40px;
+                transition: .5s;
+              }
+            }
+          }
+          .allBox.active {
+            display: none;
+            margin-top: 30px;
+            width: 1060px;
+            height: 500px;
+            margin: auto;
+            box-shadow: 0 7px 25px rgba(0,0,0,0.08);
+            grid-column: 1 / 5;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            transition: .5s;
+            position: relative;
+            .allBoxCheck {
+              position: absolute;
+              bottom: 0;
+              cursor: pointer;
+              width: 1060px;
+              height: 50px;
+              .arrow {
+                transition: .5s;
+                transform: rotate(180deg);
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                height: 200px;
+                font-size: 40px;
               }
-              &:hover {
-                border: 5px solid #dddddd;
-              }
+            }
           }
+          .allTable {
+            display: none;
+          }
+          .allTable.active {
+            transition: .5s;
+            padding: 20px;
+            display: block;
+            width: 1060px;
+            height: 500px;
+            margin: auto;
+            .table__name {
+              text-align: center;
+              font-size: 25px;
+              font-weight: 500;
+            }
+            .table__main {
+              margin-top: 30px;
+              .table {
+                text-align: center;
+                .thead {
+
+                }
+                .tbody {
+
+                }
+              }
+            }
+          }
+
+
         }
       }
     }

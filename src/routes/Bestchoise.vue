@@ -1,5 +1,9 @@
 <script>
+import Page from '../components/Page.vue'
 export default {
+  components: {
+    Page
+  },
   data() {
     return {
       // hotNuddle : "치즈불닭볶음면",
@@ -53,8 +57,8 @@ export default {
         </div>
       </div>
     </div>
+  <Page />
   </div>
-
 </template>
 
 <style lang="scss" scoped>
@@ -93,6 +97,11 @@ export default {
             .__text {
               text-align: center;
               margin-right: 17px;
+              background: #e0e0e0;
+              width: 306px;
+              height: 50px;
+              border-radius: 20px;
+              margin: 12px;
             }
           }
           // 스켈레톤 UI

@@ -16,10 +16,10 @@ export default {
       <div class="menu">
         <RouterLink to="/" class="menu__name">BestChoice</RouterLink>
         <div class="__item">
-          <RouterLink to="description" class="menu__item">꿀조합 소개</RouterLink>
-          <RouterLink to="bestChoise" class="menu__item">꿀조합</RouterLink>
-          <RouterLink to="bestRanking" class="menu__item">조합랭킹</RouterLink>
-          <RouterLink to="myChoise" class="menu__item">나만의 조합</RouterLink>
+          <RouterLink to="/description" class="menu__item">꿀조합 소개</RouterLink>
+          <RouterLink to="/bestChoise" class="menu__item">꿀조합</RouterLink>
+          <RouterLink to="/bestRanking" class="menu__item">조합랭킹</RouterLink>
+          <RouterLink to="/myChoise" class="menu__item">나만의 조합</RouterLink>
         </div>
       </div>
     </div>

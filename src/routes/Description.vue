@@ -36,7 +36,7 @@ export default {
       font-size: 30px;
       font-weight: bold;
       line-height: 3;
-      margin-bottom: 50px;
+      margin-bottom: 40px;
     }
     .description__main {
       position: absolute;
@@ -53,12 +53,12 @@ export default {
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      transform: perspective(1100px) rotateY(35deg);
+      transform: perspective(1100px) rotateY(20deg);
       .__head {
         font-size: 20px;
         font-weight: bold;
         text-align: center;
-        margin-bottom: 50px;
+        margin-bottom: 40px;
       }
       .__main {
         font-size: 18px;

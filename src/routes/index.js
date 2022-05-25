@@ -10,12 +10,18 @@ import Mychoise from './Mychoise.vue'
 import Login from './Login.vue'
 import SignUp from './SignUp.vue'
 import ServiceCenter from './ServiceCenter.vue'
+import UserInfo from './UserInfo.vue'
+import LoginFind from './LoginFind.vue'
+import MixMack from './MixMack.vue'
+import MixProduct from './MixProduct.vue'
 
 export default createRouter({
+
   // 라우터 이동시 스크롤 최상단으로 이동
   scrollBehavior() {
     return { top : 0 }
   },
+
   history: createWebHashHistory(),
   routes: [
     {
@@ -49,6 +55,22 @@ export default createRouter({
     {
       path: '/servicecenter',
       component: ServiceCenter
+    },
+    {
+      path: '/signUp/userInfo',
+      component: UserInfo
+    },
+    {
+      path: '/login/loginFind',
+      component: LoginFind
+    },
+    {
+      path: '/myChoise/mixMack',
+      component: MixMack
+    },
+    {
+      path: '/myChoise/mixProduct',
+      component: MixProduct
     },
   ]
 })

@@ -12,18 +12,18 @@ export default {
       <div class="login__inner">
         <div class="login__id">
           <div class="id__name">이메일</div>
-          <input id="email" type="email" placeholder="이메일을 입력해주세요">
+          <input id="email" type="email" autocomplete="off" placeholder="이메일을 입력해주세요">
         </div>
         <div class="login__pw">
           <div class="pw__name">비밀번호</div>
           <input id="password" type="password" placeholder="비밀번호를 입력해주세요">
         </div>
         <div class="loginBtn">
-          <button class="btn">로그인</button>
+          <div class="btn">로그인</div>
         </div>
         <div class="loginError">
-          <div class="singIn">아이디 찾기/ 비밀번호 찾기</div>
-          <div class="singUp">회원가입</div>
+          <RouterLink to="/login/loginFind" class="singIn">아이디 찾기/ 비밀번호 찾기</RouterLink>
+          <RouterLink to="/signUp" class="singUp">회원가입</RouterLink>
         </div>
       </div>
     </div>
@@ -31,6 +31,10 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+  a {
+    text-decoration: none;
+    color: #333;
+  }
   .login {
     position: relative;
     top: 125px;
@@ -71,8 +75,8 @@ export default {
             outline: none;
             border: none;
             border-bottom: 1px solid #dddddd;
-            &:hover {
-              border-bottom: 1px solid #424242;
+            &:focus {
+              border-bottom: 2px solid #424242;
             }
           }
         }
@@ -91,8 +95,8 @@ export default {
             outline: none;
             border: none;
             border-bottom: 1px solid #dddddd;
-            &:hover {
-              border-bottom: 1px solid #424242;
+            &:focus {
+              border-bottom: 2px solid #424242;
             }
           }
         }

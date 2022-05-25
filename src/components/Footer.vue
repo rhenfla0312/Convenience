@@ -85,15 +85,15 @@ export default {
             font-size: 15px;
             cursor: pointer;
           }
-        }
-            .icons {
-              display: flex;
-              width: 120px;
-              .icon {
-                margin-right: 10px;
-                cursor: pointer;
-              }
+          .icons {
+            display: flex;
+            width: 120px;
+            .icon {
+              margin-right: 10px;
+              cursor: pointer;
             }
+          }
+        }
       }
     }
   }

@@ -167,36 +167,24 @@ export default {
     <div class="section">
       <div class="toggleBox_1" :class="{ active: isActive_1 }">
         <div class="content_1">
-          <div class="name">Heading...</div>
-          <p class="text">Lorem ipsum dolor sit, amet consectetur
-                          adipisicing elit.Cum mecessitatibus ab fuga
-                          officils inventore molestias quod odio eius animi?
-                          Ipsa sit atque obcaeati quae consequuntur, qui
-                          fugit itaque earum!</p>
+          <div class="name">다양한 조합을 만드는 재미</div>
+          <p class="text"></p>
         </div>
         <div class="toggleBtn_1" :class="{ active: isActive_1 }" @click="toggleBtn_1()"></div>
       </div>
 
       <div class="toggleBox_2" :class="{ active: isActive_2 }">
         <div class="content_2">
-          <div class="name">Heading...</div>
-          <p class="text">Lorem ipsum dolor sit, amet consectetur
-                          adipisicing elit.Cum mecessitatibus ab fuga
-                          officils inventore molestias quod odio eius animi?
-                          Ipsa sit atque obcaeati quae consequuntur, qui
-                          fugit itaque earum!</p>
+          <div class="name">조합랭킹을 통한 시장분석</div>
+          <p class="text"></p>
         </div>
         <div class="toggleBtn_2" :class="{ active: isActive_2 }" @click="toggleBtn_2()"></div>
       </div>
 
       <div class="toggleBox_3" :class="{ active: isActive_3 }">
         <div class="content_3">
-          <div class="name">Heading...</div>
-          <p class="text">Lorem ipsum dolor sit, amet consectetur
-                          adipisicing elit.Cum mecessitatibus ab fuga
-                          officils inventore molestias quod odio eius animi?
-                          Ipsa sit atque obcaeati quae consequuntur, qui
-                          fugit itaque earum!</p>
+          <div class="name">나만의 조합으로 새로운 경험</div>
+          <p class="text"></p>
         </div>
         <div class="toggleBtn_3" :class="{ active: isActive_3 }" @click="toggleBtn_3()"></div>
       </div>
@@ -583,9 +571,7 @@ export default {
       position: relative;
       width: 400px;
       height: 400px;
-      background-color: #E4E4E1;
-      background-image: radial-gradient(at top center, rgba(255,255,255,0.03) 0%, rgba(0,0,0,0.03) 100%), linear-gradient(to top, rgba(255,255,255,0.1) 0%, rgba(143,152,157,0.60) 100%);
-      background-blend-mode: normal, multiply;
+      background-image: linear-gradient(to top, #96fbc4 0%, #f9f586 100%);
       border-radius: 25px;
       transition-delay: 0.5s;
       display: flex;
@@ -596,7 +582,7 @@ export default {
         position: absolute;
         width: 40px;
         height: 40px;
-        background: #dddddd;
+        background-image: linear-gradient(to top, #96fbc4 0%, #96fbc4 100%);
         transform: rotate(45deg);
         transition-delay: 0.5s;
         bottom: -15px;
@@ -615,7 +601,8 @@ export default {
         opacity: 1;
         transition-delay: 1s;
         .name {
-          font-size: 30px;
+          font-size: 25px;
+          text-align: center;
           font-weight: bold;
           margin-bottom: 40px;
         }
@@ -675,9 +662,7 @@ export default {
       width: 400px;
       height: 400px;
       // background: #dddddd;
-      background-color: #E4E4E1;
-      background-image: radial-gradient(at top center, rgba(255,255,255,0.03) 0%, rgba(0,0,0,0.03) 100%), linear-gradient(to top, rgba(255,255,255,0.1) 0%, rgba(143,152,157,0.60) 100%);
-      background-blend-mode: normal, multiply;
+      background-image: linear-gradient(to top, #ace0f9 0%, #fff1eb 100%);
       border-radius: 25px;
       transition-delay: 0.5s;
       display: flex;
@@ -688,7 +673,7 @@ export default {
         position: absolute;
         width: 40px;
         height: 40px;
-        background: #dddddd;
+        background-image: linear-gradient(to top, #ace0f9 0%, #ace0f9 100%);
         transform: rotate(45deg);
         transition-delay: 0.5s;
         bottom: -15px;
@@ -707,7 +692,8 @@ export default {
         opacity: 1;
         transition-delay: 1s;
         .name {
-          font-size: 30px;
+          font-size: 25px;
+          text-align: center;
           font-weight: bold;
           margin-bottom: 40px;
         }
@@ -765,9 +751,7 @@ export default {
       position: relative;
       width: 400px;
       height: 400px;
-      background-color: #E4E4E1;
-      background-image: radial-gradient(at top center, rgba(255,255,255,0.03) 0%, rgba(0,0,0,0.03) 100%), linear-gradient(to top, rgba(255,255,255,0.1) 0%, rgba(143,152,157,0.60) 100%);
-      background-blend-mode: normal, multiply;
+      background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
       border-radius: 25px;
       transition-delay: 0.5s;
       display: flex;
@@ -778,7 +762,7 @@ export default {
         position: absolute;
         width: 40px;
         height: 40px;
-        background: #dddddd;
+        background-image: linear-gradient(to top, #fbc2eb 0%, #fbc2eb 100%);
         transform: rotate(45deg);
         transition-delay: 0.5s;
         bottom: -15px;
@@ -797,7 +781,8 @@ export default {
         opacity: 1;
         transition-delay: 1s;
         .name {
-          font-size: 30px;
+          font-size: 25px;
+          text-align: center;
           font-weight: bold;
           margin-bottom: 40px;
         }
