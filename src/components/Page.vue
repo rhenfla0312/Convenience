@@ -20,10 +20,8 @@ export default {
 
 <style lang="scss" scoped>
   .pagenation {
-    margin-left: 263px;
     display: grid;
     grid-template-columns: 2fr 1fr;
-    width: 1360px;
     text-align: center;
     margin-top: 30px;
     gap: 20px;
@@ -32,8 +30,6 @@ export default {
       justify-content: center;
       align-items: center;
       cursor: pointer;
-      width: 100%;
-      margin: auto;
       border-radius: 10px;
       height: 35px;
       background: #e0e0e0;

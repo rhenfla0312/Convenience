@@ -20,7 +20,7 @@ export default {
       // 네트워크통신할땐 -> axios로 변경
       setTimeout(() => {
         this.Loading = !this.Loading
-      },1000)
+      },2000)
     }
   },
   mounted() {
@@ -56,8 +56,8 @@ export default {
           </div>
         </div>
       </div>
+    <Page />
     </div>
-  <Page />
   </div>
 </template>
 
@@ -111,6 +111,18 @@ export default {
             height: 306px;
             border-radius: 20px;
             margin: 12px;
+            animation: skeletons_itemBox 1.8s infinite ease-in-out;
+            @keyframes skeletons_itemBox {
+              0% {
+                background-color: rgba(165, 165, 165, 0.1);
+              }
+              50% {
+                background-color: rgba(165, 165, 165, 0.3);
+              }
+              100% {
+                background-color: rgba(165, 165, 165, 0.1);
+              }
+            }
           }
           .skeletons_textBox {
             background: #e0e0e0;
@@ -118,6 +130,18 @@ export default {
             height: 50px;
             border-radius: 20px;
             margin: 12px;
+            animation: skeletons_textBox 1.8s infinite ease-in-out;
+            @keyframes skeletons_textBox {
+              0% {
+                background-color: rgba(165, 165, 165, 0.1);
+              }
+              50% {
+                background-color: rgba(165, 165, 165, 0.3);
+              }
+              100% {
+                background-color: rgba(165, 165, 165, 0.1);
+              }
+            }
           }
         }
       }

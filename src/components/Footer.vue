@@ -84,6 +84,10 @@ export default {
             padding: 10px 0;
             font-size: 15px;
             cursor: pointer;
+            &:hover {
+              transition: color 375ms ease;
+              color: #000;
+            }
           }
           .icons {
             display: flex;
@@ -92,6 +96,10 @@ export default {
               margin-right: 10px;
               cursor: pointer;
             }
+              &:hover {
+                transition: color 375ms ease;
+                color: #fff;
+              }
           }
         }
       }

@@ -211,7 +211,7 @@ export default {
     .bestranking__main {
       .graphBox {
         position: relative;
-        right: 20px;
+        right: 21px;
         width: 100%;
         padding: 20px;
         display: grid;
@@ -270,7 +270,7 @@ export default {
             border-radius: 20px;
             display: flex;
             justify-content: center;
-            // transition: .5s;
+            transition: .5s;
             .allBoxCheck {
               cursor: pointer;
               width: 1060px;

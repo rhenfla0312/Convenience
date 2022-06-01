@@ -195,7 +195,7 @@ export default {
 <style lang="scss">
 .swiper {
   min-width: 1900px;
-  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+  // background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
   position: relative;
   top: 125px;
   .swiper__item__name {
@@ -240,7 +240,7 @@ export default {
     }
   }
   .swiper-item {
-    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+    // background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
     margin-top:100px;
     width: 100%;
     height: 500px;
