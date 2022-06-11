@@ -16,13 +16,16 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.3.3",
+    "axios": "^0.27.2",
     "vite": "^2.9.9",
     "vue-router": "^4.0.15"
   },
   "compilerOptions": {
-    "baseUrl" : ".",
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["static/*"]
+      "@/*": [
+        "static/*"
+      ]
     }
   }
 }

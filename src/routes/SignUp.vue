@@ -1,4 +1,5 @@
 <script>
+import axios from 'axios'
 export default {
   data() {
     return {
@@ -219,7 +220,7 @@ export default {
     top: 125px;
     // height: 500px;
     padding: 0 0 80px 0;
-    min-width: 1900px;
+    // min-width: 1900px;
     background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
     .signUp__name {
       text-align: center;

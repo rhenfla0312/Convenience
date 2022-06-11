@@ -194,7 +194,7 @@ export default {
 
 <style lang="scss">
 .swiper {
-  min-width: 1900px;
+  // min-width: 1900px;
   // background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
   position: relative;
   top: 125px;

@@ -12,8 +12,8 @@ import SignUp from './SignUp.vue'
 import ServiceCenter from './ServiceCenter.vue'
 import UserInfo from './UserInfo.vue'
 import LoginFind from './LoginFind.vue'
-import MixMack from './MixMack.vue'
-import MixProduct from './MixProduct.vue'
+import Convenience from './Convenience.vue'
+
 
 export default createRouter({
 
@@ -65,12 +65,8 @@ export default createRouter({
       component: LoginFind
     },
     {
-      path: '/myChoise/mixMack',
-      component: MixMack
-    },
-    {
-      path: '/myChoise/mixProduct',
-      component: MixProduct
-    },
+      path: '/convenience',
+      component: Convenience
+    }
   ]
 })

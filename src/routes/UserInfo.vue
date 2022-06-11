@@ -1,6 +1,43 @@
 <script>
+import axios from 'axios'
 export default {
-
+  data() {
+    return {
+      email:"",
+      username:"",
+      password1:"",
+      password2:"",
+      question:"",
+      answer:"",
+    }
+  },
+  methods: {
+    loginData() {
+      axios({
+        method: "POST",
+        url: "http://54.180.193.83:8081/user/",
+        data: {
+          email : this.email,
+          username : this.username,
+          password1 : this.password1,
+          password2 : this.password2,
+          question : this.question,
+          answer : this.answer
+        }
+      }).then((res) => {
+        console.log(res)
+      }).catch((error) => {
+        console.log(error)
+      })
+      // axios.post("http://54.180.193.83:8081/accounts/login/", )
+      // .then(res => {
+      //   console.log(res)
+      // })
+      // .catch(error => {
+      //   console.log(error)
+      // })
+    }
+  }
 }
 </script>
 
@@ -12,38 +49,38 @@ export default {
       <div class="login__inner">
         <div class="login__id">
           <div class="id__name">이메일</div>
-          <input id="email" type="email" autocomplete="off" placeholder="이메일을 입력해주세요">
+          <input v-model="email" id="email" type="email" autocomplete="off" placeholder="이메일을 입력해주세요">
         </div>
         <div class="login__id">
           <div class="id__name">닉네임</div>
-          <input id="email" type="text" autocomplete="off" placeholder="닉네임 입력해주세요">
+          <input v-model="username" id="email" type="text" autocomplete="off" placeholder="닉네임 입력해주세요">
         </div>
         <div class="login__pw">
           <div class="pw__name">비밀번호</div>
-          <input id="password" type="password" placeholder="비밀번호를 입력해주세요">
+          <input v-model="password1" id="password" type="password" placeholder="비밀번호를 입력해주세요">
         </div>
         <div class="login__pw">
           <div class="pw__name">비밀번호 확인</div>
-          <input id="passwordInfo" type="password" placeholder="비밀번호를 다시 입력해주세요">
+          <input v-model="password2" id="passwordInfo" type="password" placeholder="비밀번호를 다시 입력해주세요">
         </div>
         <!-- 질문 -->
         <div class="login__select">
           <div class="select__name">질문선택</div>
-          <select class="" name="" id="">
-            <option value="" checked>질문을 선택해주세요</option>
-            <option value="">내가 처음으로다닌 초등학교는?</option>
-            <option value="">내 휴대폰 번호는?</option>
-            <option value="">내 보물 1호는?</option>
-            <option value="">내가 좋아하는 색깔은?</option>
-            <option value="">내가 가장 기억에 남은 물건은?</option>
+          <select v-model="question">
+            <option disabled>질문을 선택해주세요</option>
+            <option value="내가 처음으로다닌 초등학교는?">내가 처음으로다닌 초등학교는?</option>
+            <option value="내 휴대폰 번호는?">내 휴대폰 번호는?</option>
+            <option value="내 보물 1호는?">내 보물 1호는?</option>
+            <option value="내가 좋아하는 색깔은?">내가 좋아하는 색깔은?</option>
+            <option value="내가 가장 기억에 남은 물건은?">내가 가장 기억에 남은 물건은?</option>
           </select>
         </div>
         <div class="login__select">
           <div class="select__name">질문 답</div>
-          <input id="passwordInfo" type="password" placeholder="질문의 답을 입력해주세요">
+          <input v-model="answer" id="passwordInfo" type="password" placeholder="질문의 답을 입력해주세요">
         </div>
         <div class="loginBtn">
-          <div class="btn">회원가입</div>
+          <div @click="loginData()" class="btn">회원가입</div>
         </div>
       </div>
     </div>
@@ -55,7 +92,7 @@ export default {
     position: relative;
     top: 125px;
     padding: 0 0 80px 0;
-    min-width: 1900px;
+    // min-width: 1900px;
     background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
     .userInfo__name {
       text-align: center;

@@ -195,7 +195,7 @@ export default {
     top: 125px;
     // height: 500px;
     padding: 0 0 80px 0;
-    min-width: 1900px;
+    // min-width: 1900px;
     background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
     .inner {
       width: 1100px;
@@ -332,12 +332,6 @@ export default {
               margin-top: 30px;
               .table {
                 text-align: center;
-                .thead {
-
-                }
-                .tbody {
-
-                }
               }
             }
           }

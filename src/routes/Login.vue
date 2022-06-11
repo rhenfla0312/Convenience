@@ -1,6 +1,28 @@
 <script>
+import axios from 'axios'
 export default {
-
+  methods: {
+    data() {
+      return {
+        email : '',
+        password : ''
+      }
+    },
+    loginData() {
+      axios({
+        method: "POST",
+        url: "http://54.180.193.83:8081/accounts/login/",
+        data: {
+          email : this.email,
+          password : this.password,
+        }
+      }).then((res) => {
+        console.log(res)
+      }).catch((error) => {
+        console.log(error)
+      })
+    }
+  }
 }
 </script>
 
@@ -12,13 +34,13 @@ export default {
       <div class="login__inner">
         <div class="login__id">
           <div class="id__name">이메일</div>
-          <input id="email" type="email" autocomplete="off" placeholder="이메일을 입력해주세요">
+          <input id="email" v-model="email" type="email" autocomplete="off" placeholder="이메일을 입력해주세요">
         </div>
         <div class="login__pw">
           <div class="pw__name">비밀번호</div>
-          <input id="password" type="password" placeholder="비밀번호를 입력해주세요">
+          <input v-model="password" id="password" type="password" placeholder="비밀번호를 입력해주세요">
         </div>
-        <div class="loginBtn">
+        <div @click="loginData()" class="loginBtn">
           <div class="btn">로그인</div>
         </div>
         <div class="loginError">
@@ -40,7 +62,7 @@ export default {
     top: 125px;
     height: 500px;
     padding: 0 0 80px 0;
-    min-width: 1900px;
+    // min-width: 1900px;
     background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
     .login__name {
       text-align: center;

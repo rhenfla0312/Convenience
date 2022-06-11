@@ -34,7 +34,7 @@ export default {
     position: relative;
     top: 125px;
     padding: 0 0 80px 0;
-    min-width: 1900px;
+    // min-width: 1900px;
     background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
     .serviceCenter__name {
       text-align: center;

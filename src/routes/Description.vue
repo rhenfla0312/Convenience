@@ -29,7 +29,7 @@ export default {
     top: 125px;
     height: 700px;
     width: 100%;
-    min-width: 1900px;
+    // min-width: 1900px;
     background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
     .description__name {
       text-align: center;
