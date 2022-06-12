@@ -1,94 +1,152 @@
 <script>
+import axios from 'axios'
+import Page from '../components/Page.vue'
 export default {
+  components: {
+    Page
+  },
   data() {
     return {
-      // hotNuddle : "치즈불닭볶음면",
-      totalDatas : [
+      nextData: "",
+      datas : [
         "준비중","준비중","준비중","준비중","준비중","준비중",
         "준비중","준비중","준비중","준비중","준비중","준비중",
         "준비중","준비중","준비중"
       ],
-      cuDatas : [
-        "cu","cu","cu","cu","cu","cu",
-        "cu","cu","cu","cu","cu","cu",
-        "cu","cu","cu"
+      event_one : [
+        "1+1","1+1","1+1","1+1","1+1","1+1",
+        "1+1","1+1","1+1","1+1","1+1","1+1",
+        "1+1","1+1","1+1"
       ],
-      gsDatas : [
-        "gs","gs","gs","gs","gs","gs",
-        "gs","gs","gs","gs","gs","gs",
-        "gs","gs","gs"
+      event_two : [
+        "2+2","2+2","2+2","2+2","2+2","2+2",
+        "2+2","2+2","2+2","2+2","2+2","2+2",
+        "2+2","2+2","2+2"
       ],
-      ministopDatas : [
-        "ministop","ministop","ministop","ministop","ministop","ministop",
-        "ministop","ministop","ministop","ministop","ministop","ministop",
-        "ministop","ministop","ministop"
-      ],
-      Loading : false
+      Loading : true
     }
   },
   methods: {
     asyncMethod() {
       // 네트워크통신할땐 -> axios로 변경
-      setTimeout(() => {
-        this.Loading = !this.Loading
-      },2000)
+      // setTimeout(() => {
+      //   this.Loading = !this.Loading
+      // },2000)
     },
-    cuEvent() {
-      this.totalDatas = this.cuDatas
+    cuBtn() {
+      axios({
+        method: "POST",
+        url: "http://54.180.193.83:8081/Main/event/CU/"
+      }).then((res) => {
+        console.log(res)
+        this.datas = res.data.results
+        // this.Loading = !this.Loading
+      }).catch((error) => {
+        console.log(error)
+      })
     },
-    gsEvent() {
-      this.totalDatas = this.gsDatas
+    gsBtn() {
+      axios({
+        method: "GET",
+        url: "http://54.180.193.83:8081/Main/event/GS25/",
+      }).then((res) => {
+        console.log(res)
+        this.datas = res.data.results
+        // this.Loading = !this.Loading
+      }).catch((error) => {
+        console.log(error)
+      })
     },
-    ministopEvent() {
-      this.totalDatas = this.ministopDatas
+    ministopBtn() {
+      axios({
+        method: "GET",
+        url: "http://54.180.193.83:8081/Main/event/MINISTOP/",
+      }).then((res) => {
+        console.log(res)
+        this.datas = res.data.results
+        // this.Loading = !this.Loading
+      }).catch((error) => {
+        console.log(error)
+      })
     },
     reload() {
       // this.$router.go()
-      alert('준비중입니다')
+    },
+    nextPage() {
+      axios({
+        method: "GET",
+        url: this.nextData
+      }).then((res) => {
+        console.log(res)
+        this.nextData = res.data.next
+        this.datas = this.datas.concat(res.data.results)
+        // this.Loading = !this.Loading
+      }).catch((error) => {
+        console.log(error)
+      })
     }
   },
   mounted() {
     this.asyncMethod();
-  }
+      axios({
+        method: "GET",
+        url: "http://54.180.193.83:8081/Main/event/CU/"
+      }).then((res) => {
+        console.log(res)
+        this.datas = res.data.results
+        this.nextData = res.data.next
+        // this.Loading = !this.Loading
+      }).catch((error) => {
+        console.log(error)
+      })
+  },
 }
 </script>
 
 <template>
 <!-- 크롤링 페이지 -->
   <div class="convenience">
-    <div class="convenience__name">이벤트 상품</div>
+    <div class="convenience__name">
+      <div @click="cuBtn" class="__name">CU</div>
+      <div @click="gsBtn" class="__name">GS25</div>
+      <div @click="ministopBtn" class="__name">MINISTOP</div>
+    </div>
     <div class="inner">
-      <div class="menubar">
-        <div @click="reload" class="__item">전체상품</div>
-        <div @click="cuEvent" class="__item">cu</div>
-        <div @click="gsEvent" class="__item">gs</div>
-        <div @click="ministopEvent" class="__item">mini<br>stop</div>
-      </div>
       <!-- totalData -->
       <div class="bestchoise__main" v-if="Loading">
-        <div class="item" v-for="totalData in totalDatas" :key="totalData">
+        <div class="item" v-for="totalData in datas" :key="totalData">
           <div class="itemBox">
-            <div class="__img">{{ totalData }}</div>
+            <!-- <div class="__img">{{ totalData }}</div> -->
+            <img class="__img" :src="totalData.image" />
           </div>
         </div>
       </div>
-      <!-- cuData-->
-      <!-- <div class="bestchoise__main" v-if="cuEvent()">
-        <div class="item" v-for="cuData in cuDatas" :key="cuData">
-          <div class="itemBox">
-            <div class="__img">{{ cuData }}</div>
-          </div>
-        </div>
-      </div> -->
       <!-- 스켈레톤 UI -->
       <div class="bestchoise__main" v-else>
-        <div class="item"  v-for="totalData in totalDatas" :key="totalData">
+        <div class="item" v-for="totalData in datas" :key="totalData">
           <div class="skeletons_itemBox">
           </div>
           <div class="skeletons_textBox">
           </div>
         </div>
       </div>
+      <!-- 1 + 1 event -->
+      <!-- <div class="bestchoise__main" >
+        <div class="item" v-for="totalData in totalDatas[0].event_one" :key="totalData">
+          <div class="itemBox">
+            <div class="__img">{{ totalData }}</div>
+          </div>
+        </div>
+      </div> -->
+      <!-- 2 + 2 event -->
+      <!-- <div class="bestchoise__main">
+        <div class="item" v-for="totalData in totalDatas[0].event_two" :key="totalData">
+          <div class="itemBox">
+            <div class="__img">{{ totalData }}</div>
+          </div>
+        </div>
+      </div> -->
+      <Page @click="nextPage" style="margin-left: 45px;" />
     </div>
   </div>
 </template>
@@ -105,35 +163,23 @@ export default {
     // min-width: 1900px;
     background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
     .convenience__name {
-      text-align: center;
-      font-size: 30px;
-      font-weight: bold;
+      display: flex;
+      justify-content: center;
+      font-size: 20px;
       line-height: 3;
+      .__name {
+        // margin-right: 10px;
+        margin-left: 100px;
+        &:hover {
+          font-weight: bold;
+          cursor: pointer;
+        }
+      }
     }
     .inner {
       width: 1100px;
       margin: auto;
       position: relative;
-      .menubar {
-        transition: .5s;
-        position: fixed;
-        top: 250px;
-        right: 150px;
-        width: 70px;
-        height: 350px;
-        border-radius: 50px;
-        background: #fff;
-        padding: 20px;
-        text-align: center;
-        .__item {
-          cursor: pointer;
-          margin-top: 35px;
-          &:hover {
-            font-weight: bold;
-            font-size: 17px;
-          }
-        }
-      }
       .bestchoise__main {
         display: grid;
         // column 배치

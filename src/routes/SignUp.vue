@@ -430,9 +430,10 @@ export default {
               }
             }
             .testList__one {
-              display: none;
+              opacity: 0;
+              height: 0;
               transition: .5s;
-              margin-bottom: 25px;
+              margin-bottom: 0;
               margin-left: 30px;
               font-size: 17px;
               .Listitem {
@@ -452,12 +453,15 @@ export default {
             }
             .testList__one.oneArrow {
               transition: .5s;
-              display: block;
+              height: 71px;
+              margin-bottom: 25px;
+              opacity: 1;
             }
             .testList__two {
-              display: none;
+              opacity: 0;
+              height: 0;
               transition: .5s;
-              margin-bottom: 25px;
+              margin-bottom: 0;
               margin-left: 30px;
               font-size: 17px;
               .Listitem {
@@ -477,12 +481,15 @@ export default {
             }
             .testList__two.twoArrow {
               transition: .5s;
-              display: block;
+              height: 71px;
+              margin-bottom: 25px;
+              opacity: 1;
             }
             .testList__three {
-              display: none;
+              opacity: 0;
+              height: 0;
               transition: .5s;
-              margin-bottom: 25px;
+              margin-bottom: 0;
               margin-left: 30px;
               font-size: 17px;
               .Listitem {
@@ -502,12 +509,15 @@ export default {
             }
             .testList__three.threeArrow {
               transition: .5s;
-              display: block;
+              height: 71px;
+              margin-bottom: 25px;
+              opacity: 1;
             }
             .testList__four {
-              display: none;
+              opacity: 0;
+              height: 0;
               transition: .5s;
-              margin-bottom: 25px;
+              margin-bottom: 0;
               margin-left: 30px;
               font-size: 17px;
               .Listitem {
@@ -527,12 +537,15 @@ export default {
             }
             .testList__four.fourArrow {
               transition: .5s;
-              display: block;
+              height: 71px;
+              margin-bottom: 25px;
+              opacity: 1;
             }
             .testList__five {
-              display: none;
+              opacity: 0;
+              height: 0;
               transition: .5s;
-              margin-bottom: 25px;
+              margin-bottom: 0;
               margin-left: 30px;
               font-size: 17px;
               .Listitem {
@@ -552,12 +565,15 @@ export default {
             }
             .testList__five.fiveArrow {
               transition: .5s;
-              display: block;
+              height: 71px;
+              margin-bottom: 25px;
+              opacity: 1;
             }
             .testList__six {
-              display: none;
+              opacity: 0;
+              height: 0;
               transition: .5s;
-              margin-bottom: 25px;
+              margin-bottom: 0;
               margin-left: 30px;
               font-size: 17px;
               .Listitem {
@@ -577,7 +593,9 @@ export default {
             }
             .testList__six.sixArrow {
               transition: .5s;
-              display: block;
+              height: 71px;
+              margin-bottom: 25px;
+              opacity: 1;
             }
           }
         }

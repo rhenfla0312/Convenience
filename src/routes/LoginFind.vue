@@ -5,10 +5,10 @@ export default {
     return {
       username: '',
       id_question: '',
-      id_pwanswer: '',
+      id_answer: '',
       pw_email : '',
       pw_question: '',
-      pw_pwanswer: ''
+      pw_answer: ''
     }
   },
   methods: {
@@ -18,8 +18,8 @@ export default {
         url: "http://54.180.193.83:8081/user/idfind/",
         data: {
           username : this.username,
-          question : this.question,
-          answer : this.answer
+          question : this.id_question,
+          answer : this.id_answer
         }
       }).then((res) => {
         console.log(res)
@@ -32,9 +32,9 @@ export default {
         method: "GET",
         url: "http://54.180.193.83:8081/user/passwdfind/",
         params: {
-          email : this.email,
-          question : this.question,
-          answer : this.answer
+          email : this.pw_email,
+          question : this.pw_question,
+          answer : this.pw_answer
         }
       }).then((res) => {
         console.log(res)
@@ -65,7 +65,7 @@ export default {
           <div class="login__select">
             <div class="select__name">질문선택</div>
             <select v-model="id_question">
-              <option checked>질문을 선택해주세요</option>
+              <option value="">질문을 선택해주세요</option>
               <option value="내가 처음으로다닌 초등학교는?">내가 처음으로다닌 초등학교는?</option>
               <option value="내 휴대폰 번호는?">내 휴대폰 번호는?</option>
               <option value="내 보물 1호는?">내 보물 1호는?</option>
@@ -75,7 +75,7 @@ export default {
           </div>
           <div class="login__id">
             <div class="id__name">질문 답</div>
-            <input v-model="id_pwanswer" id="email" type="email" autocomplete="off" placeholder="질문의 답을 입력해주세요">
+            <input v-model="id_answer" id="email" type="email" autocomplete="off" placeholder="질문의 답을 입력해주세요">
           </div>
           <div @click="idData" class="loginBtn">
             <div class="btn">아이디 찾기</div>
@@ -91,7 +91,7 @@ export default {
           <div class="login__select">
             <div class="select__name">질문선택</div>
             <select v-model="pw_question">
-              <option checked>질문을 선택해주세요</option>
+              <option value="">질문을 선택해주세요</option>
               <option value="내가 처음으로다닌 초등학교는?">내가 처음으로다닌 초등학교는?</option>
               <option value="내 휴대폰 번호는?">내 휴대폰 번호는?</option>
               <option value="내 보물 1호는?">내 보물 1호는?</option>
@@ -101,7 +101,7 @@ export default {
           </div>
           <div class="login__id">
             <div class="id__name">질문 답</div>
-            <input v-model="pw_pwanswer" id="email" type="email" autocomplete="off" placeholder="질문의 답을 입력해주세요">
+            <input v-model="pw_answer" id="email" type="email" autocomplete="off" placeholder="질문의 답을 입력해주세요">
           </div>
           <div @click="pwData" class="loginBtn">
             <div class="btn">비밀번호 찾기</div>

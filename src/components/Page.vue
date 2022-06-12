@@ -1,9 +1,6 @@
 <script>
 export default {
   methods: {
-    alert() {
-      alert("준비중입니다")
-    },
     handleScroll() {
       window.scrollTo(0, 0);
     }
@@ -13,7 +10,7 @@ export default {
 
 <template>
   <div class="pagenation">
-    <div class="page" @click="alert()">더보기</div>
+    <div class="page">더보기</div>
     <div class="page" @click="handleScroll()">맨위로</div>
   </div>
 </template>

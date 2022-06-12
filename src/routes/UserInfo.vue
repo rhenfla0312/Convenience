@@ -29,13 +29,6 @@ export default {
       }).catch((error) => {
         console.log(error)
       })
-      // axios.post("http://54.180.193.83:8081/accounts/login/", )
-      // .then(res => {
-      //   console.log(res)
-      // })
-      // .catch(error => {
-      //   console.log(error)
-      // })
     }
   }
 }
@@ -67,7 +60,7 @@ export default {
         <div class="login__select">
           <div class="select__name">질문선택</div>
           <select v-model="question">
-            <option disabled>질문을 선택해주세요</option>
+            <option value="">질문을 선택해주세요</option>
             <option value="내가 처음으로다닌 초등학교는?">내가 처음으로다닌 초등학교는?</option>
             <option value="내 휴대폰 번호는?">내 휴대폰 번호는?</option>
             <option value="내 보물 1호는?">내 보물 1호는?</option>

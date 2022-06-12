@@ -8,7 +8,11 @@ export default {
 <template>
   <div class="mychoise">
     <div class="mychoise__name">나만의 조합</div>
-      
+    <div class="mychoise__inner">
+      <div class="mychoise__menu">
+        
+      </div>
+    </div>
   </div>
 </template>
 
@@ -29,6 +33,11 @@ export default {
       font-size: 30px;
       font-weight: bold;
       line-height: 3;
+    }
+    .mychoise__inner {
+      width: 1100px;
+      margin: auto;
+      position: relative;
     }
   }
 </style>
