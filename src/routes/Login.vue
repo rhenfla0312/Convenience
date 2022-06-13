@@ -38,7 +38,7 @@ export default {
         </div>
         <div class="login__pw">
           <div class="pw__name">비밀번호</div>
-          <input v-model="password" id="password" type="password" placeholder="비밀번호를 입력해주세요">
+          <input @keydown.enter.prevent="loginData()" v-model="password" id="password" type="password" placeholder="비밀번호를 입력해주세요">
         </div>
         <div @click="loginData()" class="loginBtn">
           <div class="btn">로그인</div>

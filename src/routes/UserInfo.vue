@@ -70,7 +70,7 @@ export default {
         </div>
         <div class="login__select">
           <div class="select__name">질문 답</div>
-          <input v-model="answer" id="passwordInfo" type="password" placeholder="질문의 답을 입력해주세요">
+          <input  @keydown.enter.prevent="loginData()" v-model="answer" id="passwordInfo" type="text" placeholder="질문의 답을 입력해주세요">
         </div>
         <div class="loginBtn">
           <div @click="loginData()" class="btn">회원가입</div>

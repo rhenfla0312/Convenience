@@ -24,7 +24,7 @@ export default {
     // checked
     Allchecked() {
       // this.AllChecked = !this.AllChecked
-      alert("전체선택 문제발생")
+      alert("전체선택은 준비중입니다")
     },
     oneCheckeds() {
       this.oneChecked = !this.oneChecked

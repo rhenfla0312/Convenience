@@ -44,6 +44,7 @@ export default {
             </div>
           </div>
         </div>
+        <Page style="grid-column: 1/5" />
       </div>
       <!-- 스켈레톤 UI -->
       <div class="bestchoise__main" v-else>
@@ -56,7 +57,6 @@ export default {
           </div>
         </div>
       </div>
-      <Page />
     </div>
   </div>
 </template>
@@ -89,7 +89,6 @@ export default {
               justify-content: center;
               align-items: center;
               background: #e0e0e0;
-              width: 306px;
               height: 306px;
               border-radius: 20px;
               margin: 12px;
@@ -98,7 +97,6 @@ export default {
               text-align: center;
               margin-right: 17px;
               background: #e0e0e0;
-              width: 306px;
               height: 50px;
               border-radius: 20px;
               margin: 12px;
@@ -107,7 +105,6 @@ export default {
           // 스켈레톤 UI
           .skeletons_itemBox {
             background: #e0e0e0;
-            width: 306px;
             height: 306px;
             border-radius: 20px;
             margin: 12px;
@@ -126,7 +123,6 @@ export default {
           }
           .skeletons_textBox {
             background: #e0e0e0;
-            width: 306px;
             height: 50px;
             border-radius: 20px;
             margin: 12px;

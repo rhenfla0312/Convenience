@@ -60,7 +60,7 @@ export default {
         <div class="login__inner">
           <div class="login__id">
             <div class="id__name">닉네임</div>
-            <input v-model="username" id="email" type="email" autocomplete="off" placeholder="닉네임을 입력해주세요">
+            <input v-model="username" id="email" type="text" autocomplete="off" placeholder="닉네임을 입력해주세요">
           </div>
           <div class="login__select">
             <div class="select__name">질문선택</div>
@@ -75,9 +75,9 @@ export default {
           </div>
           <div class="login__id">
             <div class="id__name">질문 답</div>
-            <input v-model="id_answer" id="email" type="email" autocomplete="off" placeholder="질문의 답을 입력해주세요">
+            <input @keydown.enter.prevent="idData()" v-model="id_answer" id="email" type="text" autocomplete="off" placeholder="질문의 답을 입력해주세요">
           </div>
-          <div @click="idData" class="loginBtn">
+          <div @click="idData()" class="loginBtn">
             <div class="btn">아이디 찾기</div>
           </div>
         </div>
@@ -101,9 +101,9 @@ export default {
           </div>
           <div class="login__id">
             <div class="id__name">질문 답</div>
-            <input v-model="pw_answer" id="email" type="email" autocomplete="off" placeholder="질문의 답을 입력해주세요">
+            <input @keydown.enter.prevent="pwData()" v-model="pw_answer" id="email" type="text" autocomplete="off" placeholder="질문의 답을 입력해주세요">
           </div>
-          <div @click="pwData" class="loginBtn">
+          <div @click="pwData()" class="loginBtn">
             <div class="btn">비밀번호 찾기</div>
           </div>
         </div>

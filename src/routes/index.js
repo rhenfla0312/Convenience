@@ -13,7 +13,7 @@ import ServiceCenter from './ServiceCenter.vue'
 import UserInfo from './UserInfo.vue'
 import LoginFind from './LoginFind.vue'
 import Convenience from './Convenience.vue'
-
+import ConvenienceFind from './ConvenienceFind.vue'
 
 export default createRouter({
 
@@ -67,6 +67,11 @@ export default createRouter({
     {
       path: '/convenience',
       component: Convenience
+    },
+    {
+      path: '/convenience/convenienceFind/:contentId?',
+      name: "convenienceFind",
+      component: ConvenienceFind
     }
   ]
 })
