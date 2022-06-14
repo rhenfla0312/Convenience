@@ -32,8 +32,8 @@ export default {
 
 <template>
   <div class="bestchoise">
-    <div class="bestchoise__name">이달의 꿀조합</div>
     <div class="inner">
+    <div class="bestchoise__name">이달의 꿀조합</div>
       <div class="bestchoise__main" v-if="Loading">
         <div class="item" v-for="hotNuddle in hotNuddles" :key="hotNuddle">
           <div class="itemBox">
@@ -69,15 +69,15 @@ export default {
     padding: 0 0 80px 0;
     // min-width: 1900px;
     background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
-    .bestchoise__name {
-      text-align: center;
-      font-size: 30px;
-      font-weight: bold;
-      line-height: 3;
-    }
     .inner {
       width: 1400px;
       margin: auto;
+      .bestchoise__name {
+        text-align: center;
+        font-size: 30px;
+        font-weight: bold;
+        line-height: 3;
+      }
       .bestchoise__main {
         display: grid;
         // column 배치
