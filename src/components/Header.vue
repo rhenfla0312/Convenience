@@ -39,7 +39,7 @@ a {
   background-color: #fafafa;
   border-bottom: 1px solid #dddddd;
   .inner {
-    width: 1100px;
+    width: 1200px;
     margin: 0 auto;
     position: relative;
     .login {
