@@ -26,7 +26,7 @@ export default {
       }).then((res) => {
         console.log(res)
         this.datas = res.data.results
-        this.Loading = !this.Loading
+        this.Loading = true
       }).catch((error) => {
         console.log(error)
       })
@@ -43,14 +43,14 @@ export default {
         }
       }).then((res) => {
         console.log(res)
+        this.datas = res.data.results
         if(res.data.next) {
           this.nextData = res.data.next
-          this.Loading = !this.Loading
+          this.Loading = true
         } else {
           this.nextData = null
-          this.Loading = !this.Loading
+          this.Loading = true
         }
-        this.datas = res.data.results
       }).catch((error) => {
         console.log(error)
       })
@@ -67,14 +67,14 @@ export default {
         }
       }).then((res) => {
         console.log(res)
+        this.datas = res.data.results
         if(res.data.next) {
           this.nextData = res.data.next
-          this.Loading = !this.Loading
+          this.Loading = true
         } else {
           this.nextData = null
-          this.Loading = !this.Loading
+          this.Loading = true
         }
-        this.datas = res.data.results
       }).catch((error) => {
         console.log(error)
       })
@@ -91,14 +91,14 @@ export default {
         }
       }).then((res) => {
         console.log(res)
+        this.datas = res.data.results
         if(res.data.next) {
           this.nextData = res.data.next
-          this.Loading = !this.Loading
+          this.Loading = true
         } else {
           this.nextData = null
-          this.Loading = !this.Loading
+          this.Loading = true
         }
-        this.datas = res.data.results
       }).catch((error) => {
         console.log(error)
       })
@@ -169,10 +169,10 @@ export default {
         console.log(res)
         this.nextData = res.data.next
         this.datas = this.datas.concat(res.data.results)
-        // this.Loading = !this.Loading
+        // this.Loading = true
       }).catch((error) => {
         console.log(error)
-        // this.Loading = !this.Loading
+        // this.Loading = true
       })
     },
     handleScroll() {
@@ -180,22 +180,85 @@ export default {
     },
     search() {
       this.Loading = false
-      axios({
-        method: "GET",
-        url: `http://54.180.193.83:8081/Main/event/CU/?search=${this.searchData}`
-      }).then((res) => {
-        console.log(res)
-        if(res.data.next) {
-          this.nextData = res.data.next
-          this.Loading = !this.Loading
-        } else {
-          this.nextData = null
-          this.Loading = !this.Loading
-        }
-        this.datas = res.data.results
-      }).catch((error) => {
-        console.log(error)
-      })
+      if(this.oneData) {
+        // 1+1데이터
+        axios.get("http://54.180.193.83:8081/Main/event/CU/typesearch/",{
+          params: {
+            data: "1+1",
+            search : this.searchData
+          }
+        }).then((res) => {
+          console.log(res)
+          this.datas = res.data.results
+          if(res.data.next) {
+            this.nextData = res.data.next
+            this.Loading = true
+          } else {
+            this.nextData = null
+            this.Loading = true
+          }
+        }).catch((error) => {
+          console.log(error)
+        })
+      } else if(this.twoData) {
+        // 2+2데이터
+        axios.get("http://54.180.193.83:8081/Main/event/CU/typesearch/",{
+          params: {
+            data: "2+1",
+            search : this.searchData
+          }
+        }).then((res) => {
+          console.log(res)
+          this.datas = res.data.results
+          if(res.data.next) {
+            this.nextData = res.data.next
+            this.Loading = true
+          } else {
+            this.nextData = null
+            this.Loading = true
+          }
+        }).catch((error) => {
+          console.log(error)
+        })
+      } else if(this.eventData) {
+        // 덤증정데이터
+        axios.get("http://54.180.193.83:8081/Main/event/CU/typesearch/",{
+          params: {
+            data: "덤증정",
+            search : this.searchData
+          }
+        }).then((res) => {
+          console.log(res)
+            this.datas = res.data.results
+          if(res.data.next) {
+            this.nextData = res.data.next
+            this.Loading = true
+          } else {
+            this.nextData = null
+            this.Loading = true
+          }
+        }).catch((error) => {
+          console.log(error)
+        })
+      } else {
+        // 전체데이터
+        axios({
+          method: "GET",
+          url: `http://54.180.193.83:8081/Main/event/CU/?search=${this.searchData}`
+        }).then((res) => {
+          console.log(res)
+          this.datas = res.data.results
+          if(res.data.next) {
+            this.nextData = res.data.next
+            this.Loading = true
+          } else {
+            this.nextData = null
+            this.Loading = true
+          }
+        }).catch((error) => {
+          console.log(error)
+        })
+      }
     },
     paramId(totalData,index) {
       this.$router.push({
@@ -245,7 +308,7 @@ export default {
         <ul class="eventItem">
           <li @click="totalDataBtn" :class="{ totalData : totalData }"><span>전체</span></li>
           <li @click="oneDataBtn" :class="{ oneData : oneData }"><span>1+1</span></li>
-          <li @click="twoDataBtn" :class="{ twoData : twoData }"><span>2+2</span></li>
+          <li @click="twoDataBtn" :class="{ twoData : twoData }"><span>2+1</span></li>
           <li @click="eventDataBtn" :class="{ eventData : eventData }"><span>덤증정</span></li>
         </ul>
       </div>
