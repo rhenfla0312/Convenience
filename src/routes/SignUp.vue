@@ -21,7 +21,6 @@ export default {
     }
   },
   methods: {
-    // checked
     Allchecked() {
       // this.AllChecked = !this.AllChecked
       alert("전체선택은 준비중입니다")

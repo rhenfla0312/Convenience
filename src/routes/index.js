@@ -15,6 +15,10 @@ import LoginFind from './LoginFind.vue'
 import Convenience from './Convenience.vue'
 import ConvenienceFind from './ConvenienceFind.vue'
 
+import Cu from './Cu.vue'
+import Gs from './Gs.vue'
+import Ministop from './Ministop.vue'
+
 export default createRouter({
 
   // 라우터 이동시 스크롤 최상단으로 이동
@@ -72,6 +76,36 @@ export default createRouter({
       path: '/convenience/convenienceFind/:contentId?',
       name: "convenienceFind",
       component: ConvenienceFind
-    }
+    },
+    {
+      path: '/convenience/cu',
+      name: "cu",
+      component: Cu
+    },
+    {
+      path: '/convenience/gs',
+      name: "gs",
+      component: Gs
+    },
+    {
+      path: '/convenience/ministop',
+      name: "ministop",
+      component: Ministop
+    },
+    {
+      path: '/convenience/cu/convenienceFind/:contentId?',
+      name: "cuConvenienceFind",
+      component: ConvenienceFind
+    },
+    {
+      path: '/convenience/gs/convenienceFind/:contentId?',
+      name: "gsConvenienceFind",
+      component: ConvenienceFind
+    },
+    {
+      path: '/convenience/ministop/convenienceFind/:contentId?',
+      name: "ministopConvenienceFind",
+      component: ConvenienceFind
+    },
   ]
 })

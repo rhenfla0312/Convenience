@@ -10,7 +10,7 @@ export default {
       twoData: false,
       eventData: false,
       datas : [],
-      Loading : true
+      Loading : false
     }
   },
   methods: {
@@ -103,63 +103,6 @@ export default {
         console.log(error)
       })
     },
-    // asyncMethod() {
-      // 네트워크통신할땐 -> axios로 변경
-      // setTimeout(() => {
-      //   this.Loading = !this.Loading
-      // },2000)
-    // },
-    // cuBtn() {
-    //   this.Loading = false
-    //   this.cuClick = true
-    //   this.gsClick = false
-    //   this.ministopClick = false
-    //   axios({
-    //     method: "GET",
-    //     url: "http://54.180.193.83:8081/Main/event/CU/"
-    //   }).then((res) => {
-    //     console.log(res)
-    //     this.datas = res.data.results
-    //     this.Loading = !this.Loading
-    //   }).catch((error) => {
-    //     console.log(error)
-    //   })
-    // },
-    // gsBtn() {
-    //   this.Loading = false
-    //   this.cuClick = false
-    //   this.gsClick = true
-    //   this.ministopClick = false
-    //   axios({
-    //     method: "GET",
-    //     url: "http://54.180.193.83:8081/Main/event/GS25/",
-    //   }).then((res) => {
-    //     console.log(res)
-    //     this.datas = res.data.results
-    //     this.Loading = !this.Loading
-    //   }).catch((error) => {
-    //     console.log(error)
-    //   })
-    // },
-    // ministopBtn() {
-    //   this.Loading = false
-    //   this.cuClick = false
-    //   this.gsClick = false
-    //   this.ministopClick = true
-    //   axios({
-    //     method: "GET",
-    //     url: "http://54.180.193.83:8081/Main/event/MINISTOP/",
-    //   }).then((res) => {
-    //     console.log(res)
-    //     this.datas = res.data.results
-    //     this.Loading = !this.Loading
-    //   }).catch((error) => {
-    //     console.log(error)
-    //   })
-    // },
-    // reload() {
-      // this.$router.go()
-    // },
     nextPage() {
       // this.Loading = false
       axios({
@@ -200,7 +143,7 @@ export default {
     paramId(totalData,index) {
       this.$router.push({
         // push로 파라미터를 날릴땐 path가 아닌 name으로 해야한다?
-        name: 'convenienceFind',
+        name: 'cuConvenienceFind',
         params: {
           contentId : totalData.name,
           contentImg : totalData.image,
@@ -231,13 +174,13 @@ export default {
   <div class="convenience">
     <div class="inner">
       <div class="convenience__name">
-        <RouterLink to="/convenience/cu" :class="{ cuAtive : cuClick }" class="__name">CU</RouterLink>
-        <RouterLink to="/convenience/gs" :class="{ gsAtive : gsClick }" class="__name">GS25</RouterLink>
-        <RouterLink to="/convenience/ministop" :class="{ ministopAtive : ministopClick }" class="__name">MINISTOP</RouterLink>
+        <RouterLink to="/convenience/cu" class="__name __cuName">CU</RouterLink>
+        <RouterLink to="/convenience/gs" class="__name">GS25</RouterLink>
+        <RouterLink to="/convenience/ministop" class="__name">MINISTOP</RouterLink>
       </div>
       <!-- 검색 -->
       <div class="convenien__search">
-        <input v-model="searchData" type="text" class="__search" @keydown.enter.prevent="search" />
+        <input v-model="searchData" type="text" class="__search" @keydown.enter.prevent="search">
         <i class="fa-solid fa-magnifying-glass search__icon" @click="search"></i>
       </div>
       <!-- 전체데이터, 1+1, 2+2, 덤증정 -->
@@ -307,6 +250,9 @@ export default {
             cursor: pointer;
           }
         }
+      }
+      .__cuName {
+        font-weight: bold;
       }
       .convenien__search {
         position: absolute;
