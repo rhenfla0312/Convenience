@@ -10,7 +10,7 @@ export default {
       twoData: false,
       eventData: false,
       datas : [],
-      Loading : true
+      Loading : false
     }
   },
   methods: {
