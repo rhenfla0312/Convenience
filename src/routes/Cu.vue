@@ -399,8 +399,8 @@ export default {
             .item__type {
               position: absolute;
               right: 20px;
-              top: 15px;
-              padding: 1px 12px;
+              top: 10px;
+              padding: 0 12px;
               text-align: center;
               background-image: linear-gradient(-225deg, #D4FFEC 0%, #57F2CC 48%, #4596FB 100%);
               font-size: 14px;
@@ -424,7 +424,6 @@ export default {
               height: 206px;
               border-radius: 20px;
               margin-top: 35px;
-              padding: 20px;
             }
             .item__name {
               margin-top: 10px;
@@ -432,6 +431,13 @@ export default {
             .item__price {
               margin-top: 5px;
             }
+          }
+          .eventItemBox {
+            display: block !important;
+            position: absolute;
+            z-index: 10;
+            top: 0;
+            right: 0;
           }
           // 스켈레톤 UI
           .skeletons_itemBox {

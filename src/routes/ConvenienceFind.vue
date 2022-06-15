@@ -84,6 +84,7 @@ export default {
           height: 500px;
           background: #fff;
           border-radius: 20px;
+          padding: 20px;
         }
         .convenienceFind__text {
           margin-left: 200px;

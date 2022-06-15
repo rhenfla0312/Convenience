@@ -20,7 +20,7 @@ export default {
           <RouterLink to="/bestChoise" class="menu__item">꿀조합</RouterLink>
           <RouterLink to="/bestRanking" class="menu__item">조합랭킹</RouterLink>
           <RouterLink to="/myChoise" class="menu__item">나만의 조합</RouterLink>
-          <RouterLink to="/convenience" class="menu__item">편의점 이벤트</RouterLink>
+          <RouterLink to="/convenience/cu" class="menu__item">편의점 이벤트</RouterLink>
         </div>
       </div>
     </div>

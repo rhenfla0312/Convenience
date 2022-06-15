@@ -3,12 +3,14 @@ import axios from 'axios'
 export default {
   data() {
     return {
+      width : '100%',
       searchData: "",
       nextData: "",
       totalData: true,
       oneData: false,
       twoData: false,
       eventData: false,
+      eventItemBox: false,
       datas : [],
       Loading : false
     }
@@ -258,12 +260,18 @@ export default {
       <!-- totalData -->
       <div class="convenience__main" v-if="Loading">
         <div class="item" v-for="(totalData,index) in datas" :key="totalData" @click="paramId(totalData,index)">
-          <!-- <RouterLink to="/convenience/convenienceFind" class="itemBox"> -->
-          <div class="itemBox">
-            <div class="item__type" :style="[ totalData.type == '1+1' ? oneColor : twoColor ]">{{ totalData.type }}</div>
-            <img class="__img" :src="[!totalData.image ? readImg : totalData.image ]" />
+          <!-- 덤증정이 없을경우 전체데이터 -->
+          <div class="itemBox" @mouseover="eventItemBox = true">
+            <div class="item__type">{{ totalData.type }}</div>
+            <img class="__img" :src="totalData.image" />
             <div class="item__name">{{ totalData.name }}</div>
             <div class="item__price">{{ totalData.price }}</div>
+          </div>
+          <!-- 덤증정이 있을경우 그 아이템만 덤증정데이터 마우스올릴때 불러오기 -->
+          <div class="itemBox" style="display: none" :style="[totalData.GIFTimage ? { width : width } : totalData.image ]" :class="{ eventItemBox : eventItemBox }" @mouseleave="eventItemBox = false">
+            <div class="item__type">{{ (!totalData.GIFTimage ? "" : totalData.type) }}</div>
+            <img class="__img" :src="(!totalData.GIFTimage ? '' : totalData.GIFTimage)" />
+            <div class="item__name">{{ (!totalData.GIFTname ? "" : totalData.GIFTname) }}</div>
           </div>
         </div>
         <!-- page -->
@@ -399,8 +407,8 @@ export default {
             .item__type {
               position: absolute;
               right: 20px;
-              top: 15px;
-              padding: 1px 12px;
+              top: 10px;
+              padding: 0 12px;
               text-align: center;
               background-image: linear-gradient(-225deg, #D4FFEC 0%, #57F2CC 48%, #4596FB 100%);
               font-size: 14px;
@@ -424,7 +432,6 @@ export default {
               height: 206px;
               border-radius: 20px;
               margin-top: 35px;
-              padding: 20px;
             }
             .item__name {
               margin-top: 10px;
@@ -432,6 +439,13 @@ export default {
             .item__price {
               margin-top: 5px;
             }
+          }
+          .eventItemBox {
+            display: block !important;
+            position: absolute;
+            z-index: 10;
+            top: 0;
+            right: 0;
           }
           // 스켈레톤 UI
           .skeletons_itemBox {
