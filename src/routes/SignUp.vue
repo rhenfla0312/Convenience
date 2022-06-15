@@ -439,6 +439,7 @@ export default {
                 opacity: 0;
                 height: 0;
                 transition: .5s;
+                pointer-events: none;
                 margin-bottom: 0;
                 margin-left: 30px;
                 font-size: 17px;
@@ -459,6 +460,7 @@ export default {
               }
               .testList__one.oneArrow {
                 transition: .5s;
+                pointer-events: auto;
                 height: 71px;
                 margin-bottom: 25px;
                 opacity: 1;
@@ -466,6 +468,7 @@ export default {
               .testList__two {
                 opacity: 0;
                 height: 0;
+                pointer-events: none;
                 transition: .5s;
                 margin-bottom: 0;
                 margin-left: 30px;
@@ -489,6 +492,7 @@ export default {
                 transition: .5s;
                 height: 71px;
                 margin-bottom: 25px;
+                pointer-events: auto;
                 opacity: 1;
               }
               .testList__three {
@@ -496,6 +500,7 @@ export default {
                 height: 0;
                 transition: .5s;
                 margin-bottom: 0;
+                pointer-events: none;
                 margin-left: 30px;
                 font-size: 17px;
                 .Listitem {
@@ -517,6 +522,7 @@ export default {
                 transition: .5s;
                 height: 71px;
                 margin-bottom: 25px;
+                pointer-events: auto;
                 opacity: 1;
               }
               .testList__four {
@@ -526,6 +532,7 @@ export default {
                 margin-bottom: 0;
                 margin-left: 30px;
                 font-size: 17px;
+                pointer-events: none;
                 .Listitem {
                   position: relative;
                   display: flex;
@@ -545,11 +552,13 @@ export default {
                 transition: .5s;
                 height: 71px;
                 margin-bottom: 25px;
+                pointer-events: auto;
                 opacity: 1;
               }
               .testList__five {
                 opacity: 0;
                 height: 0;
+                pointer-events: none;
                 transition: .5s;
                 margin-bottom: 0;
                 margin-left: 30px;
@@ -573,6 +582,7 @@ export default {
                 transition: .5s;
                 height: 71px;
                 margin-bottom: 25px;
+                pointer-events: auto;
                 opacity: 1;
               }
               .testList__six {
@@ -581,6 +591,7 @@ export default {
                 transition: .5s;
                 margin-bottom: 0;
                 margin-left: 30px;
+                pointer-events: none;
                 font-size: 17px;
                 .Listitem {
                   position: relative;
@@ -599,6 +610,7 @@ export default {
               }
               .testList__six.sixArrow {
                 transition: .5s;
+                pointer-events: auto;
                 height: 71px;
                 margin-bottom: 25px;
                 opacity: 1;

@@ -161,7 +161,7 @@ export default {
                     <thead class="thead">
                       <tr class="tr">
                         <th>순위</th>
-                        <th>번호</th>
+                        <th>제목</th>
                         <th>닉네임</th>
                         <th>조합</th>
                         <th>추천수</th>
@@ -171,7 +171,7 @@ export default {
                     <tbody class="tbody">
                       <tr class="tr">
                         <td>1</td>
-                        <td>3</td>
+                        <td>감자초코</td>
                         <td>장준호</td>
                         <td>민트초코 + 감자</td>
                         <td>{{ totalLike }}</td>
