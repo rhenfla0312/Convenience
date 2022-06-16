@@ -151,7 +151,7 @@ export default {
             </div>
             <div class="allBox" :class="{ active: isActive }">
               <div class="allBoxCheck" :class="{ active: isActive }" @click="tableShow()">
-                <span class="material-symbols-outlined arrow">expand_more</span>
+                <!-- <span class="material-symbols-outlined arrow">expand_more</span> -->
               </div>
               <div class="allTable" :class="{ active: isActive }">
                 <div class="table__name">전체랭킹</div>
