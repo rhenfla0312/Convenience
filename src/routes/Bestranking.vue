@@ -97,7 +97,6 @@ export default {
         }
       ],
       isActive : false,
-      totalLike : 0
     }
   },
   methods: {
@@ -165,7 +164,6 @@ export default {
                         <th>닉네임</th>
                         <th>조합</th>
                         <th>추천수</th>
-                        <th>추천</th>
                       </tr>
                     </thead>
                     <tbody class="tbody">
@@ -174,8 +172,7 @@ export default {
                         <td>감자초코</td>
                         <td>장준호</td>
                         <td>민트초코 + 감자</td>
-                        <td>{{ totalLike }}</td>
-                        <td><i class="fa-solid fa-thumbs-up" style="cursor:pointer" @click="totalLike++"></i></td>
+                        <td>0</td>
                       </tr>
                     </tbody>
                   </table>

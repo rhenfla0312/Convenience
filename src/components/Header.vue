@@ -1,6 +1,29 @@
 <script>
 export default {
-  
+  data() {
+    return {
+      loginData: false,
+      loginInfo: localStorage.getItem('name')
+    }
+  },
+  methods: {
+    logOut() {
+      window.localStorage.removeItem('name');
+      this.$router.push('/')
+      setTimeout(() => {
+        this.$router.go()
+      },10)
+    }
+  },
+  computed: {
+    loginData() {
+      if(localStorage.getItem('name')) {
+        return this.loginData = true
+      } else {
+        return this.loginData = false
+      }
+    }
+  }
 }
 </script>
 
@@ -8,8 +31,10 @@ export default {
   <div class="header">
     <div class="inner">
       <div class="login">
-        <RouterLink to="/login" class="login__item">로그인</RouterLink>
-        <RouterLink to="/signUp" class="login__item">회원가입</RouterLink>
+        <RouterLink to="/login/loginInfo" class="login__item" v-if="loginData">{{ loginInfo }}님</RouterLink>
+        <RouterLink to="/login" class="login__item" v-else>로그인</RouterLink>
+        <div @click="logOut" class="login__item" v-if="loginData">로그아웃</div>
+        <RouterLink to="/signUp" class="login__item" v-else>회원가입</RouterLink>
         <RouterLink to="/servicecenter" class="login__item">고객센터</RouterLink>
       </div>
 
@@ -48,6 +73,9 @@ a {
       .login__item {
         cursor: pointer;
         padding: 10px;
+        &:hover {
+          font-weight: bold;
+        }
       }
     }
     .menu {

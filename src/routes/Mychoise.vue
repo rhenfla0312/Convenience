@@ -3,22 +3,112 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      cuData: false
+      cuData: true,
+      gsData: false,
+      ministopData: false,
+      datas : [],
+      name: "",
+      title: "",
+      content: "",
+      checkboxDatas : [],
+      maxChecked : 5,
+      totalChecked : 0,
+      userName: ''
     }
   },
   methods: {
     cuClick() {
       this.cuData = true
+      this.gsData = false
+      this.ministopData = false
         axios.get("http://54.180.193.83:8081/objects/",{
           params: {
             data: "CU"
           }
         }).then((res) => {
           console.log(res)
+          this.datas = res.data
         }).catch((error) => {
           console.log(error)
         })
+    },
+    gsClick() {
+      this.cuData = false
+      this.gsData = true
+      this.ministopData = false
+        axios.get("http://54.180.193.83:8081/objects/",{
+          params: {
+            data: "GS25"
+          }
+        }).then((res) => {
+          console.log(res)
+          this.datas = res.data
+        }).catch((error) => {
+          console.log(error)
+        })
+    },
+    ministopClick() {
+      this.cuData = false
+      this.gsData = false
+      this.ministopData = true
+        axios.get("http://54.180.193.83:8081/objects/",{
+          params: {
+            data: "MINISTOP"
+          }
+        }).then((res) => {
+          console.log(res)
+          this.datas = res.data
+        }).catch((error) => {
+          console.log(error)
+        })
+    },
+    checkboxDataClick() {
+      axios({
+        method: "POST",
+        url: "http://54.180.193.83:8081/posts/",
+        data: {
+          title : this.title,
+          nickname : this.name,
+          content : this.content,
+          item : this.checkboxDatas
+        }
+      }).then((res) => {
+        console.log(res)
+        alert("조합에 성공하셨습니다")
+        this.$router.push('bestChoise')
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+    countChecked(data) {
+      console.log(data)
+      // if (data.checked) {
+      //   this.totalChecked += 1;
+      // } else {
+      //   this.totalChecked -= 1;
+      // }
+
+      // if (this.totalChecked > this.maxChecked) {
+      //   alert ("최대 5개 까지만 가능합니다.");
+      //   data.checked = false;
+      //   this.totalChecked -= 1;
+      // }
+
+
     }
+  },
+  mounted() {
+    axios.get("http://54.180.193.83:8081/objects/",{
+      params: {
+        data: "CU"
+      }
+    }).then((res) => {
+      console.log(res)
+      this.datas = res.data
+    }).catch((error) => {
+      console.log(error)
+    })
+    this.userName = localStorage.getItem('name')
   }
 }
 </script>
@@ -33,38 +123,52 @@ export default {
         <div class="mycohise_title">
           <div class="__title">제목</div>
           <div class="title__input">
-            <input type="text" />
+            <input type="text" v-model="title" />
           </div>
         </div>
         <!-- alias -->
         <div class="mychoise__alias">
           <div class="__alias">닉네임</div>
           <div class="alias__input">
-            <input type="text" />
+            <input type="text" v-model="name" :value="this.userName" readonly />
           </div>
         </div>
         <!-- 조합아이템 -->
         <div class="mychoise__itemBox">
           <div class="__itemName">조합아이템</div>
           <div class="__itemMenu">
-            <div @click="cuClick" class="cu menu">CU</div>
-            <div class="gs menu">GS25</div>
-            <div class="ministop menu">MINISTOP</div>
+            <div @click="cuClick" :class="{ cuData : cuData }" class="cu menu">CU</div>
+            <div @click="gsClick" :class="{ gsData : gsData }" class="gs menu">GS25</div>
+            <div @click="ministopClick" :class="{ ministopData : ministopData }" class="ministop menu">MINISTOP</div>
           </div>
           <div class="__items">
-            <label class="__item">
-              <input id="" type="checkbox">
+            <label class="__item" :for="index" v-for="(data, index) in datas" :key="data">
+              <input @click="countChecked(this)" :id="index" type="checkbox" class="__checkbox" :value="data.id" v-model="checkboxDatas">
+              <img class="__img" :src="`/DRF${data.image}`">
+              <div class="__name">{{ data.name }}</div>
+              <div class="__price">{{ data.price }}원</div>
             </label>
           </div>
         </div>
-        <!-- description -->
-        <div class="mychoise__description">
-          <div class="__title">설명</div>
-          <div class="__description">
-            나만의조합은 편의점에서 먹어봤던 본인만의 최고의 조합을 사람들한테 알려주기 위해 만들어진 페이지입니다.<br>
-            본인이 알고있는 조합 및 새로운조합을 만들어 다른 유저들과 공유해주세요.
+        <!-- 설명 -->
+        <div class="description">
+          <div class="__description">설명</div>
+          <div class="description__input">
+            <textarea name="" id="" cols="30" rows="10" v-model="content"></textarea>
           </div>
         </div>
+        <!-- button -->
+        <div class="mychoise__btn">
+          <button @click="checkboxDataClick" class="__btn">조합하기</button>
+        </div>
+        <!-- description -->
+        <!-- <div class="mychoise__description">
+          <div class="__title">나만의조합은?</div>
+          <div class="__description">
+            지금까지 편의점에서 먹어봤던 본인만의 최고의 조합을 사람들한테 알려주기 위해 만들어진 페이지입니다.<br>
+            본인이 알고있는 조합 및 새로운조합을 만들어 다른 유저들과 공유해주세요.
+          </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -94,7 +198,7 @@ export default {
       }
       .mychoise__menu {
         position: relative;
-        height: 1000px;
+        height: 2100px;
         border: 1px solid #333;
         border-radius: 20px;
         .mycohise_title {
@@ -107,6 +211,7 @@ export default {
           .title__input {
             margin-top: 10px;
             input {
+              text-align: center;
               width: 500px;
               border-radius: 10px;
               border: 1px solid #333;
@@ -128,6 +233,7 @@ export default {
           .alias__input {
             margin-top: 10px;
             input {
+              text-align: center;
               width: 500px;
               border-radius: 10px;
               border: 1px solid #333;
@@ -148,6 +254,7 @@ export default {
           }
           .__itemMenu {
             margin-top: 30px;
+            font-size: 20px;
             display: flex;
             justify-content: center;
             .menu {
@@ -158,36 +265,97 @@ export default {
                 font-weight: bold;
               }
             }
+            .cuData {
+              font-weight: bold;
+            }
+            .gsData {
+              font-weight: bold;
+            }
+            .ministopData {
+              font-weight: bold;
+            }
           }
           .__items {
-            width: 700px;
-            margin: 0 auto;
+            width: 1000px;
+            margin-top: 20px;
+            margin: auto;
             display: grid;
-            grid-template-columns: repeat(4,1fr);
+            grid-template-columns: repeat(5,1fr);
             .__item {
               position: relative;
-              height: 150px;
-              background: #333;
+              height: 250px;
+              width: 160px;
+              background: #fff;
               border-radius: 20px;
-              margin: 15px;
+              margin: 10px;
               &:hover {
                 border: 2px solid #1de9b6;
+              }
+              .__img {
+                width: 150px;
+              }
+              .__checkbox {
+                width: 100px;
+                height: 15px;
+                margin-top: 5px;
               }
             }
           }
         }
+        .description {
+          margin-top: 30px;
+          text-align: center;
+          .__description {
+            font-size: 25px;
+            font-weight: bold;
+          }
+          .description__input {
+            margin-top: 10px;
+            textarea {
+              width: 500px;
+              border-radius: 10px;
+              border: 1px solid #333;
+              outline: none;
+              padding: 5px;
+              resize: none;
+              &:focus {
+                border: 2px solid #333;
+              }
+            }
+          }
+        }
+        .mychoise__btn {
+          text-align: center;
+          margin-top: 80px;
+          margin-bottom: 50px;
+          .__btn {
+            width: 400px;
+            height: 50px;
+            border-radius: 10px;
+            background: #fff;
+            font-weight: bold;
+            transition: .3s;
+            &:hover {
+              background: #1de9b6;
+              color: #fff;
+              transition: .3s;
+              border: 1px solid #1de9b6;
+            }
+          }
+        }
         .mychoise__description {
-          position: absolute;
+          // position: absolute;
           width: 100%;
-          height: 150px;
           text-align: center;
           background: #bdbdbd;
-          bottom: 0;
           border-radius: 0 0 19px 19px;
           .__title {
             font-size: 20px;
-            margin-top: 30px;
+            padding: 15px;
             margin-bottom: 10px;
+          }
+          .__description {
+            padding: 15px;
           }
         }
       }

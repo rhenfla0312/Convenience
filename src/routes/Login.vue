@@ -18,8 +18,14 @@ export default {
         }
       }).then((res) => {
         console.log(res)
+        localStorage.setItem("name", res.data.user.username);
+        this.$router.push('/')
+        setTimeout(() => {
+          this.$router.go()
+        },100)
       }).catch((error) => {
         console.log(error)
+        alert("로그인에 실패하셨습니다")
       })
     }
   },

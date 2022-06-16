@@ -8,6 +8,7 @@ import Bestranking from './Bestranking.vue'
 import Mychoise from './Mychoise.vue'
 
 import Login from './Login.vue'
+import LoginInfo from './LoginInfo.vue'
 import SignUp from './SignUp.vue'
 import ServiceCenter from './ServiceCenter.vue'
 import UserInfo from './UserInfo.vue'
@@ -30,6 +31,7 @@ export default createRouter({
   routes: [
     {
       path: '/',
+      name: 'root',
       component: Home
     },
     {
@@ -38,6 +40,7 @@ export default createRouter({
     },
     {
       path: '/bestChoise',
+      name: 'bestChoise',
       component: Bestchoise
     },
     {
@@ -51,6 +54,10 @@ export default createRouter({
     {
       path: '/login',
       component: Login
+    },
+    {
+      path: '/login/loginInfo/:loginId?',
+      component: LoginInfo
     },
     {
       path: '/signUp',
