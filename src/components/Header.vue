@@ -13,6 +13,12 @@ export default {
       setTimeout(() => {
         this.$router.go()
       },10)
+    },
+    loginCheck() {
+      if(!localStorage.getItem('name')) {
+        alert("로그인 후 사용할 수 있는 서비스 입니다.")
+        this.$router.push('login')
+      } 
     }
   },
   computed: {
@@ -22,7 +28,7 @@ export default {
       } else {
         return this.loginData = false
       }
-    }
+    },
   }
 }
 </script>
@@ -44,7 +50,7 @@ export default {
           <RouterLink to="/description" class="menu__item">꿀조합 소개</RouterLink>
           <RouterLink to="/bestChoise" class="menu__item">꿀조합</RouterLink>
           <RouterLink to="/bestRanking" class="menu__item">조합랭킹</RouterLink>
-          <RouterLink to="/myChoise" class="menu__item">나만의 조합</RouterLink>
+          <RouterLink to="/myChoise" @click="loginCheck()" class="menu__item">나만의 조합</RouterLink>
           <RouterLink to="/convenience/cu" class="menu__item">편의점 이벤트</RouterLink>
         </div>
       </div>

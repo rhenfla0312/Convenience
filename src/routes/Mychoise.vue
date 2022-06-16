@@ -6,14 +6,22 @@ export default {
       cuData: true,
       gsData: false,
       ministopData: false,
-      datas : [],
-      name: "",
+      datas: [],
       title: "",
       content: "",
       checkboxDatas : [],
-      maxChecked : 5,
-      totalChecked : 0,
-      userName: ''
+      // maxChecked : 5,
+      // totalChecked : 0,
+      userName: '',
+      
+      // errorData
+      errorTitle: "제목을 입력해주세요.",
+      errorItem: "조합아이템을 선택해주세요.",
+      errorContent: "내용을 입력해주세요.",
+      errorTilteCount: false,
+      errorItemCount: false,
+      errorContentCount: false,
+    
     }
   },
   methods: {
@@ -68,7 +76,7 @@ export default {
         url: "http://54.180.193.83:8081/posts/",
         data: {
           title : this.title,
-          nickname : this.name,
+          nickname : this.userName,
           content : this.content,
           item : this.checkboxDatas
         }
@@ -78,10 +86,23 @@ export default {
         this.$router.push('bestChoise')
       }).catch((error) => {
         console.log(error)
+        if(error.response.data == 1) {
+          this.errorTilteCount = true
+          this.errorItemCount = false
+          this.errorContentCount = false
+        } else if(error.response.data== 2) {
+          this.errorTilteCount = false
+          this.errorItemCount = true
+          this.errorContentCount = false
+        } else {
+          this.errorTilteCount = false
+          this.errorItemCount = false
+          this.errorContentCount = true
+        }
       })
     },
-    countChecked(data) {
-      console.log(data)
+    // countChecked(data) {
+      // console.log(data)
       // if (data.checked) {
       //   this.totalChecked += 1;
       // } else {
@@ -93,9 +114,7 @@ export default {
       //   data.checked = false;
       //   this.totalChecked -= 1;
       // }
-
-
-    }
+    // }
   },
   mounted() {
     axios.get("http://54.180.193.83:8081/objects/",{
@@ -125,12 +144,13 @@ export default {
           <div class="title__input">
             <input type="text" v-model="title" />
           </div>
+          <div v-if="errorTilteCount" class="errorTitle">{{ errorTitle }}</div>
         </div>
         <!-- alias -->
         <div class="mychoise__alias">
           <div class="__alias">닉네임</div>
           <div class="alias__input">
-            <input type="text" v-model="name" :value="this.userName" readonly />
+            <input type="text" :value="this.userName" readonly />
           </div>
         </div>
         <!-- 조합아이템 -->
@@ -143,12 +163,13 @@ export default {
           </div>
           <div class="__items">
             <label class="__item" :for="index" v-for="(data, index) in datas" :key="data">
-              <input @click="countChecked(this)" :id="index" type="checkbox" class="__checkbox" :value="data.id" v-model="checkboxDatas">
+              <input :id="index" type="checkbox" class="__checkbox" :value="data.id" v-model="checkboxDatas">
               <img class="__img" :src="`/DRF${data.image}`">
               <div class="__name">{{ data.name }}</div>
               <div class="__price">{{ data.price }}원</div>
             </label>
           </div>
+          <div v-if="errorItemCount" class="errorItem">{{ errorItem }}</div>
         </div>
         <!-- 설명 -->
         <div class="description">
@@ -156,6 +177,7 @@ export default {
           <div class="description__input">
             <textarea name="" id="" cols="30" rows="10" v-model="content"></textarea>
           </div>
+          <div v-if="errorContentCount" class="errorContent">{{ errorContent }}</div>
         </div>
         <!-- button -->
         <div class="mychoise__btn">
@@ -221,6 +243,11 @@ export default {
                 border: 2px solid #333;
               }
             }
+          }
+          .errorTitle {
+            color: red;
+            margin-top: 5px;
+            font-weight: 500;
           }
         }
         .mychoise__alias {
@@ -301,6 +328,11 @@ export default {
               }
             }
           }
+          .errorItem {
+            color: red;
+            margin-top: 5px;
+            font-weight: 500;
+          }
         }
         .description {
           margin-top: 30px;
@@ -322,6 +354,11 @@ export default {
                 border: 2px solid #333;
               }
             }
+          }
+          .errorContent {
+            color: red;
+            margin-top: 5px;
+            font-weight: 500;
           }
         }
         .mychoise__btn {
