@@ -17,7 +17,7 @@ export default {
     loginCheck() {
       if(!localStorage.getItem('name')) {
         alert("로그인 후 사용할 수 있는 서비스 입니다.")
-        this.$router.push('login')
+        this.$router.push('/login')
       } 
     }
   },

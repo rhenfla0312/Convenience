@@ -1,4 +1,5 @@
 <script>
+import axios from 'axios'
 // chart
 // polararea 보류
 import { Bar, Line, PolarArea  } from 'vue-chartjs'
@@ -97,12 +98,38 @@ export default {
         }
       ],
       isActive : false,
+      totalDatas: [],
+      nextData: "",
+      nextPageCheck: false
     }
   },
   methods: {
     tableShow() {
       this.isActive = !this.isActive
-    }
+    },
+    nextPage() {
+      axios({
+        method: "GET",
+        url: this.nextData
+      }).then((res) => {
+        console.log(res)
+        this.nextData = res.data.next
+        this.totalDatas = this.totalDatas.concat(res.data.results)
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+  },
+  mounted() {
+    axios.get("http://54.180.193.83:8081/Main/")
+    .then((res) => {
+      console.log(res)
+      this.totalDatas = res.data.results
+      this.nextData = res.data.next
+      this.Loading = true
+    }).catch((error) => {
+      console.log(error)
+    })
   }
 }
 </script>
@@ -150,33 +177,34 @@ export default {
               <div class="item">{{ rankingItem.item}}</div>
             </div>
             <div class="allBox" :class="{ active: isActive }">
-              <div class="allBoxCheck" :class="{ active: isActive }" @click="tableShow()">
-                <!-- <span class="material-symbols-outlined arrow">expand_more</span> -->
-              </div>
-              <div class="allTable" :class="{ active: isActive }">
+              <div class="allTable">
                 <div class="table__name">전체랭킹</div>
                 <div class="table__main">
                   <table class="table">
                     <thead class="thead">
                       <tr class="tr">
                         <th>순위</th>
-                        <th>제목</th>
                         <th>닉네임</th>
-                        <th>조합</th>
+                        <th>조합이름</th>
+                        <th>생성날짜</th>
                         <th>추천수</th>
                       </tr>
                     </thead>
                     <tbody class="tbody">
-                      <tr class="tr">
-                        <td>1</td>
-                        <td>감자초코</td>
-                        <td>장준호</td>
-                        <td>민트초코 + 감자</td>
-                        <td>0</td>
+                      <tr class="tr" v-for="totalData in totalDatas" :key="totalData">
+                        <td></td>
+                        <td>{{ totalData.nickname }}</td>
+                        <td>{{ totalData.title }}</td>
+                        <td>{{ totalData.create_date.slice(0,-17) }}</td>
+                        <td>{{ (!totalData.likes_cnt ? 0 : totalData.likes_cnt) }}</td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
+              </div>
+              <div class="allBoxCheck" :class="{ active: isActive }">
+                <span class="arrow nextPage" :class="{ active: isActive }" @click="nextPage()">더보기</span>
+                <span class="material-symbols-outlined arrow" @click="tableShow()">expand_more</span>
               </div>
             </div>
           </div>
@@ -265,13 +293,14 @@ export default {
             box-shadow: 0 7px 25px rgba(0,0,0,0.08);
             grid-column: 1 / 5;
             border-radius: 20px;
-            display: flex;
-            justify-content: center;
+            // display: flex;
+            // justify-content: center;
             transition: .5s;
             .allBoxCheck {
               cursor: pointer;
               width: 1060px;
               height: 50px;
+              padding: 0 0 10px 0;
               .arrow {
                 display: flex;
                 margin-top: 5px;
@@ -279,27 +308,33 @@ export default {
                 font-size: 40px;
                 transition: .5s;
               }
+              .nextPage {
+                opacity: 0;
+              }
+              .nextPage.active {
+                opacity: 1;
+              }
             }
           }
           .allBox.active {
-            display: none;
+            display: block;
             margin-top: 30px;
             width: 1060px;
-            height: 500px;
+            height: 100%;
             margin: auto;
             box-shadow: 0 7px 25px rgba(0,0,0,0.08);
             grid-column: 1 / 5;
             border-radius: 20px;
-            display: flex;
-            justify-content: center;
+            // display: flex;
+            // justify-content: center;
             transition: .5s;
             position: relative;
             .allBoxCheck {
-              position: absolute;
-              bottom: 0;
+              // position: absolute;
+              // bottom: 0;
               cursor: pointer;
               width: 1060px;
-              height: 50px;
+              height: 100%;
               .arrow {
                 transition: .5s;
                 transform: rotate(180deg);
@@ -318,7 +353,7 @@ export default {
             padding: 20px;
             display: block;
             width: 1060px;
-            height: 500px;
+            // height: 500px;
             margin: auto;
             .table__name {
               text-align: center;
@@ -326,9 +361,12 @@ export default {
               font-weight: 500;
             }
             .table__main {
-              margin-top: 30px;
+              margin-top: 20px;
               .table {
                 text-align: center;
+                .tr {
+                  padding: 10px 0 10px 0;
+                }
               }
             }
           }

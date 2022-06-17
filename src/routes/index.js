@@ -4,6 +4,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from './Home.vue'
 import Description from './Description.vue'
 import Bestchoise from './Bestchoise.vue'
+import BestchoiseFind from './BestchoiseFind.vue'
 import Bestranking from './Bestranking.vue'
 import Mychoise from './Mychoise.vue'
 
@@ -42,6 +43,11 @@ export default createRouter({
       path: '/bestChoise',
       name: 'bestChoise',
       component: Bestchoise
+    },
+    {
+      path: '/bestChoise/bestChoiseFind/:title?',
+      name: 'bestChoiseFind',
+      component: BestchoiseFind
     },
     {
       path: '/bestRanking',

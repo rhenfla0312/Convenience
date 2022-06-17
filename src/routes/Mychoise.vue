@@ -90,14 +90,21 @@ export default {
           this.errorTilteCount = true
           this.errorItemCount = false
           this.errorContentCount = false
-        } else if(error.response.data== 2) {
+          const titleScorll = this.$refs.title.offsetTop
+          window.scrollTo({top:titleScorll, behavior:'smooth'});
+        } else if(error.response.data == 2) {
           this.errorTilteCount = false
           this.errorItemCount = true
           this.errorContentCount = false
-        } else {
+          const itemScroll = this.$refs.item.offsetTop
+          window.scrollTo({top:itemScroll, behavior:'smooth'});
+        } else if(error.response.data == 3) {
           this.errorTilteCount = false
           this.errorItemCount = false
           this.errorContentCount = true
+          const descriptionScorll = this.$refs.description.offsetTop
+          console.log(descriptionScorll)
+          window.scrollTo({top:descriptionScorll, behavior:'smooth'});
         }
       })
     },
@@ -140,7 +147,7 @@ export default {
       <div class="mychoise__menu">
         <!-- title -->
         <div class="mycohise_title">
-          <div class="__title">제목</div>
+          <div class="__title" ref="title">제목</div>
           <div class="title__input">
             <input type="text" v-model="title" />
           </div>
@@ -148,14 +155,15 @@ export default {
         </div>
         <!-- alias -->
         <div class="mychoise__alias">
-          <div class="__alias">닉네임</div>
+          <div class="__alias" ref="alias">닉네임</div>
           <div class="alias__input">
             <input type="text" :value="this.userName" readonly />
           </div>
         </div>
         <!-- 조합아이템 -->
         <div class="mychoise__itemBox">
-          <div class="__itemName">조합아이템</div>
+          <div class="__itemName" ref="item">조합아이템</div>
+          <div v-if="errorItemCount" class="errorItem">{{ errorItem }}</div>
           <div class="__itemMenu">
             <div @click="cuClick" :class="{ cuData : cuData }" class="cu menu">CU</div>
             <div @click="gsClick" :class="{ gsData : gsData }" class="gs menu">GS25</div>
@@ -169,11 +177,10 @@ export default {
               <div class="__price">{{ data.price }}원</div>
             </label>
           </div>
-          <div v-if="errorItemCount" class="errorItem">{{ errorItem }}</div>
         </div>
         <!-- 설명 -->
         <div class="description">
-          <div class="__description">설명</div>
+          <div class="__description" ref="description">설명</div>
           <div class="description__input">
             <textarea name="" id="" cols="30" rows="10" v-model="content"></textarea>
           </div>
@@ -184,13 +191,13 @@ export default {
           <button @click="checkboxDataClick" class="__btn">조합하기</button>
         </div>
         <!-- description -->
-        <!-- <div class="mychoise__description">
+        <div class="mychoise__description">
           <div class="__title">나만의조합은?</div>
           <div class="__description">
             지금까지 편의점에서 먹어봤던 본인만의 최고의 조합을 사람들한테 알려주기 위해 만들어진 페이지입니다.<br>
             본인이 알고있는 조합 및 새로운조합을 만들어 다른 유저들과 공유해주세요.
           </div>
-        </div> -->
+        </div>
       </div>
     </div>
   </div>
@@ -344,7 +351,7 @@ export default {
           .description__input {
             margin-top: 10px;
             textarea {
-              width: 500px;
+              width: 700px;
               border-radius: 10px;
               border: 1px solid #333;
               outline: none;

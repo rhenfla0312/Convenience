@@ -11,6 +11,21 @@ export default {
       Loading : false
     }
   },
+  methods: {
+    paramId(data,index) {
+      this.$router.push({
+        // push로 파라미터를 날릴땐 path가 아닌 name으로 해야한다?
+        name: 'bestChoiseFind',
+        params: {
+          title : data.title,
+          name : data.nickname,
+          content : data.content,
+          date : data.create_date,
+          item: data.a
+        }
+      })
+    }
+  },
   mounted() {
     axios.get("http://54.180.193.83:8081/Main/")
     .then((res) => {
@@ -30,13 +45,13 @@ export default {
     <div class="inner">
     <div class="bestchoise__name">꿀조합</div>
       <div class="bestchoise__main" v-if="Loading">
-        <div class="item" v-for="data in datas" :key="data">
+        <div class="item" v-for="(data, index) in datas" :key="data" @click="paramId(data,index)">
           <div class="itemBox">
             <img class="__img" :src="`/DRF/media/${data.a[0].image}`" />
             <div class="__text">
               <div class="name">제목 : {{ data.title }}</div>
               <div class="nickname">닉네임 : {{ data.nickname }}</div>
-              <div class="star__name">좋아요 : {{ data.likes_cnt }}</div>
+              <div class="star__name">좋아요 : {{ (!data.likes_cnt ? 0 : data.likes_cnt) }}</div>
             </div>
           </div>
         </div>

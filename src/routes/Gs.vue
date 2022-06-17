@@ -261,14 +261,14 @@ export default {
       <div class="convenience__main" v-if="Loading">
         <div class="item" v-for="(totalData,index) in datas" :key="totalData" @click="paramId(totalData,index)">
           <!-- 덤증정이 없을경우 전체데이터 -->
-          <div class="itemBox" @mouseover="eventItemBox = true">
+          <div class="itemBox" @mouseover="eventItemBox = true" @mouseleave="eventItemBox = false">
             <div class="item__type">{{ totalData.type }}</div>
             <img class="__img" :src="totalData.image" />
             <div class="item__name">{{ totalData.name }}</div>
             <div class="item__price">{{ totalData.price }}</div>
           </div>
           <!-- 덤증정이 있을경우 그 아이템만 덤증정데이터 마우스올릴때 불러오기 -->
-          <div class="itemBox" style="display: none" :style="[totalData.GIFTimage ? { width : width } : totalData.image ]" :class="{ eventItemBox : eventItemBox }" @mouseleave="eventItemBox = false">
+          <div class="itemBox" style="display: none" :style="[totalData.GIFTimage ? { width : width } : totalData.image ]" :class="{ eventItemBox : eventItemBox }">
             <div class="item__type">{{ (!totalData.GIFTimage ? "" : totalData.type) }}</div>
             <img class="__img" :src="(!totalData.GIFTimage ? '' : totalData.GIFTimage)" />
             <div class="item__name">{{ (!totalData.GIFTname ? "" : totalData.GIFTname) }}</div>
