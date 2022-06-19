@@ -1,17 +1,23 @@
 <script>
+import axios from 'axios'
 export default {
   data() {
     return {
       Loading : false,
-      title : this.$route.params.title,
-      name : this.$route.params.name,
-      content : this.$route.params.content,
-      date : this.$route.params.date,
-      items : this.$route.params.item
+      id : this.$route.params.id,
+      menu : "",
+      datas : "",
     }
   },
   mounted() {
-    this.Loading = true
+    axios.get(`http://54.180.193.83:8081/posts/${this.id}`)
+    .then((res) => {
+      console.log(res)
+      this.menu = res.data
+      this.datas = res.data.a
+    }).catch((error) => {
+      console.log(error)
+    })
   }
 }
 </script>
@@ -22,13 +28,17 @@ export default {
     <div class="bestchoiseFind__inner">
       <div class="bestchoiseFind__name">상세보기</div>
       <div class="bestchoiseFind__main">
-        <div>{{ title }}</div>
-        <div>{{ name }}</div>
-        <div>{{ content }}</div>
-        <div>{{ date }}</div>
-        <div v-for="item in items" :key="item">
-          <div>{{ JSON.stringify(item.name) }}</div>
+        <div>{{ menu.title }}</div>
+        <div>{{ menu.nickname }}</div>
+        <div>{{ menu.content }}</div>
+        <div>{{ menu.create_date }}</div>
+        <div v-for="data in datas" :key="data">
+          <div>{{ data.name }}</div>
+          <div>{{ data.price }}</div>
+          <img :src="`/DRF/media/${data.image}`" />
         </div>
+        <!-- <div>{{ menu.likes_cnt }}</div> -->
+        <!-- <button @click="goodBtn">좋아요</button> -->
       </div>
     </div>
   </div>

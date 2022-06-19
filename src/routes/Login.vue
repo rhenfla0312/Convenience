@@ -19,6 +19,7 @@ export default {
       }).then((res) => {
         console.log(res)
         localStorage.setItem("name", res.data.user.username);
+        localStorage.setItem("id", res.data.user.pk);
         this.$router.push('/')
         setTimeout(() => {
           this.$router.go()

@@ -100,7 +100,8 @@ export default {
       isActive : false,
       totalDatas: [],
       nextData: "",
-      nextPageCheck: false
+      count : "",
+      bestDatas: [],
     }
   },
   methods: {
@@ -121,11 +122,12 @@ export default {
     },
   },
   mounted() {
-    axios.get("http://54.180.193.83:8081/Main/")
+    axios.get("http://54.180.193.83:8081/best/")
     .then((res) => {
       console.log(res)
       this.totalDatas = res.data.results
       this.nextData = res.data.next
+      this.bestDatas = res.data.results.slice(0,8)
       this.Loading = true
     }).catch((error) => {
       console.log(error)
@@ -172,12 +174,12 @@ export default {
         <!-- ranking_table -->
         <div class="tabelBox">
           <div class="rankingBox">
-            <div class="rankingItem" v-for="rankingItem in rankingItems" :key="rankingItem">
-              <div class="itemHead">{{ rankingItem.number }}</div>
-              <div class="item">{{ rankingItem.item}}</div>
+            <div class="rankingItem" v-for="(bestData,index) in bestDatas" :key="bestData">
+              <div class="itemHead">{{ index + 1 }}</div>
+              <!-- <div class="item">{{ rankingItem.item}}</div> -->
             </div>
             <div class="allBox" :class="{ active: isActive }">
-              <div class="allTable">
+              <div class="allTable" :class="{ active: isActive }">
                 <div class="table__name">전체랭킹</div>
                 <div class="table__main">
                   <table class="table">
@@ -191,8 +193,8 @@ export default {
                       </tr>
                     </thead>
                     <tbody class="tbody">
-                      <tr class="tr" v-for="totalData in totalDatas" :key="totalData">
-                        <td></td>
+                      <tr class="tr" v-for="(totalData,index) in totalDatas" :key="totalData">
+                        <td>{{ index + 1 }}</td>
                         <td>{{ totalData.nickname }}</td>
                         <td>{{ totalData.title }}</td>
                         <td>{{ totalData.create_date.slice(0,-17) }}</td>
@@ -200,10 +202,10 @@ export default {
                       </tr>
                     </tbody>
                   </table>
+                  <div class="nextPage" :class="{ active: isActive }" @click="nextPage()">더보기</div>
                 </div>
               </div>
               <div class="allBoxCheck" :class="{ active: isActive }">
-                <span class="arrow nextPage" :class="{ active: isActive }" @click="nextPage()">더보기</span>
                 <span class="material-symbols-outlined arrow" @click="tableShow()">expand_more</span>
               </div>
             </div>
@@ -296,11 +298,20 @@ export default {
             // display: flex;
             // justify-content: center;
             transition: .5s;
+            .nextPage {
+              cursor: pointer;
+              text-align: center;
+              background: #eeeeee;
+              border-radius: 10px;
+              padding: 5px;
+              font-size: 18px;
+            }
             .allBoxCheck {
               cursor: pointer;
               width: 1060px;
               height: 50px;
               padding: 0 0 10px 0;
+              margin: auto;
               .arrow {
                 display: flex;
                 margin-top: 5px;
@@ -308,16 +319,9 @@ export default {
                 font-size: 40px;
                 transition: .5s;
               }
-              .nextPage {
-                opacity: 0;
-              }
-              .nextPage.active {
-                opacity: 1;
-              }
             }
           }
           .allBox.active {
-            display: block;
             margin-top: 30px;
             width: 1060px;
             height: 100%;
@@ -330,8 +334,6 @@ export default {
             transition: .5s;
             position: relative;
             .allBoxCheck {
-              // position: absolute;
-              // bottom: 0;
               cursor: pointer;
               width: 1060px;
               height: 100%;
@@ -349,9 +351,9 @@ export default {
             display: none;
           }
           .allTable.active {
+            display: block;
             transition: .5s;
             padding: 20px;
-            display: block;
             width: 1060px;
             // height: 500px;
             margin: auto;

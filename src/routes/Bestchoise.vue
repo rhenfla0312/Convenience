@@ -8,6 +8,7 @@ export default {
   data() {
     return {
       datas : [],
+      nextData: "",
       Loading : false
     }
   },
@@ -17,20 +18,44 @@ export default {
         // push로 파라미터를 날릴땐 path가 아닌 name으로 해야한다?
         name: 'bestChoiseFind',
         params: {
-          title : data.title,
-          name : data.nickname,
-          content : data.content,
-          date : data.create_date,
-          item: data.a
+          id : data.id
         }
       })
-    }
+    },
+    goodBtn(id) {
+      axios({
+        method: "POST",
+        url : "http://54.180.193.83:8081/best/",
+        data : {
+          postid : id,
+          userid : localStorage.getItem('id')
+        }
+      }).then((res) => {
+        console.log(res)
+        this.$router.go()
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+    nextPage() {
+      axios({
+        method: "GET",
+        url: this.nextData
+      }).then((res) => {
+        console.log(res)
+        this.nextData = res.data.next
+        this.datas = this.datas.concat(res.data.results)
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
   },
   mounted() {
     axios.get("http://54.180.193.83:8081/Main/")
     .then((res) => {
       console.log(res)
       this.datas = res.data.results
+      this.nextData = res.data.next
       this.Loading = true
     }).catch((error) => {
       console.log(error)
@@ -45,17 +70,17 @@ export default {
     <div class="inner">
     <div class="bestchoise__name">꿀조합</div>
       <div class="bestchoise__main" v-if="Loading">
-        <div class="item" v-for="(data, index) in datas" :key="data" @click="paramId(data,index)">
+        <div class="item" v-for="(data, index) in datas" :key="data">
           <div class="itemBox">
-            <img class="__img" :src="`/DRF/media/${data.a[0].image}`" />
+            <img class="__img" :src="`/DRF/media/${data.a[0].image}`" @click="paramId(data,index)" />
             <div class="__text">
               <div class="name">제목 : {{ data.title }}</div>
               <div class="nickname">닉네임 : {{ data.nickname }}</div>
-              <div class="star__name">좋아요 : {{ (!data.likes_cnt ? 0 : data.likes_cnt) }}</div>
+              <div class="star__name" @click="goodBtn(data.id)">좋아요 : {{ data.likes_cnt }}</div>
             </div>
           </div>
         </div>
-        <Page style="grid-column: 1/5" />
+        <Page style="grid-column: 1/5" @click="nextPage" />
       </div>
       <!-- 스켈레톤 UI -->
       <div class="bestchoise__main" v-else>
@@ -104,6 +129,11 @@ export default {
               padding: 20px;
               border-radius: 20px;
               margin: 12px;
+              &:hover {
+                border: 5px solid #1de9b6;
+                border-radius: 20px;
+                cursor: pointer;
+              }
             }
             .__text {
               text-align: center;
@@ -112,11 +142,13 @@ export default {
               padding: 10px;
               border-radius: 20px;
               margin: 12px;
-            }
-            &:hover {
-              border: 5px solid #1de9b6;
-              border-radius: 20px;
-              cursor: pointer;
+              .star__name {
+                &:hover {
+                  color: #0d47a1;
+                  font-weight: bold;
+                  cursor: pointer;
+                }
+              }
             }
           }
           // 스켈레톤 UI

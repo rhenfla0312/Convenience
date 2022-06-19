@@ -45,7 +45,7 @@ export default createRouter({
       component: Bestchoise
     },
     {
-      path: '/bestChoise/bestChoiseFind/:title?',
+      path: '/bestChoise/bestChoiseFind/:id?',
       name: 'bestChoiseFind',
       component: BestchoiseFind
     },
