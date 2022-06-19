@@ -84,13 +84,9 @@ export default {
       </div>
       <!-- 스켈레톤 UI -->
       <div class="bestchoise__main" v-else>
-        <div class="item"  v-for="data in datas" :key="data">
-          <div class="skeletons_itemBox">
-
-          </div>
-          <div class="skeletons_textBox">
-
-          </div>
+        <div class="item" v-for="data in datas" :key="data">
+          <div class="skeletons_itemBox"></div>
+          <div class="skeletons_textBox"></div>
         </div>
       </div>
     </div>
@@ -152,40 +148,44 @@ export default {
             }
           }
           // 스켈레톤 UI
-          .skeletons_itemBox {
-            background: #e0e0e0;
-            height: 306px;
-            border-radius: 20px;
-            margin: 12px;
-            animation: skeletons_itemBox 1.8s infinite ease-in-out;
-            @keyframes skeletons_itemBox {
-              0% {
-                background-color: rgba(165, 165, 165, 0.1);
-              }
-              50% {
-                background-color: rgba(165, 165, 165, 0.3);
-              }
-              100% {
-                background-color: rgba(165, 165, 165, 0.1);
+          .bestchoise__main {
+            .skeletons_itemBox {
+              background: #e0e0e0;
+              height: 306px;
+              width: 306px;
+              border-radius: 20px;
+              margin: 12px;
+              animation: skeletons_itemBox 1.8s infinite ease-in-out;
+              @keyframes skeletons_itemBox {
+                0% {
+                  background-color: rgba(165, 165, 165, 0.1);
+                }
+                50% {
+                  background-color: rgba(165, 165, 165, 0.3);
+                }
+                100% {
+                  background-color: rgba(165, 165, 165, 0.1);
+                }
               }
             }
-          }
-          .skeletons_textBox {
-            background: #e0e0e0;
-            height: 70px;
-            border-radius: 20px;
-            padding: 10px;
-            margin: 12px;
-            animation: skeletons_textBox 1.8s infinite ease-in-out;
-            @keyframes skeletons_textBox {
-              0% {
-                background-color: rgba(165, 165, 165, 0.1);
-              }
-              50% {
-                background-color: rgba(165, 165, 165, 0.3);
-              }
-              100% {
-                background-color: rgba(165, 165, 165, 0.1);
+            .skeletons_textBox {
+              background: #e0e0e0;
+              width: 306px;
+              height: 92px;
+              border-radius: 20px;
+              padding: 10px;
+              margin: 12px;
+              animation: skeletons_textBox 1.8s infinite ease-in-out;
+              @keyframes skeletons_textBox {
+                0% {
+                  background-color: rgba(165, 165, 165, 0.1);
+                }
+                50% {
+                  background-color: rgba(165, 165, 165, 0.3);
+                }
+                100% {
+                  background-color: rgba(165, 165, 165, 0.1);
+                }
               }
             }
           }

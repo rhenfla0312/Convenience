@@ -21,11 +21,12 @@ export default {
       errorTilteCount: false,
       errorItemCount: false,
       errorContentCount: false,
-    
+      Loading: false
     }
   },
   methods: {
     cuClick() {
+      this.Loading = false
       this.cuData = true
       this.gsData = false
       this.ministopData = false
@@ -36,11 +37,13 @@ export default {
         }).then((res) => {
           console.log(res)
           this.datas = res.data
+          this.Loading = true
         }).catch((error) => {
           console.log(error)
         })
     },
     gsClick() {
+      this.Loading = false
       this.cuData = false
       this.gsData = true
       this.ministopData = false
@@ -51,11 +54,13 @@ export default {
         }).then((res) => {
           console.log(res)
           this.datas = res.data
+          this.Loading = true
         }).catch((error) => {
           console.log(error)
         })
     },
     ministopClick() {
+      this.Loading = false
       this.cuData = false
       this.gsData = false
       this.ministopData = true
@@ -66,6 +71,7 @@ export default {
         }).then((res) => {
           console.log(res)
           this.datas = res.data
+          this.Loading = true
         }).catch((error) => {
           console.log(error)
         })
@@ -131,6 +137,7 @@ export default {
     }).then((res) => {
       console.log(res)
       this.datas = res.data
+      this.Loading = true
     }).catch((error) => {
       console.log(error)
     })
@@ -169,13 +176,17 @@ export default {
             <div @click="gsClick" :class="{ gsData : gsData }" class="gs menu">GS25</div>
             <div @click="ministopClick" :class="{ ministopData : ministopData }" class="ministop menu">MINISTOP</div>
           </div>
-          <div class="__items">
+          <div class="__items" v-if="Loading">
             <label class="__item" :for="index" v-for="(data, index) in datas" :key="data">
               <input :id="index" type="checkbox" class="__checkbox" :value="data.id" v-model="checkboxDatas">
               <img class="__img" :src="`/DRF${data.image}`">
               <div class="__name">{{ data.name }}</div>
               <div class="__price">{{ data.price }}원</div>
             </label>
+          </div>
+          <!-- 스켈레톤 -->
+          <div class="skeletons__item" v-else>
+            <div class="__item" :for="index" v-for="(data, index) in datas" :key="data"></div>
           </div>
         </div>
         <!-- 설명 -->
@@ -332,6 +343,27 @@ export default {
                 width: 100px;
                 height: 15px;
                 margin-top: 5px;
+              }
+            }
+          }
+          .skeletons__item {
+            .__item {
+              width: 160px;
+              height: 250px;
+              border-radius: 20px;
+              background: #e0e0e0;
+              margin: 10px;
+              animation: __item 1.8s infinite ease-in-out;
+              @keyframes __item {
+                0% {
+                  background-color: rgba(165, 165, 165, 0.1);
+                }
+                50% {
+                  background-color: rgba(165, 165, 165, 0.3);
+                }
+                100% {
+                  background-color: rgba(165, 165, 165, 0.1);
+                }
               }
             }
           }

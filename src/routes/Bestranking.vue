@@ -45,10 +45,10 @@ export default {
   data() {
     return {
       chartData: {
-        labels: [ 'January', 'February', 'March', 'January', 'February', 'Jong' ],
+        labels: ['영씨','김씨','장씨','구씨','호씨'],
         datasets: [{
           label: 'My First Dataset',
-          data: [65, 59, 80, 81, 60, 70],
+          data: [65,85,25,13,46],
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(255, 159, 64, 0.2)',
@@ -71,37 +71,13 @@ export default {
       chartOptions: {
         responsive: true,
       },
-      rankingItems: [
-        { number : 1,
-          item : '1번 아이템'
-        },
-        { number : 2,
-          item : '2번 아이템'
-        },
-        { number : 3,
-          item : '3번 아이템'
-        },
-        { number : 4,
-          item : '4번 아이템'
-        },
-        { number : 5,
-          item : '5번 아이템'
-        },
-        { number : 6,
-          item : '6번 아이템'
-        },
-        { number : 7,
-          item : '7번 아이템'
-        },
-        { number : 8,
-          item : '8번 아이템'
-        }
-      ],
       isActive : false,
       totalDatas: [],
       nextData: "",
       count : "",
       bestDatas: [],
+      bestData_number : "",
+      bestData_title : [],
     }
   },
   methods: {
@@ -176,7 +152,8 @@ export default {
           <div class="rankingBox">
             <div class="rankingItem" v-for="(bestData,index) in bestDatas" :key="bestData">
               <div class="itemHead">{{ index + 1 }}</div>
-              <!-- <div class="item">{{ rankingItem.item}}</div> -->
+              <div class="item">{{ bestData.title }}</div>
+              <!-- <div class="item">{{ bestData.nickname }}</div> -->
             </div>
             <div class="allBox" :class="{ active: isActive }">
               <div class="allTable" :class="{ active: isActive }">

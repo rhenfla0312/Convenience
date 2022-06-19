@@ -8,7 +8,12 @@ export default {
       id_answer: '',
       pw_email : '',
       pw_question: '',
-      pw_answer: ''
+      pw_answer: '',
+
+      error_username: '',
+      error_id_question: '',
+      error_pw_email: '',
+      error_pw_question: ''
     }
   },
   methods: {
@@ -25,6 +30,8 @@ export default {
         console.log(res)
       }).catch((error) => {
         console.log(error)
+        this.error_username = error.response.data.username
+        this.error_id_question = error.response.data.question
       })
     },
     pwData() {
@@ -40,6 +47,8 @@ export default {
         console.log(res)
       }).catch((error) => {
         console.log(error)
+        this.error_pw_email = error.response.data.email
+        this.error_pw_question = error.response.data.question
       })
     }
   }
@@ -61,6 +70,7 @@ export default {
             <div class="login__id">
               <div class="id__name">닉네임</div>
               <input v-model="username" id="email" type="text" autocomplete="off" placeholder="닉네임을 입력해주세요">
+              <div class="error">{{ error_username }}</div>
             </div>
             <div class="login__select">
               <div class="select__name">질문선택</div>
@@ -76,6 +86,7 @@ export default {
             <div class="login__id">
               <div class="id__name">질문 답</div>
               <input @keydown.enter.prevent="idData()" v-model="id_answer" id="email" type="text" autocomplete="off" placeholder="질문의 답을 입력해주세요">
+              <div class="error">{{ error_id_question }}</div>
             </div>
             <div @click="idData()" class="loginBtn">
               <div class="btn">아이디 찾기</div>
@@ -87,6 +98,7 @@ export default {
             <div class="login__id">
               <div class="id__name">이메일</div>
               <input v-model="pw_email" id="email" type="email" autocomplete="off" placeholder="이메일을 입력해주세요">
+              <div class="error">{{ error_pw_email }}</div>
             </div>
             <div class="login__select">
               <div class="select__name">질문선택</div>
@@ -102,6 +114,7 @@ export default {
             <div class="login__id">
               <div class="id__name">질문 답</div>
               <input @keydown.enter.prevent="pwData()" v-model="pw_answer" id="email" type="text" autocomplete="off" placeholder="질문의 답을 입력해주세요">
+              <div class="error">{{ error_pw_question }}</div>
             </div>
             <div @click="pwData()" class="loginBtn">
               <div class="btn">비밀번호 찾기</div>
@@ -118,7 +131,6 @@ export default {
   .loginFind {
     position: relative;
     top: 125px;
-    height: 600px;
     padding: 0 0 80px 0;
     // min-width: 1900px;
     background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
@@ -148,8 +160,6 @@ export default {
         .loginFind__id {
           border: 1px solid #dddddd;
           width: 500px;
-          height: 480px;
-          text-align: center;
           border-radius: 20px;
           background: #fff;
           .login__inner {
@@ -178,6 +188,7 @@ export default {
             }
             .loginBtn {
               margin-top: 70px;
+              margin-bottom: 30px;
               .btn {
                 border: 1px solid #dddddd;
                 border-radius: 20px;
@@ -229,8 +240,6 @@ export default {
         .loginFind__pw {
           border: 1px solid #dddddd;
           width: 500px;
-          height: 480px;
-          text-align: center;
           border-radius: 20px;
           background: #fff;
           .login__inner {
@@ -259,6 +268,7 @@ export default {
             }
             .loginBtn {
               margin-top: 70px;
+              margin-bottom: 30px;
               .btn {
                 border: 1px solid #dddddd;
                 border-radius: 20px;
@@ -306,6 +316,12 @@ export default {
               }
             }
           }
+        }
+        .error {
+          color: red;
+          margin-top: 5px;
+          font-weight: 500;
+          margin-left: 10px;
         }
       }
     }

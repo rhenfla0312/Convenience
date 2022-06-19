@@ -224,7 +224,7 @@ export default {
       console.log(res)
       this.datas = res.data.results
       this.nextData = res.data.next
-      this.Loading = !this.Loading
+      this.Loading = true
     }).catch((error) => {
       console.log(error)
     })
@@ -275,10 +275,8 @@ export default {
       <!-- 스켈레톤 UI -->
       <div class="convenience__main" v-else>
         <div class="item" v-for="totalData in datas" :key="totalData">
-          <div class="skeletons_itemBox">
-          </div>
-          <div class="skeletons_textBox">
-          </div>
+          <div class="skeletons_itemBox"></div>
+          <div class="skeletons_textBox"></div>
         </div>
       </div>
     </div>

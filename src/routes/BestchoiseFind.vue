@@ -28,14 +28,19 @@ export default {
     <div class="bestchoiseFind__inner">
       <div class="bestchoiseFind__name">상세보기</div>
       <div class="bestchoiseFind__main">
-        <div>{{ menu.title }}</div>
-        <div>{{ menu.nickname }}</div>
-        <div>{{ menu.content }}</div>
-        <div>{{ menu.create_date }}</div>
-        <div v-for="data in datas" :key="data">
-          <div>{{ data.name }}</div>
-          <div>{{ data.price }}</div>
-          <img :src="`/DRF/media/${data.image}`" />
+        <div class="__title">제목 : {{ menu.title }}</div>
+        <div class="__name">닉네임 : {{ menu.nickname }}</div>
+        <div class="__date">생성시간 : {{ menu.create_date.slice(0,-22) }}</div>
+        <div class="__content">설명 : {{ menu.content }}</div>
+        <div class="__items">
+          <div class="__mixItem" v-for="data in datas" :key="data">
+            <img class="__img" :src="`/DRF/media/${data.image}`" />
+            <div class="__text">
+              <div>{{ data.name }}</div>
+              <div>{{ data.price }}원</div>
+            </div>
+            <i class="fa-solid fa-plus __plus"></i>
+          </div>
         </div>
         <!-- <div>{{ menu.likes_cnt }}</div> -->
         <!-- <button @click="goodBtn">좋아요</button> -->
@@ -52,7 +57,7 @@ export default {
   .bestchoiseFind {
     position: relative;
     top: 125px;
-    height: 750px;
+    // height: 750px;
     background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
     .bestchoiseFind__inner {
       width: 1200px;
@@ -67,7 +72,47 @@ export default {
 
       // 메인
       .bestchoiseFind__main {
-        display: flex;
+        margin-top: 30px;
+        text-align: center;
+        font-size: 25px;
+        .__name {
+          margin-top: 30px;
+        }
+        .__content {
+          margin-top: 30px;
+        }
+        .__date {
+          margin-top: 30px;
+        }
+        .__items {
+          padding: 50px;
+          margin-top: 30px;
+          margin-bottom: 30px;
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 20px;
+          .__mixItem {
+            position: relative;
+            margin: 15px;
+            width: 200px;
+            background: #fff;
+            border-radius: 20px;
+            margin: auto;
+            .__img {
+              width: 200px;
+              border-radius: 20px;
+            }
+            .__text {
+              font-size: 15px;
+              padding: 5px;
+            }
+            .__plus {
+              position: absolute;
+              right: -50px;
+              bottom: 50%;
+            }
+          }
+        }
       }
       // 스켈레톤 UI
       // .skeletons__menu {
