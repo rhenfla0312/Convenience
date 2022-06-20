@@ -10,8 +10,6 @@ export default {
       title: "",
       content: "",
       checkboxDatas : [],
-      // maxChecked : 5,
-      // totalChecked : 0,
       userName: '',
       
       // errorData

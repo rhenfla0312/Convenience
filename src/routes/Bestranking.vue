@@ -78,6 +78,9 @@ export default {
       bestDatas: [],
       bestData_number : "",
       bestData_title : [],
+
+      fotData : "",
+      forIndex : ""
     }
   },
   methods: {

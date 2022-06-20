@@ -49,6 +49,9 @@ export default {
         console.log(error)
       })
     },
+    handleScroll() {
+      window.scrollTo(0, 0);
+    }
   },
   mounted() {
     axios.get("http://54.180.193.83:8081/Main/")
@@ -80,7 +83,10 @@ export default {
             </div>
           </div>
         </div>
-        <Page style="grid-column: 1/5" @click="nextPage" />
+        <div class="pagenation">
+          <div class="page" @click="nextPage">더보기</div>
+          <div class="page" @click="handleScroll()">맨위로</div>
+        </div>
       </div>
       <!-- 스켈레톤 UI -->
       <div class="bestchoise__main" v-else>
@@ -188,6 +194,23 @@ export default {
                 }
               }
             }
+          }
+        }
+        .pagenation {
+          display: grid;
+          grid-template-columns: 2fr 1fr;
+          text-align: center;
+          margin: 12px;
+          gap: 20px;
+          grid-column: 1/5;
+          .page {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            border-radius: 10px;
+            height: 35px;
+            background: #e0e0e0;
           }
         }
       }
