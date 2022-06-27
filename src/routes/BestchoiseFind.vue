@@ -5,7 +5,6 @@ export default {
     return {
       Loading : false,
       id : this.$route.params.id,
-      menu : "",
       datas : "",
       comment : "",
     }
@@ -28,10 +27,10 @@ export default {
     // },
     // itemUpadate() {
     //   axios({
-    //     method : '',
+    //     method : 'patch',
     //     url : `http://54.180.193.83:8081/comment/${this.menu.id}`,
     //     data : {
-
+            // comment : this.comment
     //     }
     //   }).then((res) => {
     //     console.log(res)
@@ -61,10 +60,12 @@ export default {
     // },
     // update() {
     //   axios({
-    //     method: '',
+    //     method: 'patch',
     //     url : `http://54.180.193.83:8081/posts/${this.menu.id}`,
     //     data : {
-
+            // title : this.datas.title,
+            // content : this.datas.content,
+            // item : this.datas.a
     //     }
     //   }).then((res) => {
     //     console.log(res)
@@ -77,7 +78,6 @@ export default {
     axios.get(`http://54.180.193.83:8081/posts/${this.id}`)
     .then((res) => {
       console.log(res)
-      this.menu = res.data
       this.datas = res.data
     }).catch((error) => {
       console.log(error)
@@ -92,10 +92,10 @@ export default {
     <div class="bestchoiseFind__inner">
       <div class="bestchoiseFind__name">상세보기</div>
       <div class="bestchoiseFind__main">
-        <div class="__title">제목 : {{ menu.title }}</div>
-        <div class="__name">닉네임 : {{ menu.nickname }}</div>
-        <div class="__date">생성시간 : {{ menu.create_date.slice(0,-22) }}</div>
-        <div class="__content">설명 : {{ menu.content }}</div>
+        <div class="__title">제목 : {{ datas.title }}</div>
+        <div class="__name">닉네임 : {{ datas.nickname }}</div>
+        <div class="__date">생성시간 : {{ datas.create_date.slice(0,-22) }}</div>
+        <div class="__content">설명 : {{ datas.content }}</div>
         <div class="__itemTitle">조합아이템</div>
         <div class="__items">
           <div class="__mixItem" v-for="data in datas" :key="data">
@@ -107,8 +107,6 @@ export default {
             <i class="fa-solid fa-plus __plus"></i>
           </div>
         </div>
-        <!-- <div>{{ menu.likes_cnt }}</div> -->
-        <!-- <button @click="goodBtn">좋아요</button> -->
       </div>
     </div>
   </div>
