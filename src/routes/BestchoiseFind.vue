@@ -7,14 +7,78 @@ export default {
       id : this.$route.params.id,
       menu : "",
       datas : "",
+      comment : "",
     }
+  },
+  methods: {
+    // comment() {
+    //   axios({
+    //     method: 'POST',
+    //     url : 'http://54.180.193.83:8081/comment/',
+    //     data : {
+    //       comment : this.comment,
+    //       nickname : this.menu.nickname,
+    //       post_id : this.menu.id
+    //     }
+    //   }).then((res) => {
+    //     console.log(res)
+    //   }).catch((error) => {
+    //     console.log(error)
+    //   })
+    // },
+    // itemUpadate() {
+    //   axios({
+    //     method : '',
+    //     url : `http://54.180.193.83:8081/comment/${this.menu.id}`,
+    //     data : {
+
+    //     }
+    //   }).then((res) => {
+    //     console.log(res)
+    //   }).catch((error) => {
+    //     console.log(error)
+    //   })
+    // },
+    // itemDelete() {
+    //   axios({
+    //     method: 'delete',
+    //     url : `http://54.180.193.83:8081/comment/${this.menu.id}`,
+    //   }).then((res) => {
+    //     console.log(res)
+    //   }).catch((error) => {
+    //     console.log(error)
+    //   })
+    // },
+    // delete() {
+    //   axios({
+    //     method: 'delete',
+    //     url : `http://54.180.193.83:8081/posts/${this.menu.id}`
+    //   }).then((res) => {
+    //     console.log(res)
+    //   }).catch((error) => {
+    //     console.log(error)
+    //   })
+    // },
+    // update() {
+    //   axios({
+    //     method: '',
+    //     url : `http://54.180.193.83:8081/posts/${this.menu.id}`,
+    //     data : {
+
+    //     }
+    //   }).then((res) => {
+    //     console.log(res)
+    //   }).catch((error) => {
+    //     console.log(error)
+    //   })
+    // }
   },
   mounted() {
     axios.get(`http://54.180.193.83:8081/posts/${this.id}`)
     .then((res) => {
       console.log(res)
       this.menu = res.data
-      this.datas = res.data.a
+      this.datas = res.data
     }).catch((error) => {
       console.log(error)
     })
@@ -32,6 +96,7 @@ export default {
         <div class="__name">닉네임 : {{ menu.nickname }}</div>
         <div class="__date">생성시간 : {{ menu.create_date.slice(0,-22) }}</div>
         <div class="__content">설명 : {{ menu.content }}</div>
+        <div class="__itemTitle">조합아이템</div>
         <div class="__items">
           <div class="__mixItem" v-for="data in datas" :key="data">
             <img class="__img" :src="`/DRF/media/${data.image}`" />
@@ -79,6 +144,9 @@ export default {
           margin-top: 30px;
         }
         .__content {
+          margin-top: 30px;
+        }
+        .__itemTitle {
           margin-top: 30px;
         }
         .__date {

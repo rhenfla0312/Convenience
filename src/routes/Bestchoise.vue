@@ -51,7 +51,10 @@ export default {
     },
     handleScroll() {
       window.scrollTo(0, 0);
-    }
+    },
+    // search() {
+    //   axios.get(`http://54.180.193.83:8081/Main/?search=${this.datas.id}`)
+    // }
   },
   mounted() {
     axios.get("http://54.180.193.83:8081/Main/")
