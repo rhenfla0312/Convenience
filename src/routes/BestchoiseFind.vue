@@ -70,7 +70,7 @@ export default {
           title : this.menus.title,
           content : this.menus.content,
           item : this.datas,
-          nickname : this.menus.nickname
+          nickname : localStorage.getItem('name')
         }
       }).then((res) => {
         console.log(res)
