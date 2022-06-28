@@ -9,11 +9,11 @@ export default {
     return {
       datas : [],
       nextData: "",
-      Loading : false
+      Loading : false,
     }
   },
   methods: {
-    paramId(data,index) {
+    paramId(data) {
       this.$router.push({
         // push로 파라미터를 날릴땐 path가 아닌 name으로 해야한다?
         name: 'bestChoiseFind',
@@ -52,9 +52,9 @@ export default {
     handleScroll() {
       window.scrollTo(0, 0);
     },
-    // search() {
-    //   axios.get(`http://54.180.193.83:8081/Main/?search=${this.datas.id}`)
-    // }
+    search() {
+      axios.get(`http://54.180.193.83:8081/Main/?search=${this.datas.id}`)
+    }
   },
   mounted() {
     axios.get("http://54.180.193.83:8081/Main/")
@@ -75,10 +75,15 @@ export default {
   <div class="bestchoise">
     <div class="inner">
     <div class="bestchoise__name">꿀조합</div>
+      <!-- 검색 -->
+      <div class="bestchoise__search">
+        <input type="text" class="__search">
+        <i class="fa-solid fa-magnifying-glass search__icon"></i>
+      </div>
       <div class="bestchoise__main" v-if="Loading">
-        <div class="item" v-for="(data, index) in datas" :key="data">
+        <div class="item" v-for="data in datas" :key="data">
           <div class="itemBox">
-            <img class="__img" :src="`/DRF/media/${data.a[0].image}`" @click="paramId(data,index)" />
+            <img class="__img" :src="`/DRF/media/${data.a.image}`" @click="paramId(data)" />
             <div class="__text">
               <div class="name">제목 : {{ data.title }}</div>
               <div class="nickname">닉네임 : {{ data.nickname }}</div>
@@ -113,11 +118,32 @@ export default {
     .inner {
       width: 1320px;
       margin: auto;
+      position: relative;
       .bestchoise__name {
         text-align: center;
         font-size: 30px;
         font-weight: bold;
         line-height: 3;
+      }
+      .bestchoise__search {
+        position: absolute;
+        right: 20px;
+        top: 17px;
+        .__search {
+          width: 200px;
+          border-radius: 10px;
+          outline: none;
+          padding: 3px;
+          border: 1px solid #eeeeee;
+        }
+        .search__icon {
+          position: absolute;
+          right: 10px;
+          top: 5px;
+          padding: 3px;
+          color: #333;
+          cursor: pointer;
+        }
       }
       .bestchoise__main {
         display: grid;
