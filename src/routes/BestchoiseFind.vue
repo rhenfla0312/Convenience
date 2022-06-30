@@ -8,6 +8,7 @@ export default {
       datas : "",
       menus : "",
       comment_data : "",
+      comment_datas : []
     }
   },
   methods: {
@@ -69,7 +70,7 @@ export default {
         data : {
           title : this.menus.title,
           content : this.menus.content,
-          item : this.datas,
+          item : this.datas.image,
           nickname : localStorage.getItem('name')
         }
       }).then((res) => {
@@ -91,6 +92,15 @@ export default {
       console.log(error)
       this.Loading = true
     })
+
+    // comment
+    axios.get('http://54.180.193.83:8081/comment/')
+    .then((res) => {
+      console.log(res)
+      this.comment_datas = res.data.results
+    }).catch((error) => {
+      console.log(error)
+    })
   }
 }
 </script>
@@ -103,7 +113,8 @@ export default {
       <div class="bestchoiseFind__main">
         <div class="__title">제목 : {{ menus.title }}</div>
         <div class="__name">닉네임 : {{ menus.nickname }}</div>
-        <div class="__date">생성시간 : {{ menus.create_date.slice(0,-22) }}</div>
+        <!-- <div class="__date">생성시간 : {{ menus.create_date.slice(0,-22) }}</div> -->
+        <div class="__date">생성시간 : {{ menus.create_date }}</div>
         <div class="__content">설명 : {{ menus.content }}</div>
         <div class="__itemTitle">조합아이템</div>
         <div class="__items" v-if="Loading">
@@ -125,8 +136,11 @@ export default {
           <button class="delete__btn" @click="delets()">삭제</button>
         </div> 
         <div class="comment">
-          <div class="if" v-if="menus.comment">등록된 댓글이 없습니다</div>
-          <div class="else" else>{{ menus.comment }}</div>
+          <div class="if" v-for="comment_data in comment_datas" :key="comment_data">
+            <div class="__nickname">{{ comment_data.nickname }}</div>
+            <div class="__comment">{{ comment_data.comment }}</div>
+          </div>
+          <!-- <div class="if" v-else>등록된 댓글이 없습니다</div> -->
           <div class="comment__box">
             <div class="comment__text">
               <textarea v-model="comment_data" class="__text"></textarea>

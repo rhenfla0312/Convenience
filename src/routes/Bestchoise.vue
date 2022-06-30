@@ -10,6 +10,8 @@ export default {
       datas : [],
       nextData: "",
       Loading : false,
+      search__data : "",
+      search__count : 0,
     }
   },
   methods: {
@@ -53,7 +55,14 @@ export default {
       window.scrollTo(0, 0);
     },
     search() {
-      axios.get(`http://54.180.193.83:8081/Main/?search=${this.datas.id}`)
+      axios.get(`http://54.180.193.83:8081/Main/?search=${this.search__data}`)
+      .then((res) => {
+        console.log(res)
+        this.datas = res.data.results
+        this.search__count = res.data.count
+      }).catch((error) => {
+        console.log(error)
+      })
     }
   },
   mounted() {
@@ -61,6 +70,7 @@ export default {
     .then((res) => {
       console.log(res)
       this.datas = res.data.results
+      this.search__count = res.data.count
       this.nextData = res.data.next
       this.Loading = true
     }).catch((error) => {
@@ -77,13 +87,13 @@ export default {
     <div class="bestchoise__name">꿀조합</div>
       <!-- 검색 -->
       <div class="bestchoise__search">
-        <input type="text" class="__search">
-        <i class="fa-solid fa-magnifying-glass search__icon"></i>
+        <input type="text" class="__search" v-model="search__data" @keydown.enter.prevent="search()">
+        <i class="fa-solid fa-magnifying-glass search__icon" @click="search()"></i>
       </div>
-      <div class="bestchoise__main" v-if="Loading">
+      <div class="bestchoise__main" v-if="search__count >= 1">
         <div class="item" v-for="data in datas" :key="data">
           <div class="itemBox">
-            <img class="__img" :src="`/DRF/media/${data.a.image}`" @click="paramId(data)" />
+            <img class="__img" :src="`/DRF/media/${data.a[0].image}`" @click="paramId(data)" />
             <div class="__text">
               <div class="name">제목 : {{ data.title }}</div>
               <div class="nickname">닉네임 : {{ data.nickname }}</div>
@@ -91,17 +101,19 @@ export default {
             </div>
           </div>
         </div>
-        <div class="pagenation">
-          <div class="page" @click="nextPage">더보기</div>
-          <div class="page" @click="handleScroll()">맨위로</div>
+      </div>
+      <!-- 데이터가 없을 경우 -->
+      <div class="no__data" v-else>등록된 조합이 없습니다</div>
+      <!-- 스켈레톤 UI -->
+      <div class="skeletons__main" v-show="!this.Loading">
+        <div class="item" v-for="data in datas" :key="data">
+          <div class="skeletons__itemBox"></div>
+          <div class="skeletons__textBox"></div>
         </div>
       </div>
-      <!-- 스켈레톤 UI -->
-      <div class="bestchoise__main" v-else>
-        <div class="item" v-for="data in datas" :key="data">
-          <div class="skeletons_itemBox"></div>
-          <div class="skeletons_textBox"></div>
-        </div>
+      <div class="pagenation">
+        <div class="page" @click="nextPage">더보기</div>
+        <div class="page" @click="handleScroll()">맨위로</div>
       </div>
     </div>
   </div>
@@ -182,66 +194,75 @@ export default {
               }
             }
           }
-          // 스켈레톤 UI
-          .bestchoise__main {
-            .skeletons_itemBox {
-              background: #e0e0e0;
-              height: 306px;
-              width: 306px;
-              border-radius: 20px;
-              margin: 12px;
-              animation: skeletons_itemBox 1.8s infinite ease-in-out;
-              @keyframes skeletons_itemBox {
-                0% {
-                  background-color: rgba(165, 165, 165, 0.1);
-                }
-                50% {
-                  background-color: rgba(165, 165, 165, 0.3);
-                }
-                100% {
-                  background-color: rgba(165, 165, 165, 0.1);
-                }
-              }
-            }
-            .skeletons_textBox {
-              background: #e0e0e0;
-              width: 306px;
-              height: 92px;
-              border-radius: 20px;
-              padding: 10px;
-              margin: 12px;
-              animation: skeletons_textBox 1.8s infinite ease-in-out;
-              @keyframes skeletons_textBox {
-                0% {
-                  background-color: rgba(165, 165, 165, 0.1);
-                }
-                50% {
-                  background-color: rgba(165, 165, 165, 0.3);
-                }
-                100% {
-                  background-color: rgba(165, 165, 165, 0.1);
-                }
-              }
-            }
-          }
         }
-        .pagenation {
-          display: grid;
-          grid-template-columns: 2fr 1fr;
-          text-align: center;
+      }
+      // 스켈레톤 UI
+      .skeletons__main {
+        position: relative;
+        z-index: 100;
+        .skeletons__itemBox {
+          background: #e0e0e0;
+          height: 306px;
+          width: 306px;
+          border-radius: 20px;
           margin: 12px;
-          gap: 20px;
-          grid-column: 1/5;
-          .page {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            border-radius: 10px;
-            height: 35px;
-            background: #e0e0e0;
+          animation: skeletons_itemBox 1.8s infinite ease-in-out;
+          @keyframes skeletons_itemBox {
+            0% {
+              background-color: rgba(165, 165, 165, 0.1);
+            }
+            50% {
+              background-color: rgba(165, 165, 165, 0.3);
+            }
+            100% {
+              background-color: rgba(165, 165, 165, 0.1);
+            }
           }
         }
+        .skeletons__textBox {
+          background: #e0e0e0;
+          width: 306px;
+          height: 92px;
+          border-radius: 20px;
+          padding: 10px;
+          margin: 12px;
+          animation: skeletons_textBox 1.8s infinite ease-in-out;
+          @keyframes skeletons_textBox {
+            0% {
+              background-color: rgba(165, 165, 165, 0.1);
+            }
+            50% {
+              background-color: rgba(165, 165, 165, 0.3);
+            }
+            100% {
+              background-color: rgba(165, 165, 165, 0.1);
+            }
+          }
+        }
+      }
+      .pagenation {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        text-align: center;
+        margin: 12px;
+        gap: 20px;
+        grid-column: 1/5;
+        .page {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+          border-radius: 10px;
+          height: 35px;
+          background: #e0e0e0;
+        }
+      }
+      .no__data {
+        height: 400px;
+        text-align: center;
+        margin-top: 60px;
+        font-size: 30px;
+        font-weight: bold;
       }
     }
   }
