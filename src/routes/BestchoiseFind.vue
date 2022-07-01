@@ -18,11 +18,12 @@ export default {
         url : 'http://54.180.193.83:8081/comment/',
         data : {
           comment : this.comment_data,
-          nickname : this.menus.nickname,
+          nickname : localStorage.getItem('name'),
           post_id : this.menus.id
         }
       }).then((res) => {
         console.log(res)
+        this.$router.go()
       }).catch((error) => {
         console.log(error)
       })
@@ -87,19 +88,12 @@ export default {
       // data만으로 그안의 a객체들을 반복문으로 나오게할라했는데 a에 대한거만 해야하므로 따로 만든다
       this.menus = res.data
       this.datas = res.data.a
+      // 댓글
+      this.comment_datas = res.data.post
       this.Loading = true
     }).catch((error) => {
       console.log(error)
       this.Loading = true
-    })
-
-    // comment
-    axios.get('http://54.180.193.83:8081/comment/')
-    .then((res) => {
-      console.log(res)
-      this.comment_datas = res.data.results
-    }).catch((error) => {
-      console.log(error)
     })
   }
 }
