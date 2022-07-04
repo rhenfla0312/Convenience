@@ -8,7 +8,8 @@ export default {
       datas : "",
       menus : "",
       comment_data : "",
-      comment_datas : []
+      comment_datas : [],
+      localName: localStorage.getItem("name")
     }
   },
   methods: {
@@ -30,10 +31,11 @@ export default {
     },
     itemUpadate() {
       axios({
-        method : 'put',
-        url : `http://54.180.193.83:8081/comment/${this.menus.id}/`,
+        method : 'PUT',
+        url : `http://54.180.193.83:8081/comment/${this.menus.id}`,
         data : {
-            comment : this.comment
+          comment : this.comment_data,
+          nickname : localStorage.getItem('name')
         }
       }).then((res) => {
         console.log(res)
@@ -41,12 +43,17 @@ export default {
         console.log(error)
       })
     },
-    itemDelete() {
+    itemDelete(comment_data) {
       axios({
-        method: 'delete',
-        url : `http://54.180.193.83:8081/comment/${this.menus.id}`,
+        method: 'DELETE',
+        url : `http://54.180.193.83:8081/comment/${comment_data}/`,
+        data : {
+          nickname : localStorage.getItem('name')
+        }
       }).then((res) => {
         console.log(res)
+        alert("삭제되었습니다")
+        this.$router.go('')
       }).catch((error) => {
         console.log(error)
       })
@@ -56,10 +63,12 @@ export default {
         method: 'delete',
         url : `http://54.180.193.83:8081/posts/${this.menus.id}`,
         data : {
-          nickname : this.menus.nickname
+          nickname : localStorage.getItem('name')
         }
       }).then((res) => {
         console.log(res)
+        alert("삭제되었습니다")
+        this.$router.push('/bestChoise')
       }).catch((error) => {
         console.log(error)
       })
@@ -96,6 +105,7 @@ export default {
       this.Loading = true
     })
   }
+
 }
 </script>
 
@@ -125,13 +135,19 @@ export default {
           <div class="__mixItem" v-for="data in datas" :key="data"></div>
         </div>
         <!-- 수정, 삭제 -->
-        <div class="btns">
-          <button class="update__btn" @click="update()">수정</button>
-          <button class="delete__btn" @click="delets()">삭제</button>
+        <div class="btns" v-if="this.menus.nickname == this.localName">
+          <button class="update__btn">수정</button>
+          <button class="delete__btn" @click="deletes()">삭제</button>
         </div> 
         <div class="comment">
           <div class="if" v-for="comment_data in comment_datas" :key="comment_data">
-            <div class="__nickname">{{ comment_data.nickname }}</div>
+            <div class="comment__info">
+              <div class="__nickname">{{ comment_data.nickname }}</div>
+              <div class="__info" v-if="comment_data.nickname == this.localName">
+                <div class="__update">수정</div>
+                <div class="__delete" @click="itemDelete(comment_data.id)">삭제</div>
+              </div>
+            </div>
             <div class="__comment">{{ comment_data.comment }}</div>
           </div>
           <!-- <div class="if" v-else>등록된 댓글이 없습니다</div> -->
@@ -294,6 +310,14 @@ export default {
             font-size: 20px;
             text-align: start;
             padding-left: 10px;
+            .comment__info {
+              position: relative;
+              .__info {
+                display: flex;
+                position: absolute;
+                right: 0;
+              }
+            }
           }
           .comment__box {
             position: absolute;

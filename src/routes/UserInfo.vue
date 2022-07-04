@@ -33,7 +33,8 @@ export default {
         }
       }).then((res) => {
         console.log(res)
-
+        alert(res.data)
+        this.$router.push('/login')
       }).catch((error) => {
         console.log(error)
           this.error_email = error.response.data.email
@@ -60,11 +61,13 @@ export default {
           <div class="login__id">
             <div class="id__name">이메일</div>
             <input v-model="email" id="email" type="email" autocomplete="off" placeholder="이메일을 입력해주세요" @keydown.tab="loginData()" @keydown.enter.prevent="loginData()">
+            <button class="login__errorBtn">중복확인</button>
           </div>
           <div class="error">{{ error_email }}</div>
           <div class="login__id">
             <div class="id__name">닉네임</div>
             <input v-model="username" id="email" type="text" autocomplete="off" placeholder="닉네임 입력해주세요" @keydown.tab="loginData()" @keydown.enter.prevent="loginData()">
+            <button class="login__errorBtn">중복확인</button>
           </div>
           <div class="error">{{ error_username }}</div>
           <div class="login__pw">
@@ -133,7 +136,8 @@ export default {
           position: relative;
           margin: auto;
           .login__id {
-            margin-top: 50px;
+            margin-top: 40px;
+            position: relative;
             .id__name {
               margin-left: 10px;
               font-size: 13px;
@@ -148,6 +152,21 @@ export default {
               border-bottom: 1px solid #dddddd;
               &:focus {
                 border-bottom: 2px solid #424242;
+              }
+            }
+            .login__errorBtn {
+              bottom: 5px;
+              position: absolute;
+              right: 10px;
+              width: 80px;
+              height: 30px;
+              font-size: 15px;
+              border-radius: 10px;
+              color: #000;
+              background: #fff;
+              &:hover {
+                background : #000;
+                color: #fff;
               }
             }
           }

@@ -83,7 +83,7 @@ export default {
 
 <template>
   <div class="bestchoise">
-    <div class="inner">w
+    <div class="inner">
     <div class="bestchoise__name">꿀조합</div>
       <!-- 검색 -->
       <div class="bestchoise__search">
