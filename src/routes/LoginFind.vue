@@ -36,15 +36,16 @@ export default {
     },
     pwData() {
       axios({
-        method: "GET",
+        method: "POST",
         url: "http://54.180.193.83:8081/user/passwdfind/",
-        params: {
+        data: {
           email : this.pw_email,
           question : this.pw_question,
           answer : this.pw_answer
         }
       }).then((res) => {
         console.log(res)
+        alert("입력하신 이메일로 URL을 보내드렸습니다");
       }).catch((error) => {
         console.log(error)
         this.error_pw_email = error.response.data.email

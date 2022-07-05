@@ -138,7 +138,7 @@ export default {
         <div class="btns" v-if="this.menus.nickname == this.localName">
           <button class="update__btn">수정</button>
           <button class="delete__btn" @click="deletes()">삭제</button>
-        </div> 
+        </div>
         <div class="comment">
           <div class="if" v-for="comment_data in comment_datas" :key="comment_data">
             <div class="comment__info">

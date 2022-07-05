@@ -10,6 +10,7 @@ import Mychoise from './Mychoise.vue'
 
 import Login from './Login.vue'
 import LoginInfo from './LoginInfo.vue'
+import PwChange from './PwChange.vue'
 import SignUp from './SignUp.vue'
 import ServiceCenter from './ServiceCenter.vue'
 import UserInfo from './UserInfo.vue'
@@ -81,6 +82,10 @@ export default createRouter({
     {
       path: '/login/loginFind',
       component: LoginFind
+    },
+    {
+      path: '/login/loginFind/pwChange/:id/:localId',
+      component: PwChange
     },
     {
       path: '/convenience',
