@@ -9,7 +9,7 @@ export default {
       password2:"",
       question:"",
       answer:"",
-      
+      // error message
       error_email: "",
       error_username: "",
       error_password1: "",
@@ -45,6 +45,36 @@ export default {
           this.error_answer = error.response.data.answer
 
       })
+    },
+    email_check() {
+      axios({
+        method: "POST",
+        url: "http://54.180.193.83:8081/OverLapTest/",
+        data: {
+          email : this.email,
+          nickname : ""
+        }
+      }).then((res) => {
+        console.log(res)
+        this.error_email = res.data.email
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+    name_check() {
+      axios({
+        method: "POST",
+        url: "http://54.180.193.83:8081/OverLapTest/",
+        data: {
+          email : "",
+          nickname : this.username
+        }
+      }).then((res) => {
+        console.log(res)
+        this.error_username = res.data.nickname
+      }).catch((error) => {
+        console.log(error)
+      })
     }
   }
 }
@@ -61,13 +91,13 @@ export default {
           <div class="login__id">
             <div class="id__name">이메일</div>
             <input v-model="email" id="email" type="email" autocomplete="off" placeholder="이메일을 입력해주세요" @keydown.tab="loginData()" @keydown.enter.prevent="loginData()">
-            <button class="login__errorBtn">중복확인</button>
+            <button @click="email_check()" class="login__errorBtn">중복확인</button>
           </div>
           <div class="error">{{ error_email }}</div>
           <div class="login__id">
             <div class="id__name">닉네임</div>
             <input v-model="username" id="email" type="text" autocomplete="off" placeholder="닉네임 입력해주세요" @keydown.tab="loginData()" @keydown.enter.prevent="loginData()">
-            <button class="login__errorBtn">중복확인</button>
+            <button @click="name_check()" class="login__errorBtn">중복확인</button>
           </div>
           <div class="error">{{ error_username }}</div>
           <div class="login__pw">

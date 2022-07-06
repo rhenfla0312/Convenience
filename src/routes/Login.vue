@@ -53,7 +53,7 @@ export default {
         </div>
         <div class="loginError">
           <RouterLink to="/login/loginFind" class="singIn">아이디 찾기/ 비밀번호 찾기</RouterLink>
-          <RouterLink to="/signUp" class="singUp">회원가입</RouterLink>
+          <RouterLink to="/login/emailCheck" class="singUp">인증메일 재발송</RouterLink>
         </div>
       </div>
     </div>
