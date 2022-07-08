@@ -13,6 +13,8 @@ import LoginInfo from './LoginInfo.vue'
 import PwChange from './PwChange.vue'
 import EmailCheck from './EmailCheck.vue'
 import SignUp from './SignUp.vue'
+import NotPage from './NotPage.vue'
+
 import ServiceCenter from './ServiceCenter.vue'
 import UserInfo from './UserInfo.vue'
 import LoginFind from './LoginFind.vue'
@@ -75,6 +77,10 @@ export default createRouter({
     {
       path: '/signUp',
       component: SignUp
+    },
+    {
+      path: '/notpage',
+      component: NotPage
     },
     {
       path: '/servicecenter',
