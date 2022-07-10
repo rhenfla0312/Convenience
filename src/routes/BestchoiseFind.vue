@@ -17,6 +17,9 @@ export default {
       axios({
         method: 'POST',
         url : 'http://54.180.193.83:8081/comment/',
+        headers: {
+          Authorization : `Bearer ${localStorage.getItem('access')}`
+        },
         data : {
           comment : this.comment_data,
           nickname : localStorage.getItem('name'),
@@ -47,6 +50,9 @@ export default {
       axios({
         method: 'DELETE',
         url : `http://54.180.193.83:8081/comment/${comment_data}/`,
+        headers: {
+          Authorization : `Bearer ${localStorage.getItem('access')}`
+        },
         data : {
           nickname : localStorage.getItem('name')
         }
@@ -62,6 +68,9 @@ export default {
       axios({
         method: 'delete',
         url : `http://54.180.193.83:8081/posts/${this.menus.id}`,
+        headers: {
+          Authorization : `Bearer ${localStorage.getItem('access')}`
+        },
         data : {
           nickname : localStorage.getItem('name')
         }
@@ -74,20 +83,29 @@ export default {
       })
     },
     update() {
-      axios({
-        method: 'PUT',
-        url : `http://54.180.193.83:8081/posts/${this.menus.id}`,
-        data : {
+      this.$router.push({
+        name : 'myChoise',
+        params : {
+          id : this.menus.id,
           title : this.menus.title,
           content : this.menus.content,
-          item : this.datas.image,
-          nickname : localStorage.getItem('name')
+          item : this.menus.a
         }
-      }).then((res) => {
-        console.log(res)
-      }).catch((error) => {
-        console.log(error)
       })
+      // axios({
+      //   method: 'PUT',
+      //   url : `http://54.180.193.83:8081/posts/${this.menus.id}`,
+      //   data : {
+      //     title : this.menus.title,
+      //     content : this.menus.content,
+      //     item : this.datas.image,
+      //     nickname : localStorage.getItem('name')
+      //   }
+      // }).then((res) => {
+      //   console.log(res)
+      // }).catch((error) => {
+      //   console.log(error)
+      // })
     }
   },
   mounted() {
@@ -136,7 +154,7 @@ export default {
         </div>
         <!-- 수정, 삭제 -->
         <div class="btns" v-if="this.menus.nickname == this.localName">
-          <button class="update__btn">수정</button>
+          <button @click="update()" class="update__btn">수정</button>
           <button class="delete__btn" @click="deletes()">삭제</button>
         </div>
         <div class="comment">

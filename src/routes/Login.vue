@@ -20,6 +20,9 @@ export default {
         console.log(res)
         localStorage.setItem("name", res.data.user.username);
         localStorage.setItem("id", res.data.user.pk);
+        localStorage.setItem("access", res.data.access_token);
+        localStorage.setItem("refresh", res.data.refresh_token);
+        // 5분 동안 활성화
         this.$router.push('/')
         setTimeout(() => {
           this.$router.go()

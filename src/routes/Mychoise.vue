@@ -2,14 +2,24 @@
 import axios from 'axios'
 export default {
   data() {
+    const update_id = this.$route.params.id
+    const update_title = this.$route.params.title
+    const update_item = this.$route.params.item 
+    const update_content = this.$route.params.content
     return {
+      // update
+      update_id : update_id,
+      update_title : update_title,
+      update_item : update_item,
+      update_content : update_content,
+
       cuData: true,
       gsData: false,
       ministopData: false,
       datas: [],
-      title: "",
-      content: "",
-      checkboxDatas : [],
+      title: update_title !== undefined ? update_title : "",
+      checkboxDatas : update_item !== undefined ? update_item : [],
+      content: update_content !== undefined ? update_content : "",
       userName: '',
       
       // errorData
@@ -78,6 +88,9 @@ export default {
       axios({
         method: "POST",
         url: "http://54.180.193.83:8081/posts/",
+        headers: {
+          Authorization : `Bearer ${localStorage.getItem('access')}`
+        },
         data: {
           title : this.title,
           nickname : this.userName,
@@ -112,20 +125,45 @@ export default {
         }
       })
     },
-    // countChecked(data) {
-      // console.log(data)
-      // if (data.checked) {
-      //   this.totalChecked += 1;
-      // } else {
-      //   this.totalChecked -= 1;
-      // }
-
-      // if (this.totalChecked > this.maxChecked) {
-      //   alert ("최대 5개 까지만 가능합니다.");
-      //   data.checked = false;
-      //   this.totalChecked -= 1;
-      // }
-    // }
+    recovereAxios() {
+      axios({
+        url : 'http://54.180.193.83:8081/api/token/refresh/',
+        method : "POST",
+        data : {
+          refresh : localStorage.getItem('refresh')
+        }
+      }).then((res) => {
+        console.log(res)
+        localStorage.setItem('access', res.data.access)
+      }).catch((error) => {
+        console.log(error)
+        alert("일정시간이 지나 로그아웃되었습니다")
+        window.localStorage.removeItem('name');
+        window.localStorage.removeItem('id');
+        window.localStorage.removeItem('access');
+        window.localStorage.removeItem('refresh');
+        this.$router.push('/')
+        setTimeout(() => {
+          this.$router.go()
+        },1000)
+      })
+    },
+    update() {
+      axios({
+        method: 'PUT',
+        url : `http://54.180.193.83:8081/posts/${this.update_id}`,
+        data : {
+          title : this.title,
+          content : this.content,
+          item : this.checkboxDatas,
+          nickname : localStorage.getItem('name')
+        }
+      }).then((res) => {
+        console.log(res)
+      }).catch((error) => {
+        console.log(error)
+      })
+    }
   },
   mounted() {
     axios.get("http://54.180.193.83:8081/objects/",{
@@ -140,6 +178,14 @@ export default {
       console.log(error)
     })
     this.userName = localStorage.getItem('name')
+
+    // token
+    this.recovereAxios()
+
+    setTimeout(() => {
+      alert("일정시간이 지나 메인페이지로 이동합니다")
+      this.$router.push('/')
+    },1200000)
   }
 }
 </script>
@@ -197,7 +243,7 @@ export default {
         </div>
         <!-- button -->
         <div class="mychoise__btn">
-          <button @click="checkboxDataClick" class="__btn">조합하기</button>
+          <button ref="click" @click="update_title !== undefined ? update() : checkboxDataClick()" class="__btn">{{ update_title !== undefined ? '수정' : '조합' }}</button>
         </div>
         <!-- description -->
         <div class="mychoise__description">

@@ -10,6 +10,8 @@ export default {
     logOut() {
       window.localStorage.removeItem('name');
       window.localStorage.removeItem('id');
+      window.localStorage.removeItem('access');
+      window.localStorage.removeItem('refersh');
       this.$router.push('/')
       setTimeout(() => {
         this.$router.go()

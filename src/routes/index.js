@@ -58,7 +58,8 @@ export default createRouter({
       component: Bestranking
     },
     {
-      path: '/myChoise',
+      path: '/myChoise/:id?',
+      name : 'myChoise',
       component: Mychoise
     },
     {
