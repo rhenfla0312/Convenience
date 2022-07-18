@@ -60,23 +60,36 @@ export default {
         console.log(res)
         this.datas = res.data.results
         this.search__count = res.data.count
+        localStorage.setItem('search__data', this.search__data)
       }).catch((error) => {
         console.log(error)
       })
     }
   },
   mounted() {
-    axios.get("http://54.180.193.83:8081/Main/")
-    .then((res) => {
-      console.log(res)
-      this.datas = res.data.results
-      this.search__count = res.data.count
-      this.nextData = res.data.next
-      this.Loading = true
-    }).catch((error) => {
-      console.log(error)
-    })
-  }
+    if(localStorage.getItem('search__data') !== "") {
+      this.search__data = localStorage.getItem('search__data')
+      axios.get(`http://54.180.193.83:8081/Main/?search=${localStorage.getItem('search__data')}`)
+      .then((res) => {
+        console.log(res)
+        this.datas = res.data.results
+        this.search__count = res.data.count
+      }).catch((error) => {
+        console.log(error)
+      })
+    } else {
+      axios.get("http://54.180.193.83:8081/Main/")
+      .then((res) => {
+        console.log(res)
+        this.datas = res.data.results
+        this.search__count = res.data.count
+        this.nextData = res.data.next
+        this.Loading = true
+      }).catch((error) => {
+        console.log(error)
+      })
+    }
+  },
 }
 </script>
 

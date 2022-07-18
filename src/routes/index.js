@@ -2,10 +2,11 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 
 // components
 import Home from './Home.vue'
-import Description from './Description.vue'
 import Bestchoise from './Bestchoise.vue'
 import BestchoiseFind from './BestchoiseFind.vue'
 import Bestranking from './Bestranking.vue'
+import Board from './Board.vue'
+import BoardWrite from './BoardWrite.vue'
 import Mychoise from './Mychoise.vue'
 
 import Login from './Login.vue'
@@ -40,10 +41,6 @@ export default createRouter({
       component: Home
     },
     {
-      path: '/description',
-      component: Description
-    },
-    {
       path: '/bestChoise',
       name: 'bestChoise',
       component: Bestchoise
@@ -66,6 +63,14 @@ export default createRouter({
       path: '/login',
       name: 'login',
       component: Login
+    },
+    {
+      path: '/board',
+      component: Board
+    },
+    {
+      path: '/board/boardWrite',
+      component: BoardWrite
     },
     {
       path: '/login/loginInfo/:loginId?',

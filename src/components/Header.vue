@@ -12,6 +12,11 @@ export default {
       window.localStorage.removeItem('id');
       window.localStorage.removeItem('access');
       window.localStorage.removeItem('refersh');
+      window.localStorage.removeItem('search__data');
+      window.localStorage.removeItem('oneClick');
+      window.localStorage.removeItem('twoClick');
+      window.localStorage.removeItem('eventClick');
+      window.localStorage.removeItem('totalClick');
       this.$router.push('/')
       setTimeout(() => {
         this.$router.go()
@@ -22,6 +27,9 @@ export default {
         alert("로그인 후 사용할 수 있는 서비스 입니다.")
         this.$router.push('/login')
       } 
+    },
+    searchData() {
+      localStorage.setItem('search__data', "")
     }
   },
   computed: {
@@ -50,11 +58,11 @@ export default {
       <div class="menu">
         <RouterLink to="/" class="menu__name">BestChoice</RouterLink>
         <div class="__item">
-          <RouterLink to="/description" class="menu__item">꿀조합 소개</RouterLink>
-          <RouterLink to="/bestChoise" class="menu__item">꿀조합</RouterLink>
+          <RouterLink to="/bestChoise" @click="searchData()" class="menu__item">꿀조합</RouterLink>
           <RouterLink to="/bestRanking" class="menu__item">조합랭킹</RouterLink>
           <RouterLink to="/myChoise" @click="loginCheck()" class="menu__item">나만의 조합</RouterLink>
-          <RouterLink to="/convenience/cu" class="menu__item">편의점 이벤트</RouterLink>
+          <RouterLink to="/board" class="menu__item">자유게시판</RouterLink>
+          <RouterLink to="/convenience/cu" @click="searchData()" class="menu__item">편의점 이벤트</RouterLink>
         </div>
       </div>
     </div>

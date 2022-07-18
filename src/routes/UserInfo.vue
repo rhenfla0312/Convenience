@@ -48,9 +48,9 @@ export default {
     },
     email_check() {
       axios({
-        method: "POST",
+        method: "GET",
         url: "http://54.180.193.83:8081/OverLapTest/",
-        data: {
+        params : {
           email : this.email,
           nickname : ""
         }
@@ -63,9 +63,9 @@ export default {
     },
     name_check() {
       axios({
-        method: "POST",
+        method: "GET",
         url: "http://54.180.193.83:8081/OverLapTest/",
-        data: {
+        params: {
           email : "",
           nickname : this.username
         }
@@ -76,7 +76,7 @@ export default {
         console.log(error)
       })
     }
-  }
+  },
 }
 </script>
 
@@ -90,30 +90,30 @@ export default {
         <div class="login__inner">
           <div class="login__id">
             <div class="id__name">이메일</div>
-            <input v-model="email" id="email" type="email" autocomplete="off" placeholder="이메일을 입력해주세요" @keydown.tab="loginData()" @keydown.enter.prevent="loginData()">
+            <input v-model="email" id="email" type="email" autocomplete="off" placeholder="이메일을 입력해주세요">
             <button @click="email_check()" class="login__errorBtn">중복확인</button>
           </div>
           <div class="error">{{ error_email }}</div>
           <div class="login__id">
             <div class="id__name">닉네임</div>
-            <input v-model="username" id="email" type="text" autocomplete="off" placeholder="닉네임 입력해주세요" @keydown.tab="loginData()" @keydown.enter.prevent="loginData()">
+            <input v-model="username" id="email" type="text" autocomplete="off" placeholder="닉네임 입력해주세요">
             <button @click="name_check()" class="login__errorBtn">중복확인</button>
           </div>
           <div class="error">{{ error_username }}</div>
           <div class="login__pw">
             <div class="pw__name">비밀번호</div>
-            <input v-model="password1" id="password" type="password" placeholder="비밀번호를 입력해주세요" @keydown.tab="loginData()" @keydown.enter.prevent="loginData()">
+            <input v-model="password1" id="password" type="password" placeholder="비밀번호를 입력해주세요">
           </div>
           <div class="error">{{ error_password1 }}</div>
           <div class="login__pw">
             <div class="pw__name">비밀번호 확인</div>
-            <input v-model="password2" id="passwordInfo" type="password" placeholder="비밀번호를 다시 입력해주세요" @keydown.tab="loginData()" @keydown.enter.prevent="loginData()">
+            <input v-model="password2" id="passwordInfo" type="password" placeholder="비밀번호를 다시 입력해주세요">
           </div>
           <div class="error">{{ error_password2 }}</div>
           <!-- 질문 -->
           <div class="login__select">
             <div class="select__name">질문선택</div>
-            <select v-model="question" @keydown.tab="loginData()" @keydown.enter.prevent="loginData()">
+            <select v-model="question">
               <option value="">질문을 선택해주세요</option>
               <option value="내가 처음으로다닌 초등학교는?">내가 처음으로다닌 초등학교는?</option>
               <option value="내 휴대폰 번호는?">내 휴대폰 번호는?</option>

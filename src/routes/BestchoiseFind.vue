@@ -9,7 +9,10 @@ export default {
       menus : "",
       comment_data : "",
       comment_datas : [],
-      localName: localStorage.getItem("name")
+      localName: localStorage.getItem("name"),
+      checkboxDatas : [],
+      update__box : false,
+      comment_update_data: ""
     }
   },
   methods: {
@@ -30,14 +33,18 @@ export default {
         this.$router.go()
       }).catch((error) => {
         console.log(error)
+        alert("댓글을 입력해주세요")
       })
     },
-    itemUpadate() {
+    itemUpadate(comment_data) {
       axios({
         method : 'PUT',
-        url : `http://54.180.193.83:8081/comment/${this.menus.id}`,
+        url : `http://54.180.193.83:8081/comment/${comment_data}`,
+        headers: {
+          Authorization : `Bearer ${localStorage.getItem('access')}`
+        },
         data : {
-          comment : this.comment_data,
+          comment : this.comment_update_data,
           nickname : localStorage.getItem('name')
         }
       }).then((res) => {
@@ -89,23 +96,14 @@ export default {
           id : this.menus.id,
           title : this.menus.title,
           content : this.menus.content,
-          item : this.menus.a
+          // item : this.checkboxDatas
         }
       })
-      // axios({
-      //   method: 'PUT',
-      //   url : `http://54.180.193.83:8081/posts/${this.menus.id}`,
-      //   data : {
-      //     title : this.menus.title,
-      //     content : this.menus.content,
-      //     item : this.datas.image,
-      //     nickname : localStorage.getItem('name')
-      //   }
-      // }).then((res) => {
-      //   console.log(res)
-      // }).catch((error) => {
-      //   console.log(error)
-      // })
+    },
+    itemUpdate__box(comment_data) {
+      if(comment_data) {
+        this.update__box = !this.update__box
+      }
     }
   },
   mounted() {
@@ -141,6 +139,7 @@ export default {
         <div class="__itemTitle">조합아이템</div>
         <div class="__items" v-if="Loading">
           <div class="__mixItem" v-for="data in datas" :key="data">
+            <input type="hidden" :value="data.id" v-model="checkboxDatas">
             <img class="__img" :src="`/DRF/media/${data.image}`" />
             <div class="__text">
               <div>{{ data.name }}</div>
@@ -157,18 +156,37 @@ export default {
           <button @click="update()" class="update__btn">수정</button>
           <button class="delete__btn" @click="deletes()">삭제</button>
         </div>
+        <!-- 댓글 -->
         <div class="comment">
+          <div class="comment__title">전체댓글 000개</div>
           <div class="if" v-for="comment_data in comment_datas" :key="comment_data">
             <div class="comment__info">
               <div class="__nickname">{{ comment_data.nickname }}</div>
-              <div class="__info" v-if="comment_data.nickname == this.localName">
-                <div class="__update">수정</div>
-                <div class="__delete" @click="itemDelete(comment_data.id)">삭제</div>
+              <div @click="itemUpdate__box(comment_data.id)" class="__comment">{{ comment_data.comment }}</div>
+              <div class="__delete" v-if="comment_data.nickname == this.localName" @click="itemDelete(comment_data.id)"><i class="fa-solid fa-xmark"></i></div>
+            </div>
+            <!-- 댓글수정창 -->
+            <div class="comment__update__box" :class="{ update__box : update__box }">
+              <div class="comment__update__text">
+                <textarea v-model="comment_update_data" class="__text" :value="comment_data.comment"></textarea>
+              </div>
+              <div @click="itemUpadate(comment_data.id)" class="comment__update__btn">
+                <button class="__btn">수정</button>
               </div>
             </div>
-            <div class="__comment">{{ comment_data.comment }}</div>
           </div>
-          <!-- <div class="if" v-else>등록된 댓글이 없습니다</div> -->
+          <!-- 페이지네이션 -->
+          <div class="comment__page">
+            <i class="fa-solid fa-1"></i>
+            <i class="fa-solid fa-2"></i>
+            <i class="fa-solid fa-3"></i>
+            <i class="fa-solid fa-4"></i>
+            <i class="fa-solid fa-5"></i>
+            <i class="fa-solid fa-6"></i>
+            <i class="fa-solid fa-7"></i>
+            <i class="fa-solid fa-8"></i>
+            <i class="fa-solid fa-9"></i>
+          </div>
           <div class="comment__box">
             <div class="comment__text">
               <textarea v-model="comment_data" class="__text"></textarea>
@@ -314,58 +332,97 @@ export default {
           }
         }
         .comment {
-          margin: 200px auto auto;
-          width: 630px;
           min-height: 400px;
-          border: 1px solid black;
-          position: relative;
-          border-radius: 10px;
-          .if {
-            margin: 50px;
-            background: #fff;
-            height: 30px;
-            border-radius: 10px;
-            font-size: 20px;
+          font-size: 18px;
+          .comment__title {
+            border-bottom: 2px solid #3b4890;
             text-align: start;
-            padding-left: 10px;
+          }
+          .if {
+            text-align: start;
+            border-bottom: 1px solid #333;
+            &:last-child {
+              border-bottom: none
+            }
             .comment__info {
+              display: flex;
+              padding: 10px 0;
               position: relative;
-              .__info {
-                display: flex;
+              padding: 10px 0 10px 0;
+              .__comment {
                 position: absolute;
-                right: 0;
+                cursor: pointer;
+                left: 400px;
+                cursor: pointer;
+              }
+              .__delete {
+                cursor: pointer;
+                cursor: pointer;
+                position: absolute;
+                right: 3px;
+              }
+            }
+            .comment__update__box {
+              display: none;
+            }
+            .comment__update__box.update__box {
+              display: block;
+              border-top: 2px solid #3b4890;
+              padding: 10px 0 10px 0;
+              .comment__update__text {
+                .__text {
+                  width: 100%;
+                  height: 100px;
+                  outline: none;
+                  resize: none;
+                  font-size: 18px;
+                }
+              }
+              .comment__update__btn {
+                text-align: end;
+                .__btn {
+                  outline: none;
+                  width: 100px;
+                  background: #3b4890;
+                  border-color: #29367c;
+                  color: #fff;
+                  &:hover {
+                    opacity: .8;
+                  }
+                }
               }
             }
           }
+          .comment__page {
+            margin: auto;
+            padding: 10px 0 10px 0;
+            i {
+              margin-right: 10px;
+              cursor: pointer;
+            }
+          }
           .comment__box {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            padding: 50px;
+            border-top: 2px solid #3b4890;
+            padding: 10px 0 10px 0;
             .comment__text {
               .__text {
                 width: 100%;
                 height: 100px;
-                border-radius: 10px;
                 outline: none;
                 resize: none;
+                font-size: 18px;
               }
             }
             .comment__btn {
-              position: absolute;
-              right: 50px;
+              text-align: end;
               .__btn {
                 outline: none;
-                width: 150px;
-                border-radius: 10px;
-                height: 30px;
-                font-size: 20px;
-                background: #fff;
-                color: #000;
+                width: 100px;
+                background: #3b4890;
+                border-color: #29367c;
+                color: #fff;
                 &:hover {
-                  background: #1de9b6;
-                  color: #fff;
-                  border: 1px solid #1de9b6;
+                  opacity: .8;
                 }
               }
             }

@@ -151,6 +151,9 @@ export default {
     update() {
       axios({
         method: 'PUT',
+        headers: {
+          Authorization : `Bearer ${localStorage.getItem('access')}`
+        },
         url : `http://54.180.193.83:8081/posts/${this.update_id}`,
         data : {
           title : this.title,
@@ -160,12 +163,14 @@ export default {
         }
       }).then((res) => {
         console.log(res)
+        this.$router.push('/bestChoise')
       }).catch((error) => {
         console.log(error)
       })
     }
   },
   mounted() {
+    console.log(this.$route.params)
     axios.get("http://54.180.193.83:8081/objects/",{
       params: {
         data: "CU"

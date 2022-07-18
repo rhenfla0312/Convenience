@@ -14,7 +14,18 @@ export default {
     }
   },
   methods: {
+    search__data() {
+      localStorage.setItem('search__data', "")
+      localStorage.setItem('totalClick', "")
+      localStorage.setItem('oneClick', "")
+      localStorage.setItem('twoClick', "")
+      localStorage.setItem('eventClick', "")
+    },
     totalDataBtn() {
+      localStorage.setItem('totalClick', 'click')
+      window.localStorage.removeItem('oneClick');
+      window.localStorage.removeItem('twoClick');
+      window.localStorage.removeItem('eventClick');
       this.Loading = false
       this.totalData = true
       this.oneData = false
@@ -32,6 +43,10 @@ export default {
       })
     },
     oneDataBtn() {
+      localStorage.setItem('oneClick', 'click')
+      window.localStorage.removeItem('twoClick');
+      window.localStorage.removeItem('totalClick');
+      window.localStorage.removeItem('eventClick');
       this.Loading = false
       this.totalData = false
       this.oneData = true
@@ -56,6 +71,10 @@ export default {
       })
     },
     twoDataBtn() {
+      localStorage.setItem('twoClick', 'click')
+      window.localStorage.removeItem('oneClick');
+      window.localStorage.removeItem('eventClick');
+      window.localStorage.removeItem('totalClick');
       this.Loading = false
       this.totalData = false
       this.oneData = false
@@ -80,6 +99,10 @@ export default {
       })
     },
     eventDataBtn() {
+      localStorage.setItem('eventClick', 'click')
+      window.localStorage.removeItem('oneClick');
+      window.localStorage.removeItem('twoClick');
+      window.localStorage.removeItem('totalClick');
       this.Loading = false
       this.totalData = false
       this.oneData = false
@@ -133,12 +156,15 @@ export default {
         }).then((res) => {
           console.log(res)
           this.datas = res.data.results
+          localStorage.setItem('search__data', this.searchData)
           if(res.data.next) {
             this.nextData = res.data.next
             this.Loading = true
+            localStorage.setItem('search__data', this.searchData)
           } else {
             this.nextData = null
             this.Loading = true
+            localStorage.setItem('search__data', this.searchData)
           }
         }).catch((error) => {
           console.log(error)
@@ -153,12 +179,15 @@ export default {
         }).then((res) => {
           console.log(res)
           this.datas = res.data.results
+          localStorage.setItem('search__data', this.searchData)
           if(res.data.next) {
             this.nextData = res.data.next
             this.Loading = true
+            localStorage.setItem('search__data', this.searchData)
           } else {
             this.nextData = null
             this.Loading = true
+            localStorage.setItem('search__data', this.searchData)
           }
         }).catch((error) => {
           console.log(error)
@@ -173,12 +202,15 @@ export default {
         }).then((res) => {
           console.log(res)
             this.datas = res.data.results
+            localStorage.setItem('search__data', this.searchData)
           if(res.data.next) {
             this.nextData = res.data.next
             this.Loading = true
+            localStorage.setItem('search__data', this.searchData)
           } else {
             this.nextData = null
             this.Loading = true
+            localStorage.setItem('search__data', this.searchData)
           }
         }).catch((error) => {
           console.log(error)
@@ -191,12 +223,15 @@ export default {
         }).then((res) => {
           console.log(res)
           this.datas = res.data.results
+          localStorage.setItem('search__data', this.searchData)
           if(res.data.next) {
             this.nextData = res.data.next
             this.Loading = true
+            localStorage.setItem('search__data', this.searchData)
           } else {
             this.nextData = null
             this.Loading = true
+            localStorage.setItem('search__data', this.searchData)
           }
         }).catch((error) => {
           console.log(error)
@@ -217,17 +252,129 @@ export default {
     }
   },
   mounted() {
-    axios({
-      method: "GET",
-      url: "http://54.180.193.83:8081/Main/event/CU/"
-    }).then((res) => {
-      console.log(res)
-      this.datas = res.data.results
-      this.nextData = res.data.next
-      this.Loading = true
-    }).catch((error) => {
-      console.log(error)
-    })
+    if(localStorage.getItem('search__data') !== "") {
+      this.Loading = false
+      this.searchData = localStorage.getItem('search__data')
+      if(localStorage.getItem('oneClick__data') != "") {
+        // 1+1데이터
+        this.totalData = false
+        this.oneData = true
+        this.twoData = false
+        this.eventData = false
+        axios.get("http://54.180.193.83:8081/Main/event/CU/typesearch/",{
+          params: {
+            data: "1+1",
+            search : localStorage.getItem('search__data')
+          }
+        }).then((res) => {
+          console.log(res)
+          this.datas = res.data.results
+          localStorage.setItem('search__data', this.searchData)
+          if(res.data.next) {
+            this.nextData = res.data.next
+            this.Loading = true
+            localStorage.setItem('search__data', this.searchData)
+          } else {
+            this.nextData = null
+            this.Loading = true
+            localStorage.setItem('search__data', this.searchData)
+          }
+        }).catch((error) => {
+          console.log(error)
+        })
+      } else if(localStorage.getItem('twoClick') != "") {
+        // 2+2데이터
+        this.totalData = false
+        this.oneData = false
+        this.twoData = true
+        this.eventData = false
+        axios.get("http://54.180.193.83:8081/Main/event/CU/typesearch/",{
+          params: {
+            data: "2+1",
+            search : localStorage.getItem('search__data')
+          }
+        }).then((res) => {
+          console.log(res)
+          this.datas = res.data.results
+          localStorage.setItem('search__data', this.searchData)
+          if(res.data.next) {
+            this.nextData = res.data.next
+            this.Loading = true
+            localStorage.setItem('search__data', this.searchData)
+          } else {
+            this.nextData = null
+            this.Loading = true
+            localStorage.setItem('search__data', this.searchData)
+          }
+        }).catch((error) => {
+          console.log(error)
+        })
+      } else if(localStorage.getItem('eventClick') != "") {
+        // 덤증정데이터
+        this.totalData = false
+        this.oneData = false
+        this.twoData = false
+        this.eventData = true
+        axios.get("http://54.180.193.83:8081/Main/event/CU/typesearch/",{
+          params: {
+            data: "덤증정",
+            search : localStorage.getItem('search__data')
+          }
+        }).then((res) => {
+          console.log(res)
+          this.datas = res.data.results
+          localStorage.setItem('search__data', this.searchData)
+          if(res.data.next) {
+            this.nextData = res.data.next
+            this.Loading = true
+            localStorage.setItem('search__data', this.searchData)
+          } else {
+            this.nextData = null
+            this.Loading = true
+            localStorage.setItem('search__data', this.searchData)
+          }
+        }).catch((error) => {
+          console.log(error)
+        })
+      } else {
+        // 전체데이터
+        this.totalData = true
+        this.oneData = false
+        this.twoData = false
+        this.eventData = false
+        axios({
+          method: "GET",
+          url: `http://54.180.193.83:8081/Main/event/CU/?search=${localStorage.getItem('search__data')}`
+        }).then((res) => {
+          console.log(res)
+          this.datas = res.data.results
+          localStorage.setItem('search__data', this.searchData)
+          if(res.data.next) {
+            this.nextData = res.data.next
+            this.Loading = true
+            localStorage.setItem('search__data', this.searchData)
+          } else {
+            this.nextData = null
+            this.Loading = true
+            localStorage.setItem('search__data', this.searchData)
+          }
+        }).catch((error) => {
+          console.log(error)
+        })
+      }
+    } else {
+      axios({
+        method: "GET",
+        url: "http://54.180.193.83:8081/Main/event/CU/"
+      }).then((res) => {
+        console.log(res)
+        this.datas = res.data.results
+        this.nextData = res.data.next
+        this.Loading = true
+      }).catch((error) => {
+        console.log(error)
+      })
+    }
   },
 }
 </script>
@@ -237,9 +384,9 @@ export default {
   <div class="convenience">
     <div class="inner">
       <div class="convenience__name">
-        <RouterLink to="/convenience/cu" class="__name __cuName">CU</RouterLink>
-        <RouterLink to="/convenience/gs" class="__name">GS25</RouterLink>
-        <RouterLink to="/convenience/ministop" class="__name">MINISTOP</RouterLink>
+        <RouterLink @click="search__data()" to="/convenience/cu" class="__name __cuName">CU</RouterLink>
+        <RouterLink @click="search__data()" to="/convenience/gs" class="__name">GS25</RouterLink>
+        <RouterLink @click="search__data()" to="/convenience/ministop" class="__name">MINISTOP</RouterLink>
       </div>
       <!-- 검색 -->
       <div class="convenien__search">
