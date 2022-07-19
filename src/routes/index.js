@@ -7,6 +7,7 @@ import BestchoiseFind from './BestchoiseFind.vue'
 import Bestranking from './Bestranking.vue'
 import Board from './Board.vue'
 import BoardWrite from './BoardWrite.vue'
+import BoardFind from './BoardFind.vue'
 import Mychoise from './Mychoise.vue'
 
 import Login from './Login.vue'
@@ -71,6 +72,11 @@ export default createRouter({
     {
       path: '/board/boardWrite',
       component: BoardWrite
+    },
+    {
+      path: '/board/boardFind/:id?',
+      name : BoardFind,
+      component : BoardFind
     },
     {
       path: '/login/loginInfo/:loginId?',

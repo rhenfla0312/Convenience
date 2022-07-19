@@ -177,7 +177,7 @@ export default {
                         <td>{{ index + 1 }}</td>
                         <td>{{ totalData.nickname }}</td>
                         <td>{{ totalData.title }}</td>
-                        <td>{{ totalData.create_date.slice(0,-17) }}</td>
+                        <td>{{ totalData.create_date.slice(0,-22) }}</td>
                         <td>{{ (!totalData.likes_cnt ? 0 : totalData.likes_cnt) }}</td>
                       </tr>
                     </tbody>

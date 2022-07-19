@@ -1,7 +1,45 @@
 <script>
+import axios from 'axios'
 export default {
+  data() {
+    return {
+      board_datas : [],
+      nextData : ""
+    }
+  },
+  methods : {
+    nextPage() {
+      axios({
+        method: "GET",
+        url: this.nextData
+      }).then((res) => {
+        console.log(res)
+        this.nextData = res.data.next
+        this.board_datas = this.board_datas.concat(res.data.results)
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+    boardFind(id) {
+      this.$router.push({
+        name: "BoardFind",
+        params : {
+          id : id
+        }
+      })
+    }
+  },
   mounted() {
-    console.log('asd')
+    axios({
+      url : "http://54.180.193.83:8081/board/",
+      method : "GET"
+    }).then((res) => {
+      console.log(res)
+      this.board_datas = res.data.results
+      this.nextData = res.data.next
+    }).catch((error) => {
+      console.log(error)
+    })
   }
 }
 </script>
@@ -27,18 +65,18 @@ export default {
               </tr>
             </thead>
             <tbody class="tbody">
-              <tr class="tr">
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+              <tr class="tr tr_main" v-for="board_data in board_datas" :key="board_data" @click="boardFind(board_data.id)">
+                <td>{{ board_data.id }}</td>
+                <td>{{ board_data.username}}</td>
+                <td>{{ board_data.title}}</td>
+                <td>{{ board_data.create_date.slice(0,-22) }}</td>
+                <td>0</td>
               </tr>
             </tbody>
           </table>
           <div class="pagenation">
-            <div class="nextPage">더보기</div>
-            <div class="nextPage">글쓰기</div>
+            <div class="nextPage" @click="nextPage()">더보기</div>
+            <RouterLink to="/board/boardWrite" class="nextPage">글쓰기</RouterLink>
           </div>
         </div>
     </div>
@@ -46,6 +84,10 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+  a {
+    color: #000;
+    text-decoration: none;
+  }
   .board {
     position: relative;
     top: 125px;
@@ -65,7 +107,7 @@ export default {
       .board__main {
         position: relative;
         width: 100%;
-        height: 1000px;
+        height: 100%;
         margin: auto;
         padding: 20px;
         box-shadow: 0 7px 25px #00000014;
@@ -97,6 +139,12 @@ export default {
           text-align: center;
           .tr {
             padding: 10px 0 10px 0;
+          }
+          .tr_main {
+            &:hover {
+              box-shadow: 1px 1px 3px 1px;
+              cursor: pointer;
+            }
           }
         }
         .pagenation {

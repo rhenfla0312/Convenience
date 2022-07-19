@@ -49,10 +49,9 @@ export default {
     email_check() {
       axios({
         method: "GET",
-        url: "http://54.180.193.83:8081/OverLapTest/",
+        url: "http://54.180.193.83:8081/OverLapEmail/",
         params : {
           email : this.email,
-          nickname : ""
         }
       }).then((res) => {
         console.log(res)
@@ -64,9 +63,8 @@ export default {
     name_check() {
       axios({
         method: "GET",
-        url: "http://54.180.193.83:8081/OverLapTest/",
+        url: "http://54.180.193.83:8081/OverLapNickname/",
         params: {
-          email : "",
           nickname : this.username
         }
       }).then((res) => {

@@ -1,38 +1,33 @@
 <script>
-import { Form, Field } from 'vee-validate';
-import { object, string }  from 'yup';
-import emailjs from '@emailjs/browser'
+import axios from 'axios'
 export default {
-  components: {
-    Form,
-    Field
-  },
   data() {
     return {
-      name : "",
-      email : "",
+      name : localStorage.getItem('name'),
       title : "",
-      text : "",
+      content : "",
     }
   },
-  methods: {
-    sendEmail() {
-      emailjs.sendForm('gmail', 'template_k9dk8yz', this.$refs.form, 'pUBvV41b8DCquCuoE')
-        .then((result) => {
-          alert("메일이 성공적으로 전송되었습니다.");
-          this.$router.go()
-        }, (error) => {
-          alert("메일을 보내는데 실패했습니다.")
-        });
+  methods : {
+    write() {
+      axios({
+        url : "http://54.180.193.83:8081/board/",
+        headers: {
+          Authorization : `Bearer ${localStorage.getItem('access')}`
+        },
+        method : "POST",
+        data : {
+          username : this.name,
+          title : this.title,
+          content : this.content
+        }
+      }).then((res) => {
+        console.log(res)
+        this.$router.push('/board')
+      }).catch((error) => {
+        console.log(error)
+      })
     }
-  },
-  computed: {
-    schema() {
-      return object({
-        id: string().required('아이디를 입력해주세요.'),
-        password: string().required('비밀번호를 입력해주세요.')
-      });
-    },
   }
 }
 </script>
@@ -41,28 +36,23 @@ export default {
 <template>
   <div class="serviceCenter">
     <div class="inner">
-      <div class="serviceCenter__name">고객센터</div>
+      <div class="serviceCenter__name">글쓰기</div>
       <div class="serviceCenter__main">
         <div class="main__container">
-          <form ref="form"  @submit.prevent="sendEmail">
-            <div class="textBox">
-              <div class="text__name">
-                <input v-model="name" type="text" name="name" placeholder="닉네임을 입력해주세요">
-              </div>
-              <div class="text__email">
-                <input v-model="email" type="email" name="email" placeholder="이메일을 입력해주세요">
-              </div>
-              <div class="text__title">
-                <input v-model="title" type="text" name="title" placeholder="제목을 입력해주세요">
-              </div>
-              <div class="text__textarea">
-                <textarea @keydown.enter.prevent="sendEmail" v-model="text" name="text" id=""></textarea>
-              </div>
+          <div class="textBox">
+            <div class="text__name">
+              <input v-model="name" type="text" name="name" readonly placeholder="닉네임을 입력해주세요">
             </div>
-            <div class="textBtn">
-              <input type="submit" class="btn" value="전송하기" />
+            <div class="text__title">
+              <input v-model="title" type="text" name="title" placeholder="제목을 입력해주세요">
             </div>
-          </form>
+            <div class="text__textarea">
+              <textarea v-model="content" name="text" id=""></textarea>
+            </div>
+          </div>
+          <div @click="write()" class="textBtn">
+            <input type="submit" class="btn" value="작성하기" />
+          </div>
         </div>
       </div>
     </div>
@@ -87,7 +77,7 @@ export default {
         line-height: 3;
       }
       .serviceCenter__main {
-        width: 600px;
+        // width: 600px;
         height: 650px;
         border: 1px solid #333;
         margin: auto;
@@ -106,7 +96,7 @@ export default {
             .text__name {
               > input {
                 padding: 10px;
-                width: 400px;
+                width: 600px;
                 outline: none;
                 border: none;
                 border-bottom: 1px solid #333;
@@ -132,7 +122,7 @@ export default {
               margin-top: 30px;
               > input {
                 padding: 10px;
-                width: 400px;
+                width: 600px;
                 outline: none;
                 border: none;
                 border-bottom: 1px solid #333;
@@ -144,7 +134,7 @@ export default {
             .text__textarea {
               margin-top: 30px;
               > textarea {
-                width: 400px;
+                width: 600px;
                 height: 250px;
                 outline: none;
                 resize: none;
@@ -161,7 +151,7 @@ export default {
               display: flex;
               justify-content: center;
               align-items: center;
-              width: 400px;
+              width: 600px;
               height: 45px;
               border: 1px solid #333;
               background: #333;
