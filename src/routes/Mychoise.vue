@@ -150,11 +150,11 @@ export default {
     },
     update() {
       axios({
+        url : `http://54.180.193.83:8081/posts/${this.update_id}`,
         method: 'PUT',
         headers: {
           Authorization : `Bearer ${localStorage.getItem('access')}`
         },
-        url : `http://54.180.193.83:8081/posts/${this.update_id}`,
         data : {
           title : this.title,
           content : this.content,

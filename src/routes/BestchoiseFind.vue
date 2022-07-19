@@ -39,7 +39,7 @@ export default {
     itemUpadate(comment_data) {
       axios({
         method : 'PUT',
-        url : `http://54.180.193.83:8081/comment/${comment_data}`,
+        url : `http://54.180.193.83:8081/comment/${comment_data}/`,
         headers: {
           Authorization : `Bearer ${localStorage.getItem('access')}`
         },
@@ -49,6 +49,8 @@ export default {
         }
       }).then((res) => {
         console.log(res)
+        alert("수정이 완료되었습니다")
+        this.$router.go()
       }).catch((error) => {
         console.log(error)
       })
@@ -100,10 +102,9 @@ export default {
         }
       })
     },
-    itemUpdate__box(comment_data) {
-      if(comment_data) {
-        this.update__box = !this.update__box
-      }
+    itemUpdate__box(index) {
+      // this.update__box[index] = !this.update__box[index]
+      this.update__box = !this.update__box
     }
   },
   mounted() {
@@ -158,17 +159,18 @@ export default {
         </div>
         <!-- 댓글 -->
         <div class="comment">
-          <div class="comment__title">전체댓글 000개</div>
-          <div class="if" v-for="comment_data in comment_datas" :key="comment_data">
+          <div class="comment__title">전체댓글 {{ comment_datas.length }}개</div>
+          <div class="if" v-for="(comment_data,index) in comment_datas" :key="comment_data">
             <div class="comment__info">
               <div class="__nickname">{{ comment_data.nickname }}</div>
-              <div @click="itemUpdate__box(comment_data.id)" class="__comment">{{ comment_data.comment }}</div>
+              <div @click="itemUpdate__box(index)" class="__comment">{{ comment_data.comment }}</div>
               <div class="__delete" v-if="comment_data.nickname == this.localName" @click="itemDelete(comment_data.id)"><i class="fa-solid fa-xmark"></i></div>
             </div>
             <!-- 댓글수정창 -->
             <div class="comment__update__box" :class="{ update__box : update__box }">
               <div class="comment__update__text">
-                <textarea v-model="comment_update_data" class="__text" :value="comment_data.comment"></textarea>
+                <!-- :value에 원래 댓글 입력하니 오류가 걸려 일단 제거 -->
+                <textarea v-model="comment_update_data" class="__text"></textarea>
               </div>
               <div @click="itemUpadate(comment_data.id)" class="comment__update__btn">
                 <button class="__btn">수정</button>
@@ -371,15 +373,17 @@ export default {
               padding: 10px 0 10px 0;
               .comment__update__text {
                 .__text {
-                  width: 100%;
+                  width: 90%;
                   height: 100px;
                   outline: none;
                   resize: none;
+                  margin-left: 55px;
                   font-size: 18px;
                 }
               }
               .comment__update__btn {
                 text-align: end;
+                margin-right: 66px;
                 .__btn {
                   outline: none;
                   width: 100px;
