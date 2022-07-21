@@ -9,8 +9,10 @@ export default {
       content : "",
       comments : [],
       comment_data : "",
+      date : "",
       board_id : "",
-      localName: localStorage.getItem("name")
+      localName: localStorage.getItem("name"),
+      comment_update_data: "",
     }
   },
   methods: {
@@ -52,6 +54,56 @@ export default {
         console.log(error)
       })
     },
+    deletes() {
+      axios({
+        method: 'delete',
+        url : `http://54.180.193.83:8081/board/${this.board_id}/`,
+        headers: {
+          Authorization : `Bearer ${localStorage.getItem('access')}`
+        },
+        data : {
+          username : this.name
+        }
+      }).then((res) => {
+        console.log(res)
+        alert("삭제되었습니다")
+        this.$router.push('/board')
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+    itemUpadate(comment_id) {
+      axios({
+        method : 'PUT',
+        url : `http://54.180.193.83:8081/boardcomment/${comment_id}/`,
+        headers: {
+          Authorization : `Bearer ${localStorage.getItem('access')}`
+        },
+        data : {
+          comment : this.comment_update_data,
+          username : localStorage.getItem('name')
+        }
+      }).then((res) => {
+        console.log(res)
+        alert("수정이 완료되었습니다")
+        this.$router.go()
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+    update() {
+      this.$router.push({
+        name : 'BoardWrite',
+        params : {
+          id : this.board_id,
+          title : this.title,
+          content : this.content,
+        }
+      })
+    },
+    backBtn() {
+      this.$router.push('/board')
+    }
   },
   mounted() {
     axios({
@@ -87,9 +139,9 @@ export default {
         </div>
         <div class="__content">{{ content }}</div>
         <div class="__contentBtn">
-          <div class="__contentItem __contentUpdate">수정</div>
-          <div class="__contentItem __contentDelete">삭제</div>
-          <div class="__contentItem __contentBack">목록</div>
+          <div v-if="name == this.localName" @click="update()" class="__contentItem __contentUpdate">수정</div>
+          <div v-if="name == this.localName" @click="deletes()" class="__contentItem __contentDelete">삭제</div>
+          <div @click="backBtn()" class="__contentItem __contentBack">목록</div>
         </div>
         <!-- 댓글 -->
         <div class="comment">
@@ -111,6 +163,7 @@ export default {
               <!-- </div> -->
             <!-- </div> -->
           </div>
+          <div class="comment__else__info" v-show="this.comments.length == 0">등록된 댓글이 없습니다</div>
           <!-- 페이지네이션 -->
           <div class="comment__page">
             <i class="fa-solid fa-1"></i>
@@ -192,6 +245,25 @@ export default {
         .__contentBtn {
           display: flex;
           justify-content: end;
+          padding-bottom: 100px;
+          padding-top: 5px;
+          border-top: 2px solid #3b4890;
+          text-align: center;
+          .__contentItem {
+            outline: none;
+            width: 100px;
+            background: #3b4890;
+            border-color: #29367c;
+            color: #fff;
+            cursor: pointer;
+            &:hover {
+              opacity: .8;
+            }
+          }
+          .__contentDelete {
+            margin-left: 10px;
+            margin-right: 10px;
+          }
         }
         .comment {
           min-height: 400px;
@@ -254,6 +326,11 @@ export default {
                 }
               }
             }
+          }
+          .comment__else__info {
+            border-bottom: 1px solid #333;
+            padding-top: 10px;
+            padding-bottom: 9px;
           }
           .comment__page {
             margin: auto;

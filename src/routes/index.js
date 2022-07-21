@@ -70,7 +70,8 @@ export default createRouter({
       component: Board
     },
     {
-      path: '/board/boardWrite',
+      path: '/board/boardWrite/:id?',
+      name : 'BoardWrite',
       component: BoardWrite
     },
     {

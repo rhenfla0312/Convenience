@@ -76,7 +76,7 @@ export default {
     deletes() {
       axios({
         method: 'delete',
-        url : `http://54.180.193.83:8081/posts/${this.menus.id}`,
+        url : `http://54.180.193.83:8081/posts/${this.menus.id}/`,
         headers: {
           Authorization : `Bearer ${localStorage.getItem('access')}`
         },
@@ -98,7 +98,6 @@ export default {
           id : this.menus.id,
           title : this.menus.title,
           content : this.menus.content,
-          // item : this.checkboxDatas
         }
       })
     },
@@ -108,7 +107,7 @@ export default {
     }
   },
   mounted() {
-    axios.get(`http://54.180.193.83:8081/posts/${this.id}`)
+    axios.get(`http://54.180.193.83:8081/posts/${this.id}/`)
     .then((res) => {
       console.log(res)
       // data만으로 그안의 a객체들을 반복문으로 나오게할라했는데 a에 대한거만 해야하므로 따로 만든다

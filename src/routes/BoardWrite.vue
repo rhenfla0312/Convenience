@@ -2,10 +2,19 @@
 import axios from 'axios'
 export default {
   data() {
+    const update_id = this.$route.params.id
+    const update_title = this.$route.params.title
+    const update_content = this.$route.params.content
     return {
+      // update
+      update_id : update_id,
+      update_title : update_title,
+      update_content : update_content,
+      
       name : localStorage.getItem('name'),
-      title : "",
-      content : "",
+      title : update_title !== undefined ? update_title : "",
+      content : update_content !== undefined ? update_content : "",
+      
       error_title : "",
       error_content : "'"
     }
@@ -30,6 +39,27 @@ export default {
         console.log(error)
         this.error_title = error.response.data.content
       })
+    },
+    update() {
+      axios({
+        url : `http://54.180.193.83:8081/board/${this.update_id}/`,
+        method: 'PUT',
+        headers: {
+          Authorization : `Bearer ${localStorage.getItem('access')}`
+        },
+        data : {
+          title : this.title,
+          content : this.content,
+          username : localStorage.getItem('name')
+        }
+      }).then((res) => {
+        console.log(res)
+        this.$router.push('/board')
+      }).catch((error) => {
+        console.log(error)
+        this.error_title = error.response.data.tQitle
+        this.error_content = error.response.data.content
+      })
     }
   }
 }
@@ -53,8 +83,8 @@ export default {
               <textarea v-model="content" name="text" id=""></textarea>
             </div>
           </div>
-          <div @click="write()" class="textBtn">
-            <input type="submit" class="btn" value="작성하기" />
+          <div @click="update_title !== undefined ? update() : write()" class="textBtn">
+            <input type="submit" class="btn" :value="update_title !== undefined ? '수정하기' : '작성하기'" />
           </div>
         </div>
       </div>

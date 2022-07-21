@@ -69,7 +69,7 @@ export default {
   mounted() {
     if(localStorage.getItem('search__data') !== "") {
       this.search__data = localStorage.getItem('search__data')
-      axios.get(`http://54.180.193.83:8081/Main/?search=${localStorage.getItem('search__data')}`)
+      axios.get(`http://54.180.193.83:8081/Main/?search=${localStorage.getItem('search__data')}/`)
       .then((res) => {
         console.log(res)
         this.datas = res.data.results
