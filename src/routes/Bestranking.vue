@@ -47,7 +47,7 @@ export default {
       chartData: {
         labels: [],
         datasets: [{
-          label: 'My First Dataset',
+          label: '최고의 조합',
           data: [],
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
@@ -113,7 +113,6 @@ export default {
       rankingItem.forEach((item) => {
         this.chartData.labels.push(item.nickname)
         this.rankingNumber.push(item.likes_cnt)
-
         this.chartData.datasets[0].data = this.rankingNumber
       })
     }).catch((error) => {

@@ -14,9 +14,9 @@ export default {
       name : localStorage.getItem('name'),
       title : update_title !== undefined ? update_title : "",
       content : update_content !== undefined ? update_content : "",
-      
+      // error
       error_title : "",
-      error_content : "'"
+      error_content : ""
     }
   },
   methods : {
@@ -37,7 +37,8 @@ export default {
         this.$router.push('/board')
       }).catch((error) => {
         console.log(error)
-        this.error_title = error.response.data.content
+        this.error_content = error.response.data.content
+        this.error_title = error.response.data.title
       })
     },
     update() {
@@ -57,8 +58,8 @@ export default {
         this.$router.push('/board')
       }).catch((error) => {
         console.log(error)
-        this.error_title = error.response.data.tQitle
         this.error_content = error.response.data.content
+        this.error_title = error.response.data.title
       })
     }
   }
@@ -79,9 +80,11 @@ export default {
             <div class="text__title">
               <input v-model="title" type="text" name="title" placeholder="제목을 입력해주세요">
             </div>
+            <div class="error">{{ error_title }}</div>
             <div class="text__textarea">
               <textarea v-model="content" name="text" id=""></textarea>
             </div>
+            <div class="error">{{ error_content }}</div>
           </div>
           <div @click="update_title !== undefined ? update() : write()" class="textBtn">
             <input type="submit" class="btn" :value="update_title !== undefined ? '수정하기' : '작성하기'" />
@@ -174,6 +177,11 @@ export default {
                 padding: 10px;
                 border-radius: 10px;
               }
+            }
+            .error {
+              color: red;
+              margin-right: 355px;
+              margin-top: 10px;
             }
           }
           .textBtn {

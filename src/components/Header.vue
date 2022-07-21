@@ -62,20 +62,20 @@ export default {
   <div class="header">
     <div class="inner">
       <div class="login">
-        <RouterLink to="/login/loginInfo" class="login__item" v-if="loginData">{{ loginInfo }}님</RouterLink>
-        <RouterLink to="/login" class="login__item" v-else>로그인</RouterLink>
+        <RouterLink to="/login/loginInfo" @click="searchData()" class="login__item" v-if="loginData">{{ loginInfo }}님</RouterLink>
+        <RouterLink to="/login" @click="searchData()" class="login__item" v-else>로그인</RouterLink>
         <div @click="logOut" class="login__item" v-if="loginData">로그아웃</div>
-        <RouterLink to="/signUp" class="login__item" v-else>회원가입</RouterLink>
-        <RouterLink to="/servicecenter" class="login__item">고객센터</RouterLink>
+        <RouterLink to="/signUp" @click="searchData()" class="login__item" v-else>회원가입</RouterLink>
+        <RouterLink to="/servicecenter" @click="searchData()" class="login__item">고객센터</RouterLink>
       </div>
 
       <div class="menu">
         <RouterLink to="/" class="menu__name">BestChoice</RouterLink>
         <div class="__item">
           <RouterLink to="/bestChoise" @click="searchData()" class="menu__item">꿀조합</RouterLink>
-          <RouterLink to="/bestRanking" class="menu__item">조합랭킹</RouterLink>
-          <RouterLink to="/myChoise" @click="loginCheck()" class="menu__item">나만의 조합</RouterLink>
-          <RouterLink to="/board" class="menu__item">자유게시판</RouterLink>
+          <RouterLink to="/bestRanking" @click="searchData()" class="menu__item">조합랭킹</RouterLink>
+          <RouterLink to="/myChoise" @click="loginCheck(), searchData()" class="menu__item">나만의 조합</RouterLink>
+          <RouterLink to="/board" @click="searchData()" class="menu__item">자유게시판</RouterLink>
           <RouterLink to="/convenience/cu" @click="searchData()" class="menu__item">편의점 이벤트</RouterLink>
         </div>
       </div>

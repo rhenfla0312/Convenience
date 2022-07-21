@@ -1,5 +1,4 @@
 <script>
-import axios from 'axios'
 export default {
   data() {
     return {
@@ -313,7 +312,7 @@ export default {
                 }
                 .arrow {
                   position: absolute;
-                  right: 0;
+                  right: -8px;
                   transition: .5s;
                   cursor: pointer;
                 }

@@ -4,7 +4,8 @@ export default {
   data() {
     return {
       board_datas : [],
-      nextData : ""
+      nextData : "",
+      search__data : ""
     }
   },
   methods : {
@@ -28,18 +29,43 @@ export default {
         }
       })
     },
+    search() {
+      axios.get(`http://54.180.193.83:8081/board/?search=${this.search__data}`)
+      .then((res) => {
+        console.log(res)
+        this.board_datas = res.data.results
+        this.search__count = res.data.count
+        localStorage.setItem('search__data', this.search__data)
+      }).catch((error) => {
+        console.log(error)
+      })
+    }
   },
   mounted() {
-    axios({
-      url : "http://54.180.193.83:8081/board/",
-      method : "GET"
-    }).then((res) => {
-      console.log(res)
-      this.board_datas = res.data.results
-      this.nextData = res.data.next
-    }).catch((error) => {
-      console.log(error)
-    })
+    if(localStorage.getItem('search__data') !== "") {
+      this.search__data = localStorage.getItem('search__data')
+      axios({
+        url : `http://54.180.193.83:8081/board/?search=${this.search__data}`,
+        method : "GET"
+      }).then((res) => {
+        console.log(res)
+        this.board_datas = res.data.results
+        this.nextData = res.data.next
+      }).catch((error) => {
+        console.log(error)
+      })
+    } else {
+      axios({
+        url : 'http://54.180.193.83:8081/board/',
+        method : "GET"
+      }).then((res) => {
+        console.log(res)
+        this.board_datas = res.data.results
+        this.nextData = res.data.next
+      }).catch((error) => {
+        console.log(error)
+      })
+    }
   }
 }
 </script>
@@ -51,7 +77,7 @@ export default {
       <div class="board__name">자유게시판</div>
         <div class="board__main">
           <div class="board__search">
-            <input type="text" class="__search">
+            <input type="text" class="__search" v-model="search__data" @keydown.enter.prevent="search()">
             <i class="fa-solid fa-magnifying-glass search__icon"></i>
           </div>
           <table class="table">
@@ -91,7 +117,8 @@ export default {
   .board {
     position: relative;
     top: 125px;
-    // height: 1200px;
+    min-height: 650px;
+    height: 100%;
     padding: 0 0 20px 0;
     background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
     .inner {
