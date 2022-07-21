@@ -27,7 +27,7 @@ export default {
           id : id
         }
       })
-    }
+    },
   },
   mounted() {
     axios({
@@ -91,7 +91,7 @@ export default {
   .board {
     position: relative;
     top: 125px;
-    height: 1200px;
+    // height: 1200px;
     padding: 0 0 20px 0;
     background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
     .inner {

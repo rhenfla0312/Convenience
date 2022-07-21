@@ -75,7 +75,7 @@ export default createRouter({
     },
     {
       path: '/board/boardFind/:id?',
-      name : BoardFind,
+      name : 'BoardFind',
       component : BoardFind
     },
     {

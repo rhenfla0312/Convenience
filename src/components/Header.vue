@@ -1,4 +1,5 @@
 <script>
+import axios from 'axios'
 export default {
   data() {
     return {
@@ -8,11 +9,24 @@ export default {
   },
   methods: {
     logOut() {
+      axios({
+        url : 'http://54.180.193.83:8081/user/logout/',
+        method: 'POST',
+        data : {
+          refresh : localStorage.getItem('refresh')
+        }
+      }).then((res) => {
+        console.log(res)
+      }).catch((error) => {
+        console.log(error)
+      })
+
       window.localStorage.removeItem('name');
       window.localStorage.removeItem('id');
       window.localStorage.removeItem('access');
-      window.localStorage.removeItem('refersh');
+      window.localStorage.removeItem('refresh');
       window.localStorage.removeItem('search__data');
+      window.localStorage.removeItem('search__item');
       window.localStorage.removeItem('oneClick');
       window.localStorage.removeItem('twoClick');
       window.localStorage.removeItem('eventClick');

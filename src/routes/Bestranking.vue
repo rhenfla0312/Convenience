@@ -45,10 +45,10 @@ export default {
   data() {
     return {
       chartData: {
-        labels: ['영씨','김씨','장씨','구씨','호씨'],
+        labels: [],
         datasets: [{
           label: 'My First Dataset',
-          data: [65,85,25,13,46],
+          data: [],
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(255, 159, 64, 0.2)',
@@ -78,9 +78,9 @@ export default {
       bestDatas: [],
       bestData_number : "",
       bestData_title : [],
-
       fotData : "",
-      forIndex : ""
+      forIndex : "",
+      rankingNumber : []
     }
   },
   methods: {
@@ -108,6 +108,14 @@ export default {
       this.nextData = res.data.next
       this.bestDatas = res.data.results.slice(0,8)
       this.Loading = true
+
+      let rankingItem = this.bestDatas
+      rankingItem.forEach((item) => {
+        this.chartData.labels.push(item.nickname)
+        this.rankingNumber.push(item.likes_cnt)
+
+        this.chartData.datasets[0].data = this.rankingNumber
+      })
     }).catch((error) => {
       console.log(error)
     })
@@ -155,8 +163,8 @@ export default {
           <div class="rankingBox">
             <div class="rankingItem" v-for="(bestData,index) in bestDatas" :key="bestData">
               <div class="itemHead">{{ index + 1 }}</div>
-              <div class="item">{{ bestData.title }}</div>
-              <!-- <div class="item">{{ bestData.nickname }}</div> -->
+              <div class="item __title">{{ bestData.title }}</div>
+              <div class="item __name">{{ bestData.nickname }}</div>
             </div>
             <div class="allBox" :class="{ active: isActive }">
               <div class="allTable" :class="{ active: isActive }">
@@ -261,7 +269,13 @@ export default {
               display: flex;
               justify-content: center;
               align-items: center;
-              height: 200px;
+            }
+            .__title {
+              margin-top: 80px;
+              font-size: 20px;
+            }
+            .__name {
+              margin-top: 70px;
             }
             &:hover {
               border: 5px solid #dddddd;

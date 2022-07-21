@@ -6,6 +6,8 @@ export default {
       name : localStorage.getItem('name'),
       title : "",
       content : "",
+      error_title : "",
+      error_content : "'"
     }
   },
   methods : {
@@ -26,6 +28,7 @@ export default {
         this.$router.push('/board')
       }).catch((error) => {
         console.log(error)
+        this.error_title = error.response.data.content
       })
     }
   }
