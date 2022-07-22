@@ -9,8 +9,8 @@ export default {
   },
   data() {
     return {
-      name : "",
-      email : "",
+      name : localStorage.getItem('name'),
+      email : localStorage.getItem('email'),
       title : "",
       text : "",
     }
@@ -47,10 +47,10 @@ export default {
           <form ref="form"  @submit.prevent="sendEmail">
             <div class="textBox">
               <div class="text__name">
-                <input v-model="name" type="text" name="name" placeholder="닉네임을 입력해주세요">
+                <input v-model="name" type="text" name="name" readonly placeholder="닉네임을 입력해주세요">
               </div>
               <div class="text__email">
-                <input v-model="email" type="email" name="email" placeholder="이메일을 입력해주세요">
+                <input v-model="email" type="email" name="email" readonly placeholder="이메일을 입력해주세요">
               </div>
               <div class="text__title">
                 <input v-model="title" type="text" name="title" placeholder="제목을 입력해주세요">
@@ -74,8 +74,6 @@ export default {
     position: relative;
     top: 125px;
     padding: 0 0 80px 0;
-    // min-width: 1900px;
-    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
     .inner {
       width: 1100px;
       margin: auto;
@@ -91,7 +89,7 @@ export default {
         height: 650px;
         border: 1px solid #333;
         margin: auto;
-        border-radius: 20px;
+        border-radius: 10px;
         background: #fff;
         border: 1px solid #dddddd;
         text-align: center;
@@ -166,7 +164,7 @@ export default {
               border: 1px solid #333;
               background: #333;
               color: #fff;
-              border-radius: 20px;
+              border-radius: 10px;
               &:hover {
                 background: #fff;
                 color: #333;

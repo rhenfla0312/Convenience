@@ -80,7 +80,7 @@ export default {
       bestData_title : [],
       fotData : "",
       forIndex : "",
-      rankingNumber : []
+      rankingNumber : [],
     }
   },
   methods: {
@@ -99,6 +99,14 @@ export default {
         console.log(error)
       })
     },
+    bestChoiseFind(id) {
+      this.$router.push({
+        name: "bestChoiseFind",
+        params : {
+          id : id
+        }
+      })
+    }
   },
   mounted() {
     axios.get("http://54.180.193.83:8081/best/")
@@ -107,7 +115,6 @@ export default {
       this.totalDatas = res.data.results
       this.nextData = res.data.next
       this.bestDatas = res.data.results.slice(0,8)
-      this.Loading = true
 
       let rankingItem = this.bestDatas
       rankingItem.forEach((item) => {
@@ -115,6 +122,7 @@ export default {
         this.rankingNumber.push(item.likes_cnt)
         this.chartData.datasets[0].data = this.rankingNumber
       })
+      this.Loading = true
     }).catch((error) => {
       console.log(error)
     })
@@ -160,10 +168,15 @@ export default {
         <!-- ranking_table -->
         <div class="tabelBox">
           <div class="rankingBox">
-            <div class="rankingItem" v-for="(bestData,index) in bestDatas" :key="bestData">
+            <div class="rankingItem" @click="bestChoiseFind(bestData.id)" v-for="(bestData,index) in bestDatas" :key="bestData">
+              <img src="../../public/one.png" v-if="index == 0" class="first" />
+              <img src="../../public/two.png" v-if="index == 1" class="second" />
+              <img src="../../public/three.png" v-if="index == 2" class="thred" />
               <div class="itemHead">{{ index + 1 }}</div>
-              <div class="item __title">{{ bestData.title }}</div>
-              <div class="item __name">{{ bestData.nickname }}</div>
+              <img :src="`/DRF/media/${bestData.a[0].image}`" alt="" class="best__img" />
+              <div class="item __title">제목 : {{ bestData.title }}</div>
+              <div class="item __name">닉네임 : {{ bestData.nickname }}</div>
+              <div class="item __likes">좋아요 : {{ bestData.likes_cnt }}</div>
             </div>
             <div class="allBox" :class="{ active: isActive }">
               <div class="allTable" :class="{ active: isActive }">
@@ -180,7 +193,7 @@ export default {
                       </tr>
                     </thead>
                     <tbody class="tbody">
-                      <tr class="tr" v-for="(totalData,index) in totalDatas" :key="totalData">
+                      <tr class="tr tr__main" @click="bestChoiseFind(totalData.id)" v-for="(totalData,index) in totalDatas" :key="totalData">
                         <td>{{ index + 1 }}</td>
                         <td>{{ totalData.nickname }}</td>
                         <td>{{ totalData.title }}</td>
@@ -209,8 +222,6 @@ export default {
     top: 125px;
     // height: 500px;
     padding: 0 0 80px 0;
-    // min-width: 1900px;
-    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
     .inner {
       width: 1100px;
       margin: auto;
@@ -238,7 +249,7 @@ export default {
           padding: 20px;
           width: 100%;
           box-shadow: 0 7px 25px rgba(0,0,0,0.08);
-          border-radius: 20px;
+          border-radius: 10px;
         }
       }
       .tabelBox {
@@ -247,18 +258,25 @@ export default {
         // height: 300px;
         background: #fff;
         box-shadow: 0 7px 25px rgba(0,0,0,0.08);
-        border-radius: 20px;
+        border-radius: 10px;
         .rankingBox {
           width: 100%;
           display: grid;
           grid-gap: 15px;
           grid-template-columns: repeat(4, 1fr);
           .rankingItem {
+            position: relative;
             padding: 20px;
             width:  250px;
             height: 280px;
             box-shadow: 0 7px 25px rgba(0,0,0,0.08);
-            border-radius: 20px;
+            border-radius: 10px;
+            background-image: url('../../public/background.png');
+            background-size: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            text-align: center;
+            cursor: pointer;
             .itemHead {
               text-align: center;
               font-size: 25px;
@@ -268,17 +286,38 @@ export default {
               display: flex;
               justify-content: center;
               align-items: center;
+              overflow : hidden;
+              white-space : nowrap;
+              text-overflow: ellipsis;
             }
             .__title {
-              margin-top: 80px;
               font-size: 20px;
             }
-            .__name {
-              margin-top: 70px;
-            }
             &:hover {
-              border: 5px solid #dddddd;
+              border: 4px solid transparent;
             }
+            .first {
+              position: absolute;
+              width: 145px;
+              left: 54px;
+              top: 2px;
+            }
+            .second {
+              position: absolute;
+              top: 6px;
+              width: 150px;
+              left: 50px;
+            }
+            .thred {
+              position: absolute;
+              top: 6px;
+              width: 150px;
+              left: 53px;
+            }
+            .best__img {
+              width: 140px;
+            }
+
           }
           .allBox {
             margin-top: 30px;
@@ -287,7 +326,7 @@ export default {
             margin: auto;
             box-shadow: 0 7px 25px rgba(0,0,0,0.08);
             grid-column: 1 / 5;
-            border-radius: 20px;
+            border-radius: 10px;
             // display: flex;
             // justify-content: center;
             transition: .5s;
@@ -321,7 +360,7 @@ export default {
             margin: auto;
             box-shadow: 0 7px 25px rgba(0,0,0,0.08);
             grid-column: 1 / 5;
-            border-radius: 20px;
+            border-radius: 10px;
             // display: flex;
             // justify-content: center;
             transition: .5s;
@@ -329,7 +368,6 @@ export default {
             .allBoxCheck {
               cursor: pointer;
               width: 1060px;
-              height: 100%;
               .arrow {
                 transition: .5s;
                 transform: rotate(180deg);
@@ -361,6 +399,12 @@ export default {
                 text-align: center;
                 .tr {
                   padding: 10px 0 10px 0;
+                }
+                .tr__main {
+                  &:hover {
+                    box-shadow: 1px 1px 3px 1px;
+                    cursor: pointer;
+                  }
                 }
               }
             }

@@ -83,7 +83,7 @@ export default {
           width: 500px;
           height: 500px;
           background: #fff;
-          border-radius: 20px;
+          border-radius: 10px;
           padding: 20px;
         }
         .convenienceFind__text {
@@ -114,7 +114,7 @@ export default {
           width: 500px;
           height: 500px;
           background: #e0e0e0;
-          border-radius: 20px;
+          border-radius: 10px;
           animation: skeletons__img 1.8s infinite ease-in-out;
             @keyframes skeletons__img {
               0% {

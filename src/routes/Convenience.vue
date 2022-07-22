@@ -442,7 +442,7 @@ export default {
           position: relative;
           height: 340px;
           background: #fff;
-          border-radius: 20px;
+          border-radius: 10px;
           /* padding: 30px; */
           cursor: pointer;
           transition: .3s;
@@ -460,7 +460,7 @@ export default {
               font-size: 14px;
               color: #000;
               font-weight: bold;
-              border-radius: 20px;
+              border-radius: 10px;
             }
             .oneColor {
               background-image: linear-gradient(to right, #92fe9d 0%, #00c9ff 100%) !important;
@@ -476,7 +476,7 @@ export default {
               // padding: 30px;
               // width: 206px;
               height: 206px;
-              border-radius: 20px;
+              border-radius: 10px;
               margin-top: 35px;
               padding: 20px;
             }
@@ -492,7 +492,7 @@ export default {
             background: #e0e0e0;
             // width: 206px;
             height: 206px;
-            border-radius: 20px;
+            border-radius: 10px;
             margin: 12px;
             animation: skeletons_itemBox 1.8s infinite ease-in-out;
             @keyframes skeletons_itemBox {
@@ -511,7 +511,7 @@ export default {
             background: #e0e0e0;
             // width: 206px;
             height: 95px;
-            border-radius: 20px;
+            border-radius: 10px;
             margin: 12px;
             animation: skeletons_textBox 1.8s infinite ease-in-out;
             @keyframes skeletons_textBox {

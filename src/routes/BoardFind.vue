@@ -91,6 +91,11 @@ export default {
         console.log(error)
       })
     },
+    itemUpdate__box(name) {
+      if(this.localName == name) {
+        this.update__box = !this.update__box
+      }
+    },
     update() {
       this.$router.push({
         name : 'BoardWrite',
@@ -149,32 +154,26 @@ export default {
           <div class="if" v-for="comment in comments" :key="comment">
             <div class="comment__info">
               <div class="__nickname">{{ comment.username }}</div>
-              <div class="__comment">{{ comment.comment }}</div>
+              <div @click="itemUpdate__box(comment.nickname)" class="__comment">{{ comment.comment }}</div>
               <div class="__delete" v-if="comment.username == this.localName" @click="itemDelete(comment.id)"><i class="fa-solid fa-xmark"></i></div>
             </div>
             <!-- 댓글수정창 -->
-            <!-- <div class="comment__update__box"> -->
-              <!-- <div class="comment__update__text"> -->
+            <div class="comment__update__box" v-if="comment.nickname == this.localName" :class="{ update__box : update__box }">
+              <div class="comment__update__text">
                 <!-- :value에 원래 댓글 입력하니 오류가 걸려 일단 제거 -->
-                <!-- <textarea class="__text"></textarea> -->
-              <!-- </div> -->
-              <!-- <div class="comment__update__btn"> -->
-                <!-- <button class="__btn">수정</button> -->
-              <!-- </div> -->
-            <!-- </div> -->
+                <textarea class="__text"></textarea>
+              </div>
+              <div @click="itemUpadate(comment.id)" class="comment__update__btn">
+                <button class="__btn">수정</button>
+              </div>
+            </div>
           </div>
           <div class="comment__else__info" v-show="this.comments.length == 0">등록된 댓글이 없습니다</div>
           <!-- 페이지네이션 -->
           <div class="comment__page">
-            <i class="fa-solid fa-1"></i>
+            <i class="fa-solid fa-1 first"></i>
             <i class="fa-solid fa-2"></i>
             <i class="fa-solid fa-3"></i>
-            <i class="fa-solid fa-4"></i>
-            <i class="fa-solid fa-5"></i>
-            <i class="fa-solid fa-6"></i>
-            <i class="fa-solid fa-7"></i>
-            <i class="fa-solid fa-8"></i>
-            <i class="fa-solid fa-9"></i>
           </div>
           <div class="comment__box">
             <div class="comment__text">
@@ -198,8 +197,6 @@ export default {
   .boardFind {
     position: relative;
     top: 125px;
-    // height: 750px;
-    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
     .boardFind__inner {
       width: 1200px;
       margin: auto;
@@ -339,6 +336,9 @@ export default {
             i {
               margin-right: 10px;
               cursor: pointer;
+            }
+            .first {
+              color : red;
             }
           }
           .comment__box {

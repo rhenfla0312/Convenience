@@ -167,10 +167,9 @@ export default {
       }).catch((error) => {
         console.log(error)
       })
-    }
+    },
   },
   mounted() {
-    console.log(this.$route.params)
     axios.get("http://54.180.193.83:8081/objects/",{
       params: {
         data: "CU"
@@ -227,7 +226,7 @@ export default {
           </div>
           <div class="__items" v-if="Loading">
             <label class="__item" :for="index" v-for="(data, index) in datas" :key="data">
-              <input :id="index" type="checkbox" class="__checkbox" :value="data.id" v-model="checkboxDatas">
+              <input @click="test(data.id)" :id="index" type="checkbox" class="__checkbox" :value="data.id" v-model="checkboxDatas">
               <img class="__img" :src="`/DRF${data.image}`">
               <div class="__name">{{ data.name }}</div>
               <div class="__price">{{ data.price }}원</div>
@@ -273,8 +272,6 @@ export default {
     top: 125px;
     // height: 700px;
     padding: 0 0 80px 0;
-    // min-width: 1900px;
-    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
     .mychoise__inner {
       width: 1200px;
       margin: auto;
@@ -289,7 +286,7 @@ export default {
         position: relative;
         height: 2100px;
         border: 1px solid #333;
-        border-radius: 20px;
+        border-radius: 10px;
         .mycohise_title {
           margin-top: 30px;
           text-align: center;
@@ -380,8 +377,9 @@ export default {
               height: 250px;
               width: 160px;
               background: #fff;
-              border-radius: 20px;
+              border-radius: 10px;
               margin: 10px;
+              box-shadow: 0 7px 25px #00000014;
               &:hover {
                 border: 2px solid #1de9b6;
               }
@@ -399,7 +397,7 @@ export default {
             .__item {
               width: 160px;
               height: 250px;
-              border-radius: 20px;
+              border-radius: 10px;
               background: #e0e0e0;
               margin: 10px;
               animation: __item 1.8s infinite ease-in-out;

@@ -221,8 +221,6 @@ export default {
     top: 125px;
     // height: 500px;
     padding: 0 0 80px 0;
-    // min-width: 1900px;
-    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
     .inner {
       width: 1100px;
       margin: auto;
@@ -237,7 +235,7 @@ export default {
         width: 600px;
         border: 1px solid #333;
         margin: auto;
-        border-radius: 20px;
+        border-radius: 10px;
         background: #fff;
         border: 1px solid #dddddd;
         text-align: center;
@@ -627,7 +625,7 @@ export default {
             align-items: center;
             width: 400px;
             height: 45px;
-            border-radius: 20px;
+            border-radius: 10px;
             border: 1px solid #333;
             background: #333;
             color: #fff;

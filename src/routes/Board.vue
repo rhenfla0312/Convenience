@@ -91,7 +91,7 @@ export default {
               </tr>
             </thead>
             <tbody class="tbody">
-              <tr class="tr tr_main" v-for="board_data in board_datas" :key="board_data" @click="boardFind(board_data.id)">
+              <tr class="tr tr__main" v-for="board_data in board_datas" :key="board_data" @click="boardFind(board_data.id)">
                 <td>{{ board_data.id }}</td>
                 <td>{{ board_data.username}}</td>
                 <td>{{ board_data.title}}</td>
@@ -120,7 +120,6 @@ export default {
     min-height: 650px;
     height: 100%;
     padding: 0 0 20px 0;
-    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
     .inner {
       width: 1100px;
       margin: auto;
@@ -138,7 +137,7 @@ export default {
         margin: auto;
         padding: 20px;
         box-shadow: 0 7px 25px #00000014;
-        border-radius: 20px;
+        border-radius: 10px;
         transition: .5s;
         background: #fff;
         .board__search {
@@ -167,7 +166,7 @@ export default {
           .tr {
             padding: 10px 0 10px 0;
           }
-          .tr_main {
+          .tr__main {
             &:hover {
               box-shadow: 1px 1px 3px 1px;
               cursor: pointer;

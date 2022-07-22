@@ -138,8 +138,6 @@ export default {
     top: 125px;
     // width: 100%;
     padding: 0 0 80px 0;
-    // min-width: 1900px;
-    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
     .inner {
       width: 1320px;
       margin: auto;
@@ -183,11 +181,12 @@ export default {
               background: #fff;
               height: 306px;
               padding: 20px;
-              border-radius: 20px;
+              border-radius: 10px;
               margin: 12px;
+              box-shadow: 0 7px 25px #00000014;
               &:hover {
                 border: 5px solid #1de9b6;
-                border-radius: 20px;
+                border-radius: 10px;
                 cursor: pointer;
               }
             }
@@ -196,8 +195,9 @@ export default {
               margin-right: 17px;
               background: #fff;
               padding: 10px;
-              border-radius: 20px;
+              border-radius: 10px;
               margin: 12px;
+              box-shadow: 0 7px 25px #00000014;
               .star__name {
                 &:hover {
                   color: #0d47a1;
@@ -217,7 +217,7 @@ export default {
           background: #e0e0e0;
           height: 306px;
           width: 306px;
-          border-radius: 20px;
+          border-radius: 10px;
           margin: 12px;
           animation: skeletons_itemBox 1.8s infinite ease-in-out;
           @keyframes skeletons_itemBox {
@@ -236,7 +236,7 @@ export default {
           background: #e0e0e0;
           width: 306px;
           height: 92px;
-          border-radius: 20px;
+          border-radius: 10px;
           padding: 10px;
           margin: 12px;
           animation: skeletons_textBox 1.8s infinite ease-in-out;

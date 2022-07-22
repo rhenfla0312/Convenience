@@ -117,7 +117,7 @@ export default {
         height: 650px;
         border: 1px solid #333;
         margin: auto;
-        border-radius: 20px;
+        border-radius: 10px;
         background: #fff;
         border: 1px solid #dddddd;
         text-align: center;
@@ -197,7 +197,7 @@ export default {
               border: 1px solid #333;
               background: #333;
               color: #fff;
-              border-radius: 20px;
+              border-radius: 10px;
               &:hover {
                 background: #fff;
                 color: #333;

@@ -42,7 +42,7 @@ export default {
         width: 700px;
         height: 350px;
         text-align: center;
-        border-radius: 20px;
+        border-radius: 10px;
         background: #fff;
         .login__inner {
           width: 400px;
@@ -92,7 +92,7 @@ export default {
             margin-top: 20px;
             .btn {
               border: 1px solid #dddddd;
-              border-radius: 20px;
+              border-radius: 10px;
               background: #424242;
               color: #fff;
               width: 400px;

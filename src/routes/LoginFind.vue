@@ -161,7 +161,7 @@ export default {
         .loginFind__id {
           border: 1px solid #dddddd;
           width: 500px;
-          border-radius: 20px;
+          border-radius: 10px;
           background: #fff;
           .login__inner {
             width: 400px;
@@ -192,7 +192,7 @@ export default {
               margin-bottom: 30px;
               .btn {
                 border: 1px solid #dddddd;
-                border-radius: 20px;
+                border-radius: 10px;
                 background: #424242;
                 color: #fff;
                 width: 400px;
@@ -241,7 +241,7 @@ export default {
         .loginFind__pw {
           border: 1px solid #dddddd;
           width: 500px;
-          border-radius: 20px;
+          border-radius: 10px;
           background: #fff;
           .login__inner {
             width: 400px;
@@ -272,7 +272,7 @@ export default {
               margin-bottom: 30px;
               .btn {
                 border: 1px solid #dddddd;
-                border-radius: 20px;
+                border-radius: 10px;
                 background: #424242;
                 color: #fff;
                 width: 400px;

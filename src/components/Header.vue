@@ -23,10 +23,10 @@ export default {
 
       window.localStorage.removeItem('name');
       window.localStorage.removeItem('id');
+      window.localStorage.removeItem('email');
       window.localStorage.removeItem('access');
       window.localStorage.removeItem('refresh');
       window.localStorage.removeItem('search__data');
-      window.localStorage.removeItem('search__item');
       window.localStorage.removeItem('oneClick');
       window.localStorage.removeItem('twoClick');
       window.localStorage.removeItem('eventClick');

@@ -140,8 +140,6 @@ export default {
     position: relative;
     top: 125px;
     padding: 0 0 80px 0;
-    // min-width: 1900px;
-    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
     .inner {
       width: 1100px;
       margin: auto;
@@ -156,7 +154,7 @@ export default {
         width: 600px;
         border: 1px solid #333;
         margin: auto;
-        border-radius: 20px;
+        border-radius: 10px;
         background: #fff;
         border: 1px solid #dddddd;
         .login__inner {
@@ -255,7 +253,7 @@ export default {
             margin-bottom: 40px;
             .btn {
               border: 1px solid #dddddd;
-              border-radius: 20px;
+              border-radius: 10px;
               background: #424242;
               color: #fff;
               width: 400px;

@@ -20,6 +20,7 @@ export default {
         console.log(res)
         localStorage.setItem("name", res.data.user.username);
         localStorage.setItem("id", res.data.user.pk);
+        localStorage.setItem("email", res.data.user.email);
         localStorage.setItem("access", res.data.access_token);
         localStorage.setItem("refresh", res.data.refresh_token);
         // 5분 동안 활성화
@@ -74,8 +75,6 @@ export default {
     top: 125px;
     height: 500px;
     padding: 0 0 80px 0;
-    // min-width: 1900px;
-    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
     .inner {
       width: 1100px;
       margin: auto;
@@ -92,7 +91,7 @@ export default {
         width: 700px;
         height: 350px;
         text-align: center;
-        border-radius: 20px;
+        border-radius: 10px;
         background: #fff;
         .login__inner {
           width: 400px;
@@ -142,7 +141,7 @@ export default {
             margin-top: 20px;
             .btn {
               border: 1px solid #dddddd;
-              border-radius: 20px;
+              border-radius: 10px;
               background: #424242;
               color: #fff;
               width: 400px;
