@@ -96,7 +96,7 @@ export default {
                 <td>{{ board_data.username}}</td>
                 <td>{{ board_data.title}}</td>
                 <td>{{ board_data.create_date.slice(0,-22) }}</td>
-                <td>0</td>
+                <td>{{ board_data.hits}}</td>
               </tr>
             </tbody>
           </table>
