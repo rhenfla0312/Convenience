@@ -3,7 +3,12 @@ import axios from 'axios'
 export default {
   data() {
     return {
+      Loading : false,
+      cuData : false,
+      gsData : false,
+      ministopData : false,
 
+      datas : []
     }
   },
   methods: {
@@ -70,9 +75,9 @@ export default {
   <div class="convenience">
     <div class="inner">
       <div class="convenience__name">
-        <div class="__name __cuName">CU</div>
-        <div class="__name">GS25</div>
-        <div class="__name">MINISTOP</div>
+        <div @click="cuClick" :class="{ cuData : cuData }" class="__name __cuName">CU</div>
+        <div @click="gsClick" :class="{ gsData : gsData }" class="__name">GS25</div>
+        <div @click="ministopClick" :class="{ ministopData : ministopData }" class="__name">MINISTOP</div>
       </div>
       <!-- 검색 -->
       <!-- <div class="convenien__search"> -->
@@ -81,12 +86,12 @@ export default {
       <!-- </div> -->
 
       <div class="convenience__main" v-if="Loading">
-        <div class="item" v-for="(totalData,index) in datas" :key="totalData" @click="paramId(totalData,index)">
+        <div class="item" v-for="(data,index) in datas" :key="data" @click="paramId(totalData,index)">
           <div class="itemBox">
-            <div class="item__type"></div>
-            <img class="__img" />
-            <div class="item__name"></div>
-            <div class="item__price"></div>
+            <div class="item__type">{{ data}}</div>
+            <img class="__img" :src="`/DRF${data.image}`">
+            <div class="item__name">{{ data.name }}</div>
+            <div class="item__price">{{ price }}원</div>
           </div>
         </div>
         <!-- page -->
@@ -131,6 +136,15 @@ export default {
             font-weight: bold;
             cursor: pointer;
           }
+        }
+        .cuData {
+          font-weight: bold;
+        }
+        .gsData {
+          font-weight: bold;
+        }
+        .ministopData {
+          font-weight: bold;
         }
       }
       .__cuName {
