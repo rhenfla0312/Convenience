@@ -7,9 +7,55 @@ export default {
       serverItem : false,
       serverBoardItem : false,
 
-      email : localStorage.getItem('email'),
-      username : localStorage.getItem('name')
+      email : "",
+      username : "",
+      password1 : "",
+      password2 : "",
+      question : "",
+      answer : ""
+
     }
+  },
+  methods : {
+    loginChangeBtn() {
+      axios({
+        method : 'patch',
+        url : 'http://54.180.193.83:8081/personalinfomation/',
+        headers: {
+          Authorization : `Bearer ${localStorage.getItem('access')}`
+        },
+        data : {
+          new_password1 : this.password1,
+          new_password2 : this.password2,
+          username : this.username,
+          question : this.question,
+          answer : this.answer,
+        }
+      }).then((res) => {
+        console.log(res)
+        alert("수정이 완료되었습니다")
+        this.$router.go()
+      }).catch((error) => {
+        console.log(error)
+      })
+    }
+  },
+  mounted() {
+    axios({
+      method : 'GET',
+      url : `http://54.180.193.83:8081/user/${localStorage.getItem('id')}/`,
+      headers: {
+        Authorization : `Bearer ${localStorage.getItem('access')}`
+      }
+    }).then((res) => {
+      console.log(res)
+      this.email = res.data.email  
+      this.username = res.data.nickname
+      this.question = res.data.question
+      this.answer = res.data.answer
+    }).catch((error) => {
+      console.log(error)
+    })
   }
 };
 </script>
@@ -97,10 +143,12 @@ export default {
                   <div class="pw__name">비밀번호</div>
                   <input v-model="password1" id="password" type="password" placeholder="비밀번호를 입력해주세요">
                 </div>
+                <div class="default__text">입력하지 않으셔도 비밀번호는 변경되지 않습니다.</div>
                 <div class="login__pw">
                   <div class="pw__name">비밀번호 확인</div>
                   <input v-model="password2" id="passwordInfo" type="password" placeholder="비밀번호를 다시 입력해주세요">
                 </div>
+                <div class="default__text">입력하지 않으셔도 비밀번호는 변경되지 않습니다.</div>
                 <!-- 질문 -->
                 <div class="login__select">
                   <div class="select__name">질문선택</div>
@@ -117,7 +165,7 @@ export default {
                   <div class="select__name">질문 답</div>
                   <input v-model="answer" id="passwordInfo" type="text" placeholder="질문의 답을 입력해주세요">
                 </div>
-                <div class="loginBtn">
+                <div class="loginBtn" @click="loginChangeBtn()">
                   <div class="btn">수정하기</div>
                 </div>
               </div>
@@ -238,6 +286,12 @@ a {
                     border-bottom: 2px solid #424242;
                   }
                 }
+              }
+              .default__text {
+                color: red;
+                font-size: 15px;
+                margin-top: 10px;
+                margin-left: 5px;
               }
               .login__select {
                 margin-top: 40px;

@@ -273,7 +273,6 @@ export default {
             border-radius: 10px;
             background-image: url('../../public/background.png');
             background-size: 100%;
-            background-position: center;
             background-repeat: no-repeat;
             text-align: center;
             cursor: pointer;

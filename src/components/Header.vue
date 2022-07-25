@@ -76,7 +76,8 @@ export default {
           <RouterLink to="/bestRanking" @click="searchData()" class="menu__item">조합랭킹</RouterLink>
           <RouterLink to="/myChoise" @click="loginCheck(), searchData()" class="menu__item">나만의 조합</RouterLink>
           <RouterLink to="/board" @click="searchData()" class="menu__item">자유게시판</RouterLink>
-          <RouterLink to="/convenience/cu" @click="searchData()" class="menu__item">편의점 이벤트</RouterLink>
+          <RouterLink to="/convenienceDataFind" @click="searchData()" class="menu__item">편의점 상품</RouterLink>
+          <RouterLink to="/convenience/cu" @click="searchData()" class="menu__item">이벤트상품</RouterLink>
         </div>
       </div>
     </div>
@@ -104,7 +105,7 @@ a {
       justify-content: end;
       .login__item {
         cursor: pointer;
-        padding: 10px;
+        padding: 10px 0 10px 20px;
         &:hover {
           font-weight: bold;
         }
@@ -125,7 +126,7 @@ a {
       .__item {
         display: flex;
         .menu__item {
-          padding: 0 20px;
+          padding-left: 30px;
           font-size: 20px;
           cursor: pointer;
           

@@ -30,6 +30,7 @@ import UserInfo from './UserInfo.vue'
 import LoginFind from './LoginFind.vue'
 import Convenience from './Convenience.vue'
 import ConvenienceFind from './ConvenienceFind.vue'
+import ConvenienceDataFind from './ConvenienceDataFind.vue'
 
 import Cu from './Cu.vue'
 import Gs from './Gs.vue'
@@ -146,6 +147,10 @@ export default createRouter({
     {
       path: '/convenience',
       component: Convenience
+    },
+    {
+      path: '/convenienceDataFind',
+      component: ConvenienceDataFind
     },
     {
       path: '/convenience/convenienceFind/:contentId?',

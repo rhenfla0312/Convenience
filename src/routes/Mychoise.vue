@@ -44,7 +44,7 @@ export default {
           }
         }).then((res) => {
           console.log(res)
-          this.datas = res.data
+          this.datas = res.data.results
           this.Loading = true
         }).catch((error) => {
           console.log(error)
@@ -61,7 +61,7 @@ export default {
           }
         }).then((res) => {
           console.log(res)
-          this.datas = res.data
+          this.datas = res.data.results
           this.Loading = true
         }).catch((error) => {
           console.log(error)
@@ -78,7 +78,7 @@ export default {
           }
         }).then((res) => {
           console.log(res)
-          this.datas = res.data
+          this.datas = res.data.results
           this.Loading = true
         }).catch((error) => {
           console.log(error)
@@ -176,7 +176,7 @@ export default {
       }
     }).then((res) => {
       console.log(res)
-      this.datas = res.data
+      this.datas = res.data.results
       this.Loading = true
     }).catch((error) => {
       console.log(error)
@@ -284,28 +284,27 @@ export default {
       }
       .mychoise__menu {
         position: relative;
-        height: 2100px;
-        border: 1px solid #333;
-        border-radius: 10px;
+        height: 2000px;
+        box-shadow: 0 7px 25px #00000014;
+        border-radius: 20px;
         .mycohise_title {
           margin-top: 30px;
           text-align: center;
           .__title {
             font-size: 25px;
             font-weight: bold;
+            padding-top: 10px;
           }
           .title__input {
             margin-top: 10px;
             input {
               text-align: center;
               width: 500px;
-              border-radius: 10px;
-              border: 1px solid #333;
+              border: none;
+              border-bottom: 1px solid #333;
               outline: none;
               padding: 5px;
-              &:focus {
-                border: 2px solid #333;
-              }
+              font-size: 20px;
             }
           }
           .errorTitle {
@@ -326,13 +325,11 @@ export default {
             input {
               text-align: center;
               width: 500px;
-              border-radius: 10px;
-              border: 1px solid #333;
+              border: none;
+              border-bottom: 1px solid #333;
               outline: none;
               padding: 5px;
-              &:focus {
-                border: 2px solid #333;
-              }
+              font-size: 20px;
             }
           }
         }
@@ -454,22 +451,24 @@ export default {
           margin-top: 80px;
           margin-bottom: 50px;
           .__btn {
-            width: 400px;
-            height: 50px;
+            border: 1px solid #dddddd;
             border-radius: 10px;
-            background: #fff;
-            font-weight: bold;
-            transition: .3s;
+            background: #424242;
+            color: #fff;
+            width: 500px;
+            font-size: 20px;
+            height: 50px;
+            padding: 10px;
+            transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
             &:hover {
-              background: #1de9b6;
-              color: #fff;
-              transition: .3s;
-              border: 1px solid #1de9b6;
+              color: #424242;
+              background: #fff;
+              border: 1px solid #424242;
             }
           }
         }
         .mychoise__description {
-          // position: absolute;
+          display: none;
           width: 100%;
           text-align: center;
           background: #bdbdbd;
