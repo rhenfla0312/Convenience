@@ -51,8 +51,9 @@ export default {
     height: 300px;
     z-index: 10;
     margin-top: 125px;
-    background-color: #fafafa;
+    background-color: #3b4890;
     border-top: 1px solid #dddddd;
+    color: #fff !important;
     .contetnBox {
       width: 1100px;
       height: 300px;
@@ -80,13 +81,19 @@ export default {
           }
           .__item {
             line-height: 1.63;
-            color: #787878;
+            // color: #787878;
             padding: 10px 0;
             font-size: 15px;
             cursor: pointer;
             &:hover {
               transition: color 375ms ease;
               color: #000;
+            }
+          }
+          .notCourser {
+            &:hover {
+              transition: none;
+              color: #fff;
             }
           }
           .icons {

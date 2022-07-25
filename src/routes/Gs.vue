@@ -632,7 +632,7 @@ export default {
             }
           }
           &:hover {
-            border: 5px solid #1de9b6;
+            border: 5px solid transparent;
             box-sizing: border-box;
           }
         }

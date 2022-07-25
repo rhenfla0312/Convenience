@@ -542,7 +542,7 @@ export default {
           border-radius: 10px;
           box-shadow: 0 7px 25px #00000014;
           cursor: pointer;
-          transition: .3s;
+          transition: .2s;
           margin: 15px;
           // padding: 50px 10px 50px 10px;
           .itemBox {
@@ -630,7 +630,7 @@ export default {
             }
           }
           &:hover {
-            border: 5px solid #1de9b6;
+            border: 5px solid transparent;
             box-sizing: border-box;
           }
         }

@@ -380,8 +380,10 @@ export default {
               border-radius: 10px;
               margin: 10px;
               box-shadow: 0 7px 25px #00000014;
+              transition: .2s;
+              cursor: pointer;
               &:hover {
-                border: 2px solid #1de9b6;
+                border: 2px solid transparent;
               }
               .__img {
                 width: 150px;

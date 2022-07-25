@@ -74,6 +74,7 @@ export default {
         console.log(res)
         this.datas = res.data.results
         this.search__count = res.data.count
+        this.nextData = res.data.next
       }).catch((error) => {
         console.log(error)
       })
@@ -184,8 +185,9 @@ export default {
               border-radius: 10px;
               margin: 12px;
               box-shadow: 0 7px 25px #00000014;
+              transition: .2s;
               &:hover {
-                border: 5px solid #1de9b6;
+                border: 5px solid transparent;
                 border-radius: 10px;
                 cursor: pointer;
               }

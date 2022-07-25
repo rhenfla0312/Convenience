@@ -12,6 +12,14 @@ import Mychoise from './Mychoise.vue'
 
 import Login from './Login.vue'
 import LoginInfo from './LoginInfo.vue'
+import LoginInfoChange from './LoginInfoChange.vue'
+import LoginMyMixData from './LoginMyMixData.vue'
+import LoginMyBestMixData from './LoginMyBestMixData.vue'
+import LoginMyBoard from './LoginMyBoard.vue'
+import LoginMyMixDataComment from './LoginMyMixDataComment.vue'
+import LoginMyBoardComment from './LoginMyBoardComment.vue'
+
+
 import PwChange from './PwChange.vue'
 import EmailCheck from './EmailCheck.vue'
 import SignUp from './SignUp.vue'
@@ -80,8 +88,32 @@ export default createRouter({
       component : BoardFind
     },
     {
-      path: '/login/loginInfo/:loginId?',
+      path: '/login/loginInfo',
       component: LoginInfo
+    },
+    {
+      path: '/login/loginInfo/loginInfoChange',
+      component: LoginInfoChange  
+    },
+    {
+      path: '/login/loginInfo/loginMyMixData',
+      component: LoginMyMixData
+    },
+    {
+      path: '/login/loginInfo/loginMyBestMixData',
+      component: LoginMyBestMixData
+    },
+    {
+      path: '/login/loginInfo/loginMyBoard',
+      component: LoginMyBoard
+    },
+    {
+      path: '/login/loginInfo/loginMyMixDataComment',
+      component: LoginMyMixDataComment  
+    },
+    {
+      path: '/login/loginInfo/loginMyBoardComment',
+      component: LoginMyBoardComment 
     },
     {
       path: '/login/emailCheck',

@@ -4,29 +4,64 @@ import axios from "axios";
 export default {
   data() {
     return {
-      myInfoPw : "",
-
       serverItem : false,
       serverBoardItem : false,
+
+      myBestMixDatas : [],
+
+      // nextpage
+      myBestMixDataNextPage : "",
     };
   },
   methods: {
-    myInfoCheckBtn() {
+    myBestMixDatasNextBtn() {
+      // 나의 추천조합 다음페이지
       axios({
-        method: "POST",
-        url: "http://54.180.193.83:8081/accounts/login/",
-        data: {
-          email : localStorage.getItem('email'),
-          password : this.myInfoPw
-        }
+        method: "GET",
+        url: this.myBestMixDataNextPage,
+        params: {
+          user_id : localStorage.getItem("id"),
+        },
       }).then((res) => {
         console.log(res)
-        this.$router.push('/login/loginInfo/LoginInfoChange')
+        this.myBestMixDataNextPage = res.data.next
+        this.myBestMixDatas = this.myBestMixDatas.concat(res.data.results)
       }).catch((error) => {
         console.log(error)
-        alert("비밀번호가 일치하지 않습니다")
       })
     },
+    myMixDataFind(id) {
+      this.$router.push({
+        name: "bestChoiseFind",
+        params : {
+          id : id
+        }
+      })
+    },
+    myBoardFind(id) {
+      this.$router.push({
+        name: "BoardFind",
+        params : {
+          id : id
+        }
+      })
+    },
+  },
+  mounted() {
+    axios({
+      method: "GET",
+      url: "http://54.180.193.83:8081/privateLikes/",
+      params: {
+        user_id : localStorage.getItem("id"),
+      },
+    }).then((res) => {
+        console.log(res);
+        this.myBestMixDatas = res.data.results
+        this.myBestMixDataNextPage = res.data.next
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
 };
 </script>
@@ -98,16 +133,31 @@ export default {
         </div>
 
         <div class="__rightInfo">
-          <!-- 1 -->
-          <div class="__data __myInfo">
-            <div class="__title">내정보 수정</div>
+          <div class="__data __myBestMixData">
+            <div class="__title">나의 추천조합</div>
             <div class="__text">
-              <div class="__pwName">현재 비밀번호 :</div>
-              <div class="__pwInput">
-                <input type="password" v-model="myInfoPw" @keydown.enter.prevent="myInfoCheckBtn()" />
-              </div>
-              <div class="__btn" @click="myInfoCheckBtn()">
-                <button>확인</button>
+              <table class="table">
+                <thead class="thead">
+                  <tr class="tr">
+                    <th>번호</th>
+                    <th>닉네임</th>
+                    <th>조합이름</th>
+                    <th>생성날짜</th>
+                    <th>추천수</th>
+                  </tr>
+                </thead>
+                <tbody class="tbody">
+                  <tr class="tr tr__main" v-for="myBestMixData in myBestMixDatas" :key="myBestMixData" @click="myMixDataFind(myBestMixData.id)">
+                    <td>{{ myBestMixData.id }}</td>
+                    <td>{{ myBestMixData.nickname }}</td>
+                    <td>{{ myBestMixData.title }}</td>
+                    <td>{{ myBestMixData.create_date.slice(0,-22) }}</td>
+                    <td>{{ myBestMixData.likes_cnt }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="pagenation" @click="myBestMixDatasNextBtn()">
+                <div class="nextPage">더보기</div>
               </div>
             </div>
           </div>
@@ -171,7 +221,7 @@ a {
       }
       .__rightInfo {
         margin-left: 350px;
-        .__myInfo {
+        .__myBestMixData {
           .__title {
             color: #142e4e;
             border-bottom: 3px solid #142e4e;
@@ -179,29 +229,32 @@ a {
             font-size: 25px;
           }
           .__text {
-            margin-top: 50px;
-            display: flex;
-            align-items: center;
-            .__pwInput {
-              margin-left: 20px;
-              input {
-                outline: none;
-                border: none;
-                border-bottom: 1px solid #142e4e;
+            border-radius: 10px;
+            box-shadow: 0 7px 25px #00000014;
+            padding: 10px;
+            margin-top: 20px;
+            .table {
+              margin-top: 40px;
+              text-align: center;
+              .tr {
+                padding: 10px 0 10px 0;
+              }
+              .tr__main {
+                &:hover {
+                  box-shadow: 1px 1px 3px 1px;
+                  cursor: pointer;
+                }
               }
             }
-          }
-          .__btn {
-            margin-left: 20px;
-            button {
-              outline: none;
-              width: 100px;
-              background: #3b4890;
-              border-color: #29367c;
-              color: #fff;
-              cursor: pointer;
-              &:hover {
-                opacity: 0.8;
+            .pagenation {
+              text-align: center;
+              .nextPage {
+                display: flex;
+                justify-content: center;
+                cursor: pointer;
+                background: #eeeeee;
+                border-radius: 10px;
+                font-size: 18px;
               }
             }
           }

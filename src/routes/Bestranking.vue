@@ -277,6 +277,7 @@ export default {
             background-repeat: no-repeat;
             text-align: center;
             cursor: pointer;
+            transition: .2s;
             .itemHead {
               text-align: center;
               font-size: 25px;
@@ -294,7 +295,7 @@ export default {
               font-size: 20px;
             }
             &:hover {
-              border: 4px solid transparent;
+              border: 5px solid transparent;
             }
             .first {
               position: absolute;
