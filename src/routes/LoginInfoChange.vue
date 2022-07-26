@@ -143,12 +143,12 @@ export default {
                   <div class="pw__name">비밀번호</div>
                   <input v-model="password1" id="password" type="password" placeholder="비밀번호를 입력해주세요">
                 </div>
-                <div class="default__text">입력하지 않으셔도 비밀번호는 변경되지 않습니다.</div>
+                <div class="default__text">입력하지 않으시면 변경되지 않습니다.</div>
                 <div class="login__pw">
                   <div class="pw__name">비밀번호 확인</div>
                   <input v-model="password2" id="passwordInfo" type="password" placeholder="비밀번호를 다시 입력해주세요">
                 </div>
-                <div class="default__text">입력하지 않으셔도 비밀번호는 변경되지 않습니다.</div>
+                <div class="default__text">입력하지 않으시면 변경되지 않습니다.</div>
                 <!-- 질문 -->
                 <div class="login__select">
                   <div class="select__name">질문선택</div>

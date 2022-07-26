@@ -8,7 +8,11 @@ export default {
       gsData : false,
       ministopData : false,
 
-      datas : []
+      cuNextPage :"",
+      gsNextPage :"",
+      ministopNextPage :"",
+      datas : [],
+      SearchData : []
     }
   },
   methods: {
@@ -66,6 +70,116 @@ export default {
           console.log(error)
         })
     },
+    nextPage() {
+      this.Loading = false
+      if(this.cuData) {
+        axios.get(this.cuNextPage,{
+          params: {
+            data: "CU"
+          }
+        }).then((res) => {
+          console.log(res)
+          this.datas = this.datas.concat(res.data.results)
+          this.cuData = true
+          this.cuNextPage = res.data.next
+          this.Loading = true
+        }).catch((error) => {
+          console.log(error)
+          this.Loading = true
+        })
+      } else if(this.gsData) {
+        axios.get(this.gsNextPage,{
+          params: {
+            data: "GS25"
+          }
+        }).then((res) => {
+          console.log(res)
+          this.datas = this.datas.concat(res.data.results)
+          this.gsNextPage = res.data.next
+        }).catch((error) => {
+          console.log(error)
+          this.Loading = true
+        })
+      } else if(this.ministopData) {
+        axios.get(this.ministopNextPage,{
+          params: {
+            data: "MINISTOP"
+          }
+        }).then((res) => {
+          console.log(res)
+          this.ministopNextPage = res.data.next
+          this.datas = this.datas.concat(res.data.results)
+        }).catch((error) => {
+          console.log(error)
+          this.Loading = true
+        })
+      } else {
+        this.Loading = true
+      }
+    },
+    detailSearch(id) {
+      axios({
+        method: 'GET',
+        url : 'http://54.180.193.83:8081/objectssearch/',
+        headers: {
+          Authorization : `Bearer ${localStorage.getItem('access')}`
+        },
+        params : {
+          objects_id : id
+        }
+      }).then((res) => {
+        console.log(res)
+        // this.SearchData = res.data.results
+        // if(res.data.results.length == 0) {
+        return
+        // }
+        // this.$router.push({
+          // name : 'bestChoise'
+        // })
+      }).catch((error) => {
+        console.log(error)
+      })
+    }
+  },
+  mounted() {
+    // cu - default
+    axios.get("http://54.180.193.83:8081/objects/",{
+      params: {
+        data: "CU"
+      }
+    }).then((res) => {
+      console.log(res)
+      this.datas = res.data.results
+      this.cuData = true
+      this.cuNextPage = res.data.next
+      this.Loading = true
+    }).catch((error) => {
+      console.log(error)
+    })
+
+    // gs
+    axios.get("http://54.180.193.83:8081/objects/",{
+      params: {
+        data: "GS25"
+      }
+    }).then((res) => {
+      console.log(res)
+      this.gsNextPage = res.data.next
+    }).catch((error) => {
+      console.log(error)
+    })
+
+    // ministop
+    axios.get("http://54.180.193.83:8081/objects/",{
+      params: {
+        data: "MINISTOP"
+      }
+    }).then((res) => {
+      console.log(res)
+      this.ministopNextPage = res.data.next
+    }).catch((error) => {
+      console.log(error)
+    })
   }
 }
 </script>
@@ -75,7 +189,7 @@ export default {
   <div class="convenience">
     <div class="inner">
       <div class="convenience__name">
-        <div @click="cuClick" :class="{ cuData : cuData }" class="__name __cuName">CU</div>
+        <div @click="cuClick" :class="{ cuData : cuData }" class="__name">CU</div>
         <div @click="gsClick" :class="{ gsData : gsData }" class="__name">GS25</div>
         <div @click="ministopClick" :class="{ ministopData : ministopData }" class="__name">MINISTOP</div>
       </div>
@@ -84,14 +198,17 @@ export default {
         <!-- <input v-model="searchData" type="text" class="__search" @keydown.enter.prevent="search"> -->
         <!-- <i class="fa-solid fa-magnifying-glass search__icon" @click="search"></i> -->
       <!-- </div> -->
+      <div class="description">
+        <p>해당 상품들은 조합아이템에 포함되는 상품들입니다.</p>
+        <p>상품을 클릭하면 해당 상품이 포함된 조합을 보실 수 있습니다.</p>
+      </div>
 
       <div class="convenience__main" v-if="Loading">
-        <div class="item" v-for="(data,index) in datas" :key="data" @click="paramId(totalData,index)">
+        <div class="item" v-for="data in datas" :key="data" @click="detailSearch(data.id)">
           <div class="itemBox">
-            <div class="item__type">{{ data}}</div>
             <img class="__img" :src="`/DRF${data.image}`">
             <div class="item__name">{{ data.name }}</div>
-            <div class="item__price">{{ price }}원</div>
+            <div class="item__price">{{ data.price }}원</div>
           </div>
         </div>
         <!-- page -->
@@ -130,8 +247,7 @@ export default {
         font-size: 20px;
         line-height: 3;
         .__name {
-          // margin-right: 10px;
-          margin-left: 100px;
+          margin: 0 40px;
           &:hover {
             font-weight: bold;
             cursor: pointer;
@@ -146,6 +262,16 @@ export default {
         .ministopData {
           font-weight: bold;
         }
+      }
+      .description {
+        text-align: center;
+        margin: 20px;
+        background: #fff;
+        padding: 15px 0 5px 0;
+        border-radius: 10px;
+        border-radius: 10px px;
+        box-shadow: 0 7px 25px #00000014;
+        font-weight: bold;
       }
       .__cuName {
         font-weight: bold;

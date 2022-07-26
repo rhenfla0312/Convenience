@@ -459,8 +459,7 @@ export default {
         font-size: 20px;
         line-height: 3;
         .__name {
-          // margin-right: 10px;
-          margin-left: 100px;
+          margin: 0 40px;
           &:hover {
             font-weight: bold;
             cursor: pointer;

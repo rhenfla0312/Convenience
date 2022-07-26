@@ -196,7 +196,10 @@ export default {
                       <tr class="tr tr__main" @click="bestChoiseFind(totalData.id)" v-for="(totalData,index) in totalDatas" :key="totalData">
                         <td>{{ index + 1 }}</td>
                         <td>{{ totalData.nickname }}</td>
-                        <td>{{ totalData.title }}</td>
+                        <td>
+                          {{ totalData.title }}
+                          [{{ totalData.post.length }}]  
+                        </td>
                         <td>{{ totalData.create_date.slice(0,-22) }}</td>
                         <td>{{ (!totalData.likes_cnt ? 0 : totalData.likes_cnt) }}</td>
                       </tr>
@@ -273,6 +276,7 @@ export default {
             border-radius: 10px;
             background-image: url('../../public/background.png');
             background-size: 100%;
+            background-position: center;
             background-repeat: no-repeat;
             text-align: center;
             cursor: pointer;

@@ -126,10 +126,12 @@ a {
       .__item {
         display: flex;
         .menu__item {
-          padding-left: 30px;
-          font-size: 20px;
+          font-size: 19px;
           cursor: pointer;
-          
+          margin-left: 20px;
+          &:hover {
+            font-weight: bold;
+          }
         }
       }
     }

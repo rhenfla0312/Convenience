@@ -94,7 +94,10 @@ export default {
               <tr class="tr tr__main" v-for="board_data in board_datas" :key="board_data" @click="boardFind(board_data.id)">
                 <td>{{ board_data.id }}</td>
                 <td>{{ board_data.username}}</td>
-                <td>{{ board_data.title}}</td>
+                <td class="boardComment_count">
+                  {{ board_data.title}}
+                  [{{ board_data.boardcomment.length}}]
+                </td>
                 <td>{{ board_data.create_date.slice(0,-22) }}</td>
                 <td>{{ board_data.hits}}</td>
               </tr>
@@ -167,6 +170,7 @@ export default {
             padding: 10px 0 10px 0;
           }
           .tr__main {
+            position: relative;
             &:hover {
               box-shadow: 1px 1px 3px 1px;
               cursor: pointer;

@@ -155,6 +155,7 @@ export default {
             <div class="comment__info">
               <div class="__nickname">{{ comment.username }}</div>
               <div @click="itemUpdate__box(comment.nickname)" class="__comment">{{ comment.comment }}</div>
+              <div class="__date">{{ comment.create_date.slice(0,-22) }}</div>
               <div class="__delete" v-if="comment.username == this.localName" @click="itemDelete(comment.id)"><i class="fa-solid fa-xmark"></i></div>
             </div>
             <!-- 댓글수정창 -->
@@ -284,6 +285,12 @@ export default {
                 position: absolute;
                 cursor: pointer;
                 left: 400px;
+              }
+              .__date {
+                position: absolute;
+                right: 150px;
+                font-size: 15px;
+                top: 13px;
               }
               .__delete {
                 cursor: pointer;

@@ -64,6 +64,11 @@ export default {
       }).catch((error) => {
         console.log(error)
       })
+    },
+    test(id) {
+      id.forEach((item) => {
+        console.log(item)
+      })
     }
   },
   mounted() {
@@ -82,7 +87,11 @@ export default {
       axios.get("http://54.180.193.83:8081/Main/")
       .then((res) => {
         console.log(res)
-        this.datas = res.data.results
+        if(this.SearchDataLength == 0 || this.SearchDataLength == undefined) {
+          this.datas = res.data.results
+        } else {
+          this.datas = this.SearchData
+        }
         this.search__count = res.data.count
         this.nextData = res.data.next
         this.Loading = true
@@ -121,8 +130,8 @@ export default {
       <!-- 스켈레톤 UI -->
       <div class="skeletons__main" v-show="!this.Loading">
         <div class="item" v-for="data in datas" :key="data">
-          <div class="skeletons__itemBox"></div>
-          <div class="skeletons__textBox"></div>
+          <!-- <div class="skeletons__itemBox"></div> -->
+          <!-- <div class="skeletons__textBox"></div> -->
         </div>
       </div>
       <div class="pagenation">

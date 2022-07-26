@@ -180,18 +180,19 @@ export default {
             <div class="comment__info">
               <div class="__nickname">{{ comment_data.nickname }}</div>
               <div @click="itemUpdate__box(comment_data.nickname)" class="__comment">{{ comment_data.comment }}</div>
+              <div class="__date">{{ comment_data.create_date.slice(0,-22)}}</div>
               <div class="__delete" v-if="comment_data.nickname == this.localName" @click="itemDelete(comment_data.id)"><i class="fa-solid fa-xmark"></i></div>
             </div>
             <!-- 댓글수정창 -->
-            <div class="comment__update__box" v-if="comment_data.nickname == this.localName" :class="{ update__box : update__box }">
-              <div class="comment__update__text">
+            <!-- <div class="comment__update__box" v-if="comment_data.nickname == this.localName" :class="{ update__box : update__box }"> -->
+              <!-- <div class="comment__update__text"> -->
                 <!-- :value에 원래 댓글 입력하니 오류가 걸려 일단 제거 -->
-                <textarea v-model="comment_update_data" class="__text"></textarea>
-              </div>
-              <div @click="itemUpadate(comment_data.id)" class="comment__update__btn">
-                <button class="__btn">수정</button>
-              </div>
-            </div>
+                <!-- <textarea v-model="comment_update_data" class="__text"></textarea> -->
+              <!-- </div> -->
+              <!-- <div @click="itemUpadate(comment_data.id)" class="comment__update__btn"> -->
+                <!-- <button class="__btn">수정</button> -->
+              <!-- </div> -->
+            <!-- </div> -->
           </div>
           <div class="comment__else__info" v-show="this.comment_datas.length == 0">등록된 댓글이 없습니다</div>
           <!-- 페이지네이션 -->
@@ -384,6 +385,12 @@ export default {
                 cursor: pointer;
                 left: 400px;
                 cursor: pointer;
+              }
+              .__date {
+                position: absolute;
+                right: 150px;
+                font-size: 15px;
+                top: 13px;
               }
               .__delete {
                 cursor: pointer;
