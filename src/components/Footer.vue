@@ -51,9 +51,8 @@ export default {
     min-height: 350px;
     z-index: 10;
     margin-top: 125px;
-    background-color: #3b4890;
     border-top: 1px solid #dddddd;
-    color: #fff !important;
+    background: #fff;
     .contetnBox {
       width: 1100px;
       height: 300px;
@@ -78,6 +77,10 @@ export default {
           margin-top: 20px;
           .notCourser {
             cursor: default !important;
+            &:hover {
+              transition: none !important;
+              font-weight: normal !important;
+            }
           }
           .__item {
             line-height: 1.63;
@@ -87,13 +90,7 @@ export default {
             cursor: pointer;
             &:hover {
               transition: color 375ms ease;
-              color: #000;
-            }
-          }
-          .notCourser {
-            &:hover {
-              transition: none;
-              color: #fff;
+              font-weight: bold;
             }
           }
           .icons {

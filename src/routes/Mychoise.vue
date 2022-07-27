@@ -451,9 +451,9 @@ export default {
           margin-top: 80px;
           margin-bottom: 50px;
           .__btn {
-            border: 1px solid #dddddd;
             border-radius: 10px;
-            background: #424242;
+            background: #3b4890;
+            border-color: #29367c;
             color: #fff;
             width: 500px;
             font-size: 20px;
@@ -461,9 +461,7 @@ export default {
             padding: 10px;
             transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
             &:hover {
-              color: #424242;
-              background: #fff;
-              border: 1px solid #424242;
+              opacity: .8s;
             }
           }
         }

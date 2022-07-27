@@ -152,11 +152,11 @@ export default {
       }
       .userInfo__main {
         width: 600px;
-        border: 1px solid #333;
         margin: auto;
         border-radius: 10px;
+        box-shadow: 0 7px 25px #00000014;
         background: #fff;
-        border: 1px solid #dddddd;
+        padding: 10px;
         .login__inner {
           width: 400px;
           position: relative;
@@ -187,12 +187,14 @@ export default {
               width: 80px;
               height: 30px;
               font-size: 15px;
-              border-radius: 10px;
-              color: #000;
               background: #fff;
+              border: none;
+              background: #3b4890;
+              border-color: #29367c;
+              color: #fff;
+              border-radius: 5px;
               &:hover {
-                background : #000;
-                color: #fff;
+                opacity: .8s;
               }
             }
           }
@@ -254,14 +256,13 @@ export default {
             .btn {
               border: 1px solid #dddddd;
               border-radius: 10px;
-              background: #424242;
+              background: #3b4890;
+              border-color: #29367c;
               color: #fff;
               width: 400px;
               padding: 10px;
               &:hover {
-                color: #424242;
-                background: #fff;
-                border: 1px solid #424242;
+                opacity: .8s;
               }
             }
           }

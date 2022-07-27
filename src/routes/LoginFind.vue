@@ -133,8 +133,6 @@ export default {
     position: relative;
     top: 125px;
     padding: 0 0 80px 0;
-    // min-width: 1900px;
-    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
     .inner {
       width: 1400px;
       margin: auto;
@@ -159,9 +157,10 @@ export default {
         display: flex;
         justify-content: space-between;
         .loginFind__id {
-          border: 1px solid #dddddd;
           width: 500px;
+          padding: 10px;
           border-radius: 10px;
+          box-shadow: 0 7px 25px #00000014;
           background: #fff;
           .login__inner {
             width: 400px;
@@ -191,16 +190,14 @@ export default {
               margin-top: 70px;
               margin-bottom: 30px;
               .btn {
-                border: 1px solid #dddddd;
                 border-radius: 10px;
-                background: #424242;
+                background: #3b4890;
+                border-color: #29367c;
                 color: #fff;
                 width: 400px;
                 padding: 10px;
                 &:hover {
-                  color: #424242;
-                  background: #fff;
-                  border: 1px solid #424242;
+                  opacity: .8s;
                 }
               }
             }
@@ -239,9 +236,10 @@ export default {
           }
         }
         .loginFind__pw {
-          border: 1px solid #dddddd;
           width: 500px;
+          padding: 10px;
           border-radius: 10px;
+          box-shadow: 0 7px 25px #00000014;
           background: #fff;
           .login__inner {
             width: 400px;
@@ -271,16 +269,14 @@ export default {
               margin-top: 70px;
               margin-bottom: 30px;
               .btn {
-                border: 1px solid #dddddd;
+                background: #3b4890;
+                border-color: #29367c;
                 border-radius: 10px;
-                background: #424242;
                 color: #fff;
                 width: 400px;
                 padding: 10px;
                 &:hover {
-                  color: #424242;
-                  background: #fff;
-                  border: 1px solid #424242;
+                  opacity: .8s;
                 }
               }
             }

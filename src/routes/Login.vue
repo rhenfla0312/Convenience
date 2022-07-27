@@ -87,12 +87,14 @@ export default {
       }
       .login__main {
         margin: auto;
-        border: 1px solid #dddddd;
         width: 700px;
         height: 350px;
+        padding: 10px;
+        border-radius: 10px;
+        box-shadow: 0 7px 25px #00000014;
+        background: #fff;
         text-align: center;
         border-radius: 10px;
-        background: #fff;
         .login__inner {
           width: 400px;
           position: relative;
@@ -142,14 +144,13 @@ export default {
             .btn {
               border: 1px solid #dddddd;
               border-radius: 10px;
-              background: #424242;
+              background: #3b4890;
+              border-color: #29367c;
               color: #fff;
               width: 400px;
               padding: 10px;
               &:hover {
-                color: #424242;
-                background: #fff;
-                border: 1px solid #424242;
+                opacity: .8s;
               }
             }
           }

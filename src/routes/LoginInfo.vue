@@ -14,9 +14,9 @@ export default {
     myInfoCheckBtn() {
       axios({
         method: "POST",
-        url: "http://54.180.193.83:8081/accounts/login/",
+        url: "http://54.180.193.83:8081/checkpassword/",
         data: {
-          email : localStorage.getItem('email'),
+          id : localStorage.getItem('id'),
           password : this.myInfoPw
         }
       }).then((res) => {

@@ -233,11 +233,11 @@ export default {
       }
       .signUp__main {
         width: 600px;
-        border: 1px solid #333;
-        margin: auto;
         border-radius: 10px;
+        box-shadow: 0 7px 25px #00000014;
         background: #fff;
-        border: 1px solid #dddddd;
+        padding: 10px;
+        margin: auto;
         text-align: center;
         .checkBox {
           width: 400px;
@@ -626,13 +626,12 @@ export default {
             width: 400px;
             height: 45px;
             border-radius: 10px;
-            border: 1px solid #333;
-            background: #333;
+            background: #3b4890;
+            border-color: #29367c;
             color: #fff;
             outline: none;
             &:hover {
-              background: #fff;
-              color: #333;
+              opacity: .8s;
             }
           }
         }

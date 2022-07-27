@@ -122,7 +122,7 @@ export default {
     top: 125px;
     min-height: 650px;
     height: 100%;
-    padding: 0 0 20px 0;
+    padding: 0 0 100px 0;
     .inner {
       width: 1100px;
       margin: auto;

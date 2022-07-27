@@ -87,15 +87,15 @@ export default {
 <style lang="scss" scoped>
 a {
   text-decoration: none;
-  color: #fff;
+  color: #000;
 }
 .header {
-  position: fixed;
-  z-index: 100;
-  width: 100%;
-  background-color: #3b4890;
-  border-bottom: 1px solid #dddddd;
-  color: #fff;
+    position: fixed;
+    z-index: 200;
+    width: 100%;
+    color: #000;
+    background: #fff;
+    border-bottom: 1px solid #dddddd;
   .inner {
     width: 1200px;
     margin: 0 auto;

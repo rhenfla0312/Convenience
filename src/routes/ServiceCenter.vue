@@ -161,13 +161,12 @@ export default {
               align-items: center;
               width: 400px;
               height: 45px;
-              border: 1px solid #333;
-              background: #333;
+              background: #3b4890;
+              border-color: #29367c;
               color: #fff;
               border-radius: 10px;
               &:hover {
-                background: #fff;
-                color: #333;
+                opacity: .8s;
               }
             }
           }
