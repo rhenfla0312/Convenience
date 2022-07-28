@@ -12,7 +12,13 @@ export default {
       date : "",
       board_id : "",
       localName: localStorage.getItem("name"),
-      comment_update_data: "",
+      comment_update_idx: 0,
+      comment_update_data: false,
+
+      comment_parent_idx : 0,
+      comment_parent_data : "",
+
+      comment_parent_comment : ""
     }
   },
   methods: {
@@ -91,10 +97,37 @@ export default {
         console.log(error)
       })
     },
-    itemUpdate__box(name) {
-      if(this.localName == name) {
-        this.update__box = !this.update__box
+    plus_Comment(id) {
+      axios({
+        method : 'POST',
+        headers: {
+          Authorization : `Bearer ${localStorage.getItem('access')}`
+        },
+        url : 'http://54.180.193.83:8081/boardcomment/',
+        data : {
+          comment : this.comment_parent_comment,
+          username : localStorage.getItem('name'),
+          parent : id
+        }
+      }).then((res) => {
+        console.log(res)
+        this.$router.go()
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+    itemUpdateBox(index) {
+      this.comment_update_idx = index
+      if(this.comment_update_idx === index) {
+        console.log(this.comment_update_idx)
+        this.comment_update_data = !this.comment_update_data
       }
+    },
+    comment_parent(index) {
+      this.comment_parent_idx = index
+      // if(this.comment_parent_idx === index) {
+
+      // }
     },
     update() {
       this.$router.push({
@@ -151,21 +184,32 @@ export default {
         <!-- 댓글 -->
         <div class="comment">
           <div class="comment__title">전체댓글{{comments.length }}개</div>
-          <div class="if" v-for="comment in comments" :key="comment">
+          <div class="if" v-for="(comment,index) in comments" :key="comment">
             <div class="comment__info">
               <div class="__nickname">{{ comment.username }}</div>
-              <div @click="itemUpdate__box(comment.nickname)" class="__comment">{{ comment.comment }}</div>
+              <div @click="comment_parent(index)" class="__comment">{{ comment.comment }}</div>
               <div class="__date">{{ comment.create_date.slice(0,-22) }}</div>
-              <div class="__delete" v-if="comment.username == this.localName" @click="itemDelete(comment.id)"><i class="fa-solid fa-xmark"></i></div>
+              <div title="수정" class="__update" v-if="comment.username == this.localName" @click="itemUpdateBox(index)"><i class="fa-solid fa-pen-to-square"></i></div>
+              <div title="삭제" class="__delete" v-if="comment.username == this.localName" @click="itemDelete(comment.id)"><i class="fa-solid fa-xmark"></i></div>
             </div>
-            <!-- 댓글수정창 -->
-            <div class="comment__update__box" v-if="comment.nickname == this.localName" :class="{ update__box : update__box }">
+            <!-- 대댓글표시 -->
+            <div class="plusComment__info"  v-for="plusComment in comment.reply" :key="plusComment">
+              <div class="plusComment__arrow"><i class="fa-solid fa-arrow-turn-down-left"></i></div>
+              <div class="__nickname">{{ plusComment.username }}</div>
+              <div class="__comment">{{ plusComment.comment }}</div>
+              <div class="__date">{{ plusComment.create_date.slice(0,-22) }}</div>
+              <div title="수정" class="__update" v-if="plusComment.username == this.localName" @click="PlusitemUpdateBox(index)"><i class="fa-solid fa-pen-to-square"></i></div>
+              <div title="삭제" class="__delete" v-if="plusComment.username == this.localName" @click="itemDelete(plusComment.id)"><i class="fa-solid fa-xmark"></i></div>
+            </div>
+            <!-- 대댓글 작성 -->
+            <div class="comment__update__box" v-if="comment_parent_idx === index">
               <div class="comment__update__text">
                 <!-- :value에 원래 댓글 입력하니 오류가 걸려 일단 제거 -->
-                <textarea class="__text"></textarea>
+                <textarea v-model="comment_parent_comment" class="__text"></textarea>
               </div>
-              <div @click="itemUpadate(comment.id)" class="comment__update__btn">
-                <button class="__btn">수정</button>
+              <div class="comment__update__btn">
+                <button class="__close">취소</button>
+                <button @click="plus_Comment(comment.id)" class="__btn">등록</button>
               </div>
             </div>
           </div>
@@ -272,11 +316,9 @@ export default {
           }
           .if {
             text-align: start;
-            border-bottom: 1px solid #333;
-            &:last-child {
-              border-bottom: none
-            }
             .comment__info {
+              border-top: 1px solid #333;
+              border-bottom: 1px solid #333;
               display: flex;
               padding: 10px 0;
               position: relative;
@@ -292,6 +334,41 @@ export default {
                 font-size: 15px;
                 top: 13px;
               }
+              .__update {
+                cursor: pointer;
+                position: absolute;
+                right: 35px;
+              }
+              .__delete {
+                cursor: pointer;
+                position: absolute;
+                right: 3px;
+              }
+            }
+            .plusComment__info {
+              width: 90%;
+              border-bottom: 1px solid #333;
+              display: flex;
+              padding: 10px 0;
+              position: relative;
+              margin-left: 120px;
+              padding: 10px 0 10px 0;
+              .__comment {
+                position: absolute;
+                cursor: pointer;
+                left: 400px;
+              }
+              .__date {
+                position: absolute;
+                right: 150px;
+                font-size: 15px;
+                top: 13px;
+              }
+              .__update {
+                cursor: pointer;
+                position: absolute;
+                right: 35px;
+              }
               .__delete {
                 cursor: pointer;
                 position: absolute;
@@ -299,9 +376,6 @@ export default {
               }
             }
             .comment__update__box {
-              display: none;
-            }
-            .comment__update__box.update__box {
               display: block;
               border-top: 2px solid #3b4890;
               padding: 10px 0 10px 0;
@@ -319,6 +393,17 @@ export default {
                 text-align: end;
                 margin-right: 66px;
                 .__btn {
+                  outline: none;
+                  width: 100px;
+                  background: #3b4890;
+                  border-color: #29367c;
+                  color: #fff;
+                  &:hover {
+                    opacity: .8;
+                  }
+                }
+                .__close {
+                  margin-right: 10px;
                   outline: none;
                   width: 100px;
                   background: #3b4890;
