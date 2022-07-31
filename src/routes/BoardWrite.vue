@@ -6,7 +6,7 @@ export default {
     const update_title = this.$route.params.title
     const update_content = this.$route.params.content
     return {
-      // update
+      // update 
       update_id : update_id,
       update_title : update_title,
       update_content : update_content,
@@ -16,7 +16,7 @@ export default {
       content : update_content !== undefined ? update_content : "",
       // error
       error_title : "",
-      error_content : ""
+      error_content : "",
     }
   },
   methods : {
@@ -61,8 +61,8 @@ export default {
         this.error_content = error.response.data.content
         this.error_title = error.response.data.title
       })
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -219,10 +219,10 @@ export default {
               align-items: center;
               width: 600px;
               height: 45px;
-              border: 1px solid #333;
-              background: #333;
-              color: #fff;
               border-radius: 10px;
+              background: #3b4890;
+              border-color: #29367c;
+              color: #fff;
               &:hover {
                 background: #fff;
                 color: #333;

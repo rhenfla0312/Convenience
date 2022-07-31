@@ -76,7 +76,7 @@ export default {
         .itemBox {
           margin-top: 20px;
           .notCourser {
-            cursor: default !important;
+            cursor: auto !important;
             &:hover {
               transition: none !important;
               font-weight: normal !important;

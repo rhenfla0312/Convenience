@@ -31,12 +31,16 @@ export default {
       })
     },
     myMixDataFind(id) {
-      this.$router.push({
-        name: "bestChoiseFind",
-        params : {
-          id : id
-        }
-      })
+      if(id === null) {
+        alert("대댓글은 상세정보로 이동되지 않습니다")
+      } else {
+        this.$router.push({
+          name: "bestChoiseFind",
+          params : {
+            id : id
+          }
+        })
+      }
     },
     myBoardFind(id) {
       this.$router.push({
@@ -150,7 +154,7 @@ export default {
                   <tr class="tr tr__main" v-for="myMixCommentData in myMixCommentDatas" :key="myMixCommentData" @click="myMixDataFind(myMixCommentData.post_id)">
                     <td>{{ myMixCommentData.id }}</td>
                     <td>{{ myMixCommentData.nickname }}</td>
-                    <td>{{ myMixCommentData.comment }}</td>
+                    <td>{{ myMixCommentData.post_id === null ? myMixCommentData.comment + "[대댓글]" : myMixCommentData.comment }}</td>
                     <td>{{ myMixCommentData.create_date.slice(0,-22) }}</td>
                   </tr>
                 </tbody>

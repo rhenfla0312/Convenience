@@ -287,8 +287,8 @@ export default {
         line-height: 3;
       }
       .mychoise__menu {
+        padding: 0 0 60px 0;
         position: relative;
-        height: 2000px;
         box-shadow: 0 7px 25px #00000014;
         border-radius: 20px;
         .mycohise_title {
@@ -471,7 +471,6 @@ export default {
             font-size: 20px;
             height: 50px;
             padding: 10px;
-            transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
             &:hover {
               opacity: .8s;
             }

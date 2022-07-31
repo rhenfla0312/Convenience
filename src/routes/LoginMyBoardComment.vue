@@ -39,12 +39,16 @@ export default {
       })
     },
     myBoardFind(id) {
-      this.$router.push({
-        name: "BoardFind",
-        params : {
-          id : id
-        }
-      })
+      if(id === null) {
+        alert("대댓글은 상세정보로 이동되지 않습니다")
+      } else {
+        this.$router.push({
+          name: "BoardFind",
+          params : {
+            id : id
+          }
+        })
+      }
     },
   },
   mounted() {
@@ -149,7 +153,7 @@ export default {
                   <tr class="tr tr__main" v-for="myBoardCommentData in myBoardCommentDatas" :key="myBoardCommentData" @click="myBoardFind(myBoardCommentData.board_id)">
                     <td>{{ myBoardCommentData.id }}</td>
                     <td>{{ myBoardCommentData.username }}</td>
-                    <td>{{ myBoardCommentData.comment }}</td>
+                    <td>{{ myBoardCommentData.board_id === null ? myBoardCommentData.comment + "[대댓글]" : myBoardCommentData.comment }}</td>
                     <td>{{ myBoardCommentData.create_date.slice(0,-22) }}</td>
                   </tr>
                 </tbody>

@@ -214,7 +214,7 @@ export default {
             <!-- 댓글 기본 -->
             <div class="comment__info" v-else>
               <div class="__nickname">{{ comment.username }}</div>
-              <div @click="comment_parent(index)" class="__comment">{{ comment.comment }}{{ comment.reply.length === 0 ? "" : `[댓글${comment.reply.length}개]`  }}</div>
+              <div @click="comment_parent(index)" class="__comment">{{ comment.comment }}{{ comment.reply.length === 0 ? "" : `[${comment.reply.length}]`  }}</div>
               <div class="__date">{{ comment.create_date.slice(0,-22) }}</div>
               <div title="수정" class="__update" v-if="comment.username == this.localName" @click="itemUpdateBox(index)"><i class="fa-solid fa-pen-to-square"></i></div>
               <div title="삭제" class="__delete" v-if="comment.username == this.localName" @click="itemDelete(comment.id)"><i class="fa-solid fa-xmark"></i></div>
