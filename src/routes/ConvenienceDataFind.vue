@@ -12,7 +12,7 @@ export default {
       gsNextPage :"",
       ministopNextPage :"",
       datas : [],
-      SearchData : []
+      SearchData : [],
     }
   },
   methods: {
@@ -121,21 +121,15 @@ export default {
       axios({
         method: 'GET',
         url : 'http://54.180.193.83:8081/objectssearch/',
-        headers: {
-          Authorization : `Bearer ${localStorage.getItem('access')}`
-        },
         params : {
           objects_id : id
         }
       }).then((res) => {
         console.log(res)
-        // this.SearchData = res.data.results
+        this.SearchData = res.data.results
         // if(res.data.results.length == 0) {
         return
         // }
-        // this.$router.push({
-          // name : 'bestChoise'
-        // })
       }).catch((error) => {
         console.log(error)
       })

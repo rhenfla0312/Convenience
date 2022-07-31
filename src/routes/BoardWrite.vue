@@ -75,9 +75,11 @@ export default {
         <div class="main__container">
           <div class="textBox">
             <div class="text__name">
+              <div class="__name">닉네임</div>
               <input v-model="name" type="text" name="name" readonly placeholder="닉네임을 입력해주세요">
             </div>
             <div class="text__title">
+              <div class="__title">제목</div>
               <input v-model="title" type="text" name="title" placeholder="제목을 입력해주세요">
             </div>
             <div class="error">{{ error_title }}</div>
@@ -85,6 +87,10 @@ export default {
               <textarea v-model="content" name="text" id=""></textarea>
             </div>
             <div class="error">{{ error_content }}</div>
+            <div class="imgFile">
+              <div class="__file">첨부파일</div>
+              <input type="file" class="file">
+            </div>
           </div>
           <div @click="update_title !== undefined ? update() : write()" class="textBtn">
             <input type="submit" class="btn" :value="update_title !== undefined ? '수정하기' : '작성하기'" />
@@ -100,8 +106,6 @@ export default {
     position: relative;
     top: 125px;
     padding: 0 0 80px 0;
-    // min-width: 1900px;
-    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
     .inner {
       width: 1100px;
       margin: auto;
@@ -113,14 +117,12 @@ export default {
         line-height: 3;
       }
       .serviceCenter__main {
-        // width: 600px;
-        height: 650px;
-        border: 1px solid #333;
         margin: auto;
-        border-radius: 10px;
         background: #fff;
-        border: 1px solid #dddddd;
         text-align: center;
+        box-shadow: 0 7px 25px #00000014;
+        border-radius: 10px;
+        padding: 20px 0 70px 0;
         .main__container {
           margin-top: 64px;
           .content {
@@ -128,8 +130,15 @@ export default {
             font-weight: bold;
           }
           .textBox {
-            // margin-top: 40px;
+            width: 600px;
+            margin: auto;
+            text-align: start;
             .text__name {
+              .__name {
+                margin-left: 10px;
+                font-size: 13px;
+                font-weight: 700;
+              }
               > input {
                 padding: 10px;
                 width: 600px;
@@ -156,6 +165,11 @@ export default {
             }
             .text__title {
               margin-top: 30px;
+              .__title {
+                margin-left: 10px;
+                font-size: 13px;
+                font-weight: 700;
+              }
               > input {
                 padding: 10px;
                 width: 600px;
@@ -183,9 +197,20 @@ export default {
               margin-right: 355px;
               margin-top: 10px;
             }
+            .imgFile {
+              margin-top: 30px;
+              .__file {
+                margin-left: 10px;
+                font-size: 13px;
+                font-weight: 700;
+              }
+              .file {
+                padding: 10px;
+              }
+            }
           }
           .textBtn {
-            margin-top: 30px;
+            margin-top: 50px;
             display: flex;
             justify-content: center;
             .btn {

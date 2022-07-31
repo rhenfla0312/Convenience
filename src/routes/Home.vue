@@ -36,6 +36,8 @@ export default {
     }
   },
   mounted() {
+    // popupPage
+    // window.open("./Popup.html","popup","width=500, height=500, left=0, top=0")
     axios.get("http://54.180.193.83:8081/best/")
     .then((res) => {
       console.log(res)

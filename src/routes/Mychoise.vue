@@ -245,6 +245,10 @@ export default {
           </div>
           <div v-if="errorContentCount" class="errorContent">{{ errorContent }}</div>
         </div>
+        <div class="imgFile">
+          <div class="__file">첨부파일</div>
+          <input type="file" class="file">
+        </div>
         <!-- button -->
         <div class="mychoise__btn">
           <button ref="click" @click="update_title !== undefined ? update() : checkboxDataClick()" class="__btn">{{ update_title !== undefined ? '수정' : '조합' }}</button>
@@ -444,6 +448,14 @@ export default {
             color: red;
             margin-top: 5px;
             font-weight: 500;
+          }
+        }
+        .imgFile {
+          margin-top: 30px;
+          text-align: center;
+          .__file {
+            font-size: 25px;
+            font-weight: bold;
           }
         }
         .mychoise__btn {

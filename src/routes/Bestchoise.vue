@@ -5,8 +5,12 @@ export default {
   components: {
     Page
   },
+  props : {
+    SearchData : Array
+  },
   data() {
     return {
+      SearchData : this.SearchData,
       datas : [],
       nextData: "",
       Loading : false,
@@ -72,6 +76,7 @@ export default {
     }
   },
   mounted() {
+    console.log(this.SearchData)
     if(localStorage.getItem('search__data') !== "") {
       this.search__data = localStorage.getItem('search__data')
       axios.get(`http://54.180.193.83:8081/Main/?search=${localStorage.getItem('search__data')}/`)
