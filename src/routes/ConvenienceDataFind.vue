@@ -127,9 +127,17 @@ export default {
       }).then((res) => {
         console.log(res)
         this.SearchData = res.data.results
-        // if(res.data.results.length == 0) {
-        return
-        // }
+        if(res.data.results.length == 0) {
+          return
+        } else {
+          this.$router.push({
+            name : 'bestChoise',
+            params : {
+              searchData : JSON.stringify(this.SearchData),
+              searchDataLength : this.SearchData.length,
+            }
+          })
+        }
       }).catch((error) => {
         console.log(error)
       })

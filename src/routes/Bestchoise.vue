@@ -5,12 +5,12 @@ export default {
   components: {
     Page
   },
-  props : {
-    SearchData : Array
-  },
   data() {
+    let searchData = JSON.parse(this.$route.params.searchData)
+    let searchDataLength = this.$route.params.searchDataLength
     return {
-      SearchData : this.SearchData,
+      searchData : searchData,
+      searchDataLength : searchDataLength,
       datas : [],
       nextData: "",
       Loading : false,
@@ -69,14 +69,8 @@ export default {
         console.log(error)
       })
     },
-    test(id) {
-      id.forEach((item) => {
-        console.log(item)
-      })
-    }
   },
   mounted() {
-    console.log(this.SearchData)
     if(localStorage.getItem('search__data') !== "") {
       this.search__data = localStorage.getItem('search__data')
       axios.get(`http://54.180.193.83:8081/Main/?search=${localStorage.getItem('search__data')}/`)
@@ -88,15 +82,13 @@ export default {
       }).catch((error) => {
         console.log(error)
       })
+    } else if(this.searchDataLength > 0) {
+      this.datas = this.searchData
+      this.search__count = this.searchDataLength
     } else {
       axios.get("http://54.180.193.83:8081/Main/")
       .then((res) => {
         console.log(res)
-        if(this.SearchDataLength == 0 || this.SearchDataLength == undefined) {
-          this.datas = res.data.results
-        } else {
-          this.datas = this.SearchData
-        }
         this.search__count = res.data.count
         this.nextData = res.data.next
         this.Loading = true

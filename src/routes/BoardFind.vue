@@ -137,8 +137,12 @@ export default {
       this.comment_parent_update = false
     },
     comment_parent(index) {
+      if(this.comment_parent_idx === index) {
+        this.parent_comment = !this.parent_comment
+      } else {
+        this.parent_comment = true
+      }
       this.comment_parent_idx = index
-      this.parent_comment = !this.parent_comment
       this.comment_parent_data = ""
       this.comment_parent_data_length = false
     },

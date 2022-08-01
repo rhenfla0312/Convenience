@@ -12,7 +12,9 @@ export default {
       eventData: false,
       eventItemBox: false,
       datas : [],
-      Loading : false
+      Loading : false,
+
+      plusItem_index : 0
     }
   },
   methods: {
@@ -251,6 +253,16 @@ export default {
           contentPrice : totalData.price
         }
       })
+    },
+    plusItem(index) {
+      if(localStorage.getItem('eventClick')) {
+        if(this.plusItem_index === index) {
+          this.eventItemBox = !this.eventItemBox
+        } else {
+          this.eventItemBox = true
+        }
+        this.plusItem_index = index
+      }
     }
   },
   mounted() {
@@ -408,14 +420,14 @@ export default {
       <div class="convenience__main" v-if="Loading">
         <div class="item" v-for="(totalData,index) in datas" :key="totalData" @click="paramId(totalData,index)">
           <!-- 덤증정이 없을경우 전체데이터 -->
-          <div class="itemBox" @mouseover="eventItemBox = true">
+          <div class="itemBox" @mouseover="plusItem(index)">
             <div class="item__type">{{ totalData.type }}</div>
-            <img class="__img" :src="totalData.image" />
+            <img class="__img" :src="totalData.image" onerror="this.src='https://www.montvertcc.com/static/mo/images/common/no_img.png'" />
             <div class="item__name">{{ totalData.name }}</div>
             <div class="item__price">{{ totalData.price }}</div>
           </div>
           <!-- 덤증정이 있을경우 그 아이템만 덤증정데이터 마우스올릴때 불러오기 -->
-          <div class="itemBox" style="display: none" :style="[totalData.GIFTimage ? { width : width } : totalData.image ]" :class="{ eventItemBox : eventItemBox }" @mouseleave="eventItemBox = false">
+          <div class="itemBox" v-if="plusItem_index === index" style="display: none" :style="[totalData.GIFTimage ? { width : width } : totalData.image ]" :class="{ eventItemBox : eventItemBox }" @mouseleave="plusItem(index)">
             <div class="item__type">{{ (!totalData.GIFTimage ? "" : totalData.type) }}</div>
             <img class="__img" :src="(!totalData.GIFTimage ? '' : totalData.GIFTimage)" />
             <div class="item__name">{{ (!totalData.GIFTname ? "" : totalData.GIFTname) }}</div>
@@ -571,8 +583,7 @@ export default {
               justify-content: center;
               align-items: center;
               background: #fff;
-              // padding: 30px;
-              // width: 206px;
+              width: 210px;
               height: 206px;
               border-radius: 10px;
               margin-top: 35px;
