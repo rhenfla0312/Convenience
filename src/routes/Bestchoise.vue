@@ -6,11 +6,7 @@ export default {
     Page
   },
   data() {
-    let searchData = JSON.parse(this.$route.params.searchData)
-    let searchDataLength = this.$route.params.searchDataLength
     return {
-      searchData : searchData,
-      searchDataLength : searchDataLength,
       datas : [],
       nextData: "",
       Loading : false,
@@ -82,13 +78,19 @@ export default {
       }).catch((error) => {
         console.log(error)
       })
-    } else if(this.searchDataLength > 0) {
-      this.datas = this.searchData
-      this.search__count = this.searchDataLength
+    } else if(this.$route.params.searchDataLength && this.$route.params.searchData) {
+        this.search__count = this.$route.params.searchDataLength
+        this.datas = JSON.parse(this.$route.params.searchData)
+        if(this.$route.params.nextData === "NO") {
+          return 
+        } else {
+          this.nextData = this.$route.params.nextData
+        }
     } else {
       axios.get("http://54.180.193.83:8081/Main/")
       .then((res) => {
         console.log(res)
+        this.datas = res.data.results
         this.search__count = res.data.count
         this.nextData = res.data.next
         this.Loading = true

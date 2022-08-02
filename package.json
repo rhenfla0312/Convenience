@@ -9,9 +9,10 @@
   },
   "dependencies": {
     "@baoshishu/vue-editor": "^0.3.3",
+    "@ckeditor/ckeditor5-build-classic": "^34.2.0",
+    "@ckeditor/ckeditor5-vue": "^4.0.1",
     "@emailjs/browser": "^3.6.2",
     "chart.js": "^3.7.1",
-    "ckeditor4-vue": "^2.1.1",
     "prosemirror-utils": "^0.9.6",
     "sass": "^1.52.0",
     "swiper": "^6.8.4",
@@ -21,22 +22,12 @@
     "vee-validate": "^4.5.11",
     "vue": "^3.2.25",
     "vue-chartjs": "^4.1.0",
-    "vue-quill-editor": "^3.0.6",
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "@types/quill": "^2.0.9",
     "@vitejs/plugin-vue": "^2.3.3",
     "axios": "^0.27.2",
     "vite": "^2.9.9",
     "vue-router": "^4.0.15"
-  },
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": [
-        "static/*"
-      ]
-    }
   }
 }

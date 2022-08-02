@@ -9,6 +9,8 @@ export default {
       pw_email : '',
       pw_question: '',
       pw_answer: '',
+      pwLoding: false,
+      loading : false,
 
       error_username: '',
       error_id_question: '',
@@ -28,6 +30,7 @@ export default {
         }
       }).then((res) => {
         console.log(res)
+        alert(`입력하신 이메일은${res.data}입니다`)
       }).catch((error) => {
         console.log(error)
         this.error_username = error.response.data.username
@@ -35,6 +38,8 @@ export default {
       })
     },
     pwData() {
+      this.pwLoding = true;
+      this.loading = true;
       axios({
         method: "POST",
         url: "http://54.180.193.83:8081/user/passwdfind/",
@@ -46,13 +51,15 @@ export default {
       }).then((res) => {
         console.log(res)
         alert("입력하신 이메일로 URL을 보내드렸습니다");
+        this.pwLoding = false;
+        this.loading = false;
       }).catch((error) => {
         console.log(error)
         this.error_pw_email = error.response.data.email
         this.error_pw_question = error.response.data.question
       })
     }
-  }
+  },
 }
 </script>
 
@@ -94,7 +101,8 @@ export default {
             </div>
           </div>
         </div>
-        <div class="loginFind__pw">
+        <div class="loginFind__pw" :class="{ loading : loading}">
+          <img src="../../public/loding.gif" v-show="this.pwLoding" class="pwLoding" />
           <div class="login__inner">
             <div class="login__id">
               <div class="id__name">이메일</div>
@@ -236,11 +244,22 @@ export default {
           }
         }
         .loginFind__pw {
+          position: relative;
           width: 500px;
           padding: 10px;
           border-radius: 10px;
           box-shadow: 0 7px 25px #00000014;
           background: #fff;
+          .pwLoding {
+            position: absolute;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 90px;
+            margin: auto;
+            width: 100px;
+          }
           .login__inner {
             width: 400px;
             position: relative;
@@ -313,6 +332,10 @@ export default {
               }
             }
           }
+        }
+        .loginFind__pw.loading {
+          opacity: 0.5;
+          pointer-events: none;
         }
         .error {
           color: red;

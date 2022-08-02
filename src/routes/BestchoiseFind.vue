@@ -207,7 +207,7 @@ export default {
           <div class="__text">{{ menus.content }}</div>
           <div class="__items" v-if="Loading">
             <div class="__mixItem" v-for="data in datas" :key="data">
-              <input type="hidden" :value="data.id" v-model="checkboxDatas">
+              <!-- <input type="hidden" :value="data.id" v-model="checkboxDatas"> -->
               <img class="__img" :src="`/DRF/media/${data.image}`" />
               <div class="__text">
                 <div>{{ data.name }}</div>

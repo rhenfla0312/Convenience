@@ -226,7 +226,7 @@ export default {
           </div>
           <div class="__items" v-if="Loading">
             <label class="__item" :for="index" v-for="(data, index) in datas" :key="data">
-              <input @click="test(data.id)" :id="index" type="checkbox" class="__checkbox" :value="data.id" v-model="checkboxDatas">
+              <input :id="index" type="checkbox" class="__checkbox" :value="data.id" v-model="checkboxDatas">
               <img class="__img" :src="`/DRF${data.image}`">
               <div class="__name">{{ data.name }}</div>
               <div class="__price">{{ data.price }}원</div>

@@ -118,19 +118,19 @@ export default {
         console.log(error)
       })
     },
-    itemUpdateBox(index) {
+    itemUpdateBox(comment, index) {
       this.comment_update_idx = index
       this.comment_update = true
-      this.comment_update_data = ""
+      this.comment_update_data = comment
       this.comment_parent_update = false
     },
     itemDeleteBox() {
       this.comment_update = false
     },
-    itemParent_UpdateBox(index) {
+    itemParent_UpdateBox(comment, index) {
       this.comment_parent_update_idx = index
       this.comment_parent_update = true
-      this.comment_update_data = ""
+      this.comment_update_data = comment
       this.comment_update = false
     },
     itemParent_DeleteBox() {
@@ -220,7 +220,7 @@ export default {
               <div class="__nickname">{{ comment.username }}</div>
               <div @click="comment_parent(index)" class="__comment">{{ comment.comment }}{{ comment.reply.length === 0 ? "" : `[${comment.reply.length}]`  }}</div>
               <div class="__date">{{ comment.create_date.slice(0,-22) }}</div>
-              <div title="수정" class="__update" v-if="comment.username == this.localName" @click="itemUpdateBox(index)"><i class="fa-solid fa-pen-to-square"></i></div>
+              <div title="수정" class="__update" v-if="comment.username == this.localName" @click="itemUpdateBox(comment.comment, index)"><i class="fa-solid fa-pen-to-square"></i></div>
               <div title="삭제" class="__delete" v-if="comment.username == this.localName" @click="itemDelete(comment.id)"><i class="fa-solid fa-xmark"></i></div>
             </div>
             <!-- 대댓글표시 -->
@@ -241,7 +241,7 @@ export default {
                   <div class="__nickname">{{ plusComment.username }}</div>
                   <div class="__comment">{{ plusComment.comment }}</div>
                   <div class="__date">{{ plusComment.create_date.slice(0,-22) }}</div>
-                  <div title="수정" class="__update" v-if="plusComment.username == this.localName" @click="itemParent_UpdateBox(index)"><i class="fa-solid fa-pen-to-square"></i></div>
+                  <div title="수정" class="__update" v-if="plusComment.username == this.localName" @click="itemParent_UpdateBox(plusComment.comment, index)"><i class="fa-solid fa-pen-to-square"></i></div>
                   <div title="삭제" class="__delete" v-if="plusComment.username == this.localName" @click="itemDelete(plusComment.id)"><i class="fa-solid fa-xmark"></i></div>
                 </div>
               </div>

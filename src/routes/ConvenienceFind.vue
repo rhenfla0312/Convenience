@@ -22,7 +22,7 @@ export default {
       <div class="convenienceFind__name">상세보기</div>
       <!-- 메인 -->
       <div class="convenienceFind__menu" v-if="Loading">
-        <img :src="img" class="convenienceFind__img" />
+        <img :src="img" class="convenienceFind__img" onerror="this.src='https://www.montvertcc.com/static/mo/images/common/no_img.png'" />
         <div class="convenienceFind__text">
           <div class="convenienceFind__box">
             <div class="convenienceFind__title">상품명</div>

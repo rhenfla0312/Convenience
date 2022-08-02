@@ -127,7 +127,7 @@ export default {
       }).then((res) => {
         console.log(res)
         this.SearchData = res.data.results
-        if(res.data.results.length == 0) {
+        if(res.data.results.length === 0) {
           return
         } else {
           this.$router.push({
@@ -135,6 +135,7 @@ export default {
             params : {
               searchData : JSON.stringify(this.SearchData),
               searchDataLength : this.SearchData.length,
+              nextData : res.data.next === null ? "NO" : res.data.next
             }
           })
         }
@@ -208,7 +209,7 @@ export default {
       <div class="convenience__main" v-if="Loading">
         <div class="item" v-for="data in datas" :key="data" @click="detailSearch(data.id)">
           <div class="itemBox">
-            <img class="__img" :src="`/DRF${data.image}`">
+            <img class="__img" :src="`/DRF${data.image}`"  onerror="this.src='https://www.montvertcc.com/static/mo/images/common/no_img.png'">
             <div class="item__name">{{ data.name }}</div>
             <div class="item__price">{{ data.price }}원</div>
           </div>
