@@ -13,6 +13,8 @@ export default {
       ministopNextPage :"",
       datas : [],
       SearchData : [],
+
+      searchId : ""
     }
   },
   methods: {
@@ -135,7 +137,8 @@ export default {
             params : {
               searchData : JSON.stringify(this.SearchData),
               searchDataLength : this.SearchData.length,
-              nextData : res.data.next === null ? "NO" : res.data.next
+              nextData : res.data.next === null ? "NO" : res.data.next,
+              searchId : id
             }
           })
         }

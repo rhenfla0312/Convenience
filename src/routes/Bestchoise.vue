@@ -6,12 +6,15 @@ export default {
     Page
   },
   data() {
+    let searchId = this.$route.params.searchId
     return {
       datas : [],
       nextData: "",
       Loading : false,
       search__data : "",
       search__count : 0,
+
+      searchId : searchId
     }
   },
   methods: {
@@ -28,6 +31,9 @@ export default {
       axios({
         method: "POST",
         url : "http://54.180.193.83:8081/best/",
+        headers: {
+          Authorization : `Bearer ${localStorage.getItem('access')}`
+        },
         data : {
           postid : id,
           userid : localStorage.getItem('id')
@@ -40,16 +46,21 @@ export default {
       })
     },
     nextPage() {
-      axios({
-        method: "GET",
-        url: this.nextData
-      }).then((res) => {
-        console.log(res)
-        this.nextData = res.data.next
-        this.datas = this.datas.concat(res.data.results)
-      }).catch((error) => {
-        console.log(error)
-      })
+      //  편의점 상품에서 페이지네이션값이 없을경우
+      if(this.nextData === "NO") {
+        return
+      } else {
+        axios({
+          method: "GET",
+          url: this.nextData
+        }).then((res) => {
+          console.log(res)
+          this.nextData = res.data.next
+          this.datas = this.datas.concat(res.data.results)
+        }).catch((error) => {
+          console.log(error)
+        })
+      }
     },
     handleScroll() {
       window.scrollTo(0, 0);
@@ -81,11 +92,7 @@ export default {
     } else if(this.$route.params.searchDataLength && this.$route.params.searchData) {
         this.search__count = this.$route.params.searchDataLength
         this.datas = JSON.parse(this.$route.params.searchData)
-        if(this.$route.params.nextData === "NO") {
-          return 
-        } else {
-          this.nextData = this.$route.params.nextData
-        }
+        this.nextData = this.$route.params.nextData
     } else {
       axios.get("http://54.180.193.83:8081/Main/")
       .then((res) => {
@@ -115,7 +122,8 @@ export default {
       <div class="bestchoise__main" v-if="search__count >= 1">
         <div class="item" v-for="data in datas" :key="data">
           <div class="itemBox">
-            <img class="__img" :src="`/DRF/media/${data.a[0].image}`" @click="paramId(data)" />
+            <!-- <img class="__img" :src="data.image === null ? 'DRF/media/'+data.a[0].image : data.image" @click="paramId(data)" /> -->
+            <img class="__img" :src="data.image === null ? 'DRF/media/'+data.a[0].image : searchId === undefined ? data.image : 'DRF/'+data.image" @click="paramId(data)" />
             <div class="__text">
               <div class="name">제목 : {{ data.title }}</div>
               <div class="nickname">닉네임 : {{ data.nickname }}</div>
@@ -188,6 +196,7 @@ export default {
               justify-content: center;
               align-items: center;
               background: #fff;
+              width: 306px;
               height: 306px;
               padding: 20px;
               border-radius: 10px;

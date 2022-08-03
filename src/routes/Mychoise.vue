@@ -20,8 +20,9 @@ export default {
       title: update_title !== undefined ? update_title : "",
       checkboxDatas : update_item !== undefined ? update_item : [],
       content: update_content !== undefined ? update_content : "",
-      userName: '',
-      
+      userName: "",
+      imgFile : "",
+
       // errorData
       errorTitle: "제목을 입력해주세요.",
       errorItem: "조합아이템을 선택해주세요.",
@@ -85,18 +86,20 @@ export default {
         })
     },
     checkboxDataClick() {
+      const formData = new FormData();
+      formData.append('title', this.title);
+      formData.append('content', this.content);
+      // formData.append('item', new Blob([JSON.stringify(this.checkboxDatas)],{ type: "application/json" }));
+      formData.append('item', this.checkboxDatas);
+      formData.append('nickname', localStorage.getItem('name'));
+      formData.append('image', this.imgFile);
       axios({
         method: "POST",
         url: "http://54.180.193.83:8081/posts/",
         headers: {
           Authorization : `Bearer ${localStorage.getItem('access')}`
         },
-        data: {
-          title : this.title,
-          nickname : this.userName,
-          content : this.content,
-          item : this.checkboxDatas
-        }
+        data : formData
       }).then((res) => {
         console.log(res)
         alert("조합에 성공하셨습니다")
@@ -125,29 +128,6 @@ export default {
         }
       })
     },
-    recovereAxios() {
-      axios({
-        url : 'http://54.180.193.83:8081/api/token/refresh/',
-        method : "POST",
-        data : {
-          refresh : localStorage.getItem('refresh')
-        }
-      }).then((res) => {
-        console.log(res)
-        localStorage.setItem('access', res.data.access)
-      }).catch((error) => {
-        console.log(error)
-        alert("일정시간이 지나 로그아웃되었습니다")
-        window.localStorage.removeItem('name');
-        window.localStorage.removeItem('id');
-        window.localStorage.removeItem('access');
-        window.localStorage.removeItem('refresh');
-        this.$router.push('/')
-        setTimeout(() => {
-          this.$router.go()
-        },1000)
-      })
-    },
     update() {
       axios({
         url : `http://54.180.193.83:8081/posts/${this.update_id}/`,
@@ -159,7 +139,8 @@ export default {
           title : this.title,
           content : this.content,
           item : this.checkboxDatas,
-          nickname : localStorage.getItem('name')
+          nickname : localStorage.getItem('name'),
+          image : this.imgFile
         }
       }).then((res) => {
         console.log(res)
@@ -168,6 +149,10 @@ export default {
         console.log(error)
       })
     },
+    imgFileChange(e) {
+      console.log(e)
+      this.imgFile = e.target.files[0]
+    }
   },
   mounted() {
     axios.get("http://54.180.193.83:8081/objects/",{
@@ -182,14 +167,6 @@ export default {
       console.log(error)
     })
     this.userName = localStorage.getItem('name')
-
-    // token
-    this.recovereAxios()
-
-    setTimeout(() => {
-      alert("일정시간이 지나 메인페이지로 이동합니다")
-      this.$router.push('/')
-    },1200000)
   }
 }
 </script>
@@ -247,7 +224,7 @@ export default {
         </div>
         <div class="imgFile">
           <div class="__file">첨부파일</div>
-          <input type="file" class="file">
+          <input type="file" class="file" @change="imgFileChange" />
         </div>
         <!-- button -->
         <div class="mychoise__btn">
