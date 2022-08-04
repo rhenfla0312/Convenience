@@ -106,7 +106,7 @@ export default {
           id : id
         }
       })
-    }
+    },
   },
   mounted() {
     axios.get("http://54.180.193.83:8081/best/")
@@ -173,7 +173,7 @@ export default {
               <img src="../../public/two.png" v-if="index == 1" class="second" />
               <img src="../../public/three.png" v-if="index == 2" class="thred" />
               <div class="itemHead">{{ index + 1 }}</div>
-              <img :src="`/DRF/media/${bestData.a[0].image}`" alt="" class="best__img" />
+              <img :src="bestData.image === null ? '/DRF/media/'+bestData.a[0].image : '/DRF'+bestData.image" class="best__img" />
               <div class="item __title">제목 : {{ bestData.title }}</div>
               <div class="item __name">닉네임 : {{ bestData.nickname }}</div>
               <div class="item __likes">좋아요 : {{ bestData.likes_cnt }}</div>
@@ -293,9 +293,14 @@ export default {
               overflow : hidden;
               white-space : nowrap;
               text-overflow: ellipsis;
+
             }
             .__title {
               font-size: 20px;
+              display: block;
+            }
+            .__name {
+              display: block;
             }
             &:hover {
               border: 5px solid transparent;
@@ -320,6 +325,9 @@ export default {
             }
             .best__img {
               width: 140px;
+              border-radius: 10px;
+              height: 130px;
+              margin-top: 10px;
             }
 
           }

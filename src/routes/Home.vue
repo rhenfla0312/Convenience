@@ -3,7 +3,6 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      datas : ['1','2','3','4','5','6','7','8'],
       Loading : false,
       bestDatas : [],
       scrollTop : 0,
@@ -36,8 +35,6 @@ export default {
     }
   },
   mounted() {
-    // popupPage
-    // window.open("./Popup.html","popup","width=500, height=500, left=0, top=0")
     axios.get("http://54.180.193.83:8081/best/")
     .then((res) => {
       console.log(res)
@@ -46,12 +43,6 @@ export default {
     }).catch((error) => {
       console.log(error)
     })
-  },
-  created () {
-    window.addEventListener('scroll', this.handleScroll);
-  },
-  beforeUnmount () {
-    window.removeEventListener('scroll', this.handleScroll);
   }
 }
 </script>
@@ -95,7 +86,7 @@ export default {
                   <img src="../../public/two.png" v-if="index == 1" class="second" />
                   <img src="../../public/three.png" v-if="index == 2" class="thred" />
                   <div class="itemHead">{{ index + 1 }}</div>
-                  <img :src="`/DRF/media/${bestData.a[0].image}`" alt="" class="best__img" />
+                  <img :src="bestData.image === null ? '/DRF/media/'+bestData.a[0].image : '/DRF'+bestData.image" class="best__img" />
                   <div class="item __title">제목 : {{ bestData.title }}</div>
                   <div class="item __name">닉네임 : {{ bestData.nickname }}</div>
                 </div>
@@ -302,6 +293,10 @@ a {
               }
               .__title {
                 font-size: 20px;
+                display: block;
+              }
+              .__name {
+                display: block;
               }
               &:hover {
                 border: 5px solid transparent;
@@ -326,6 +321,9 @@ a {
               }
               .best__img {
                 width: 140px;
+                border-radius: 10px;
+                height: 130px;
+                margin-top: 10px;
               }
               .eventItemBox {
                 display: block !important;

@@ -15,7 +15,7 @@ export default {
       error_username: '',
       error_id_question: '',
       error_pw_email: '',
-      error_pw_question: ''
+      error_pw_question: '',
     }
   },
   methods: {
@@ -33,7 +33,7 @@ export default {
         alert(`입력하신 이메일은${res.data}입니다`)
       }).catch((error) => {
         console.log(error)
-        this.error_username = error.response.data.username
+        this.error_username = error.response.data.detail
         this.error_id_question = error.response.data.question
       })
     },
@@ -51,10 +51,12 @@ export default {
       }).then((res) => {
         console.log(res)
         alert("입력하신 이메일로 URL을 보내드렸습니다");
-        this.pwLoding = false;
-        this.loading = false;
+        this.pwLoding = false
+        this.loading = false
       }).catch((error) => {
         console.log(error)
+        this.pwLoding = false
+        this.loading = false
         this.error_pw_email = error.response.data.email
         this.error_pw_question = error.response.data.question
       })

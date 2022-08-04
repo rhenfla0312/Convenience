@@ -42,7 +42,7 @@ export default {
   },
   mounted() {
     // 1시간55분마다 엑세스토큰 갱신 (최초 엑세스 2시간 -> 1시간55분마다 갱신), (리프레시 1주일 -> 1주일동안 자동 로그아웃)
-    setTimeout(() => {
+    setInterval(() => {
       axios({
         url : 'http://54.180.193.83:8081/api/token/refresh/',
         method : "POST",

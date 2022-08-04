@@ -14,7 +14,9 @@ export default {
       search__data : "",
       search__count : 0,
 
-      searchId : searchId
+      searchId : searchId,
+      likes_index : 0,
+      // likes_color : false
     }
   },
   methods: {
@@ -27,23 +29,36 @@ export default {
         }
       })
     },
-    goodBtn(id) {
-      axios({
-        method: "POST",
-        url : "http://54.180.193.83:8081/best/",
-        headers: {
-          Authorization : `Bearer ${localStorage.getItem('access')}`
-        },
-        data : {
-          postid : id,
-          userid : localStorage.getItem('id')
-        }
-      }).then((res) => {
-        console.log(res)
-        this.$router.go()
-      }).catch((error) => {
-        console.log(error)
-      })
+    goodBtn(id, likes, likes_length, index) {
+      if(!localStorage.getItem('name')) {
+        alert("로그인 후 사용할 수 있는 서비스 입니다.")
+        this.$router.push('/login')
+      } else {
+        // this.likes_index = index
+        // for(let i = 0; i < likes_length; i++) {
+        //   if(likes[i].toString() === localStorage.getItem('id')) {
+        //     localStorage.setItem('likes_color', true)
+        //   } else if(likes[i].toString() !== localStorage.getItem('id')) {
+        //     localStorage.setItem('likes_color', false)
+        //   }
+        // }
+        axios({
+          method: "POST",
+          url : "http://54.180.193.83:8081/best/",
+          headers: {
+            Authorization : `Bearer ${localStorage.getItem('access')}`
+          },
+          data : {
+            postid : id,
+            userid : localStorage.getItem('id')
+          }
+        }).then((res) => {
+          console.log(res)
+          // this.$router.go()
+        }).catch((error) => {
+          console.log(error)
+        })
+      }
     },
     nextPage() {
       //  편의점 상품에서 페이지네이션값이 없을경우
@@ -120,14 +135,14 @@ export default {
         <i class="fa-solid fa-magnifying-glass search__icon" @click="search()"></i>
       </div>
       <div class="bestchoise__main" v-if="search__count >= 1">
-        <div class="item" v-for="data in datas" :key="data">
+        <div class="item" v-for="(data, index) in datas" :key="data">
           <div class="itemBox">
             <!-- <img class="__img" :src="data.image === null ? 'DRF/media/'+data.a[0].image : data.image" @click="paramId(data)" /> -->
             <img class="__img" :src="data.image === null ? 'DRF/media/'+data.a[0].image : searchId === undefined ? data.image : 'DRF/'+data.image" @click="paramId(data)" />
             <div class="__text">
               <div class="name">제목 : {{ data.title }}</div>
               <div class="nickname">닉네임 : {{ data.nickname }}</div>
-              <div class="star__name" @click="goodBtn(data.id)">좋아요 : {{ data.likes_cnt }}</div>
+              <div class="star__name"><span @click="goodBtn(data.id, data.likes, data.likes.length,index)"></span>: {{ data.likes_cnt }}</div>
             </div>
           </div>
         </div>
@@ -218,11 +233,40 @@ export default {
               margin: 12px;
               box-shadow: 0 7px 25px #00000014;
               .star__name {
-                &:hover {
-                  color: #0d47a1;
-                  font-weight: bold;
-                  cursor: pointer;
+                span {
+                  &::before {
+                    content: "\f164";
+                    font-family: "Font Awesome 5 Free";
+                    font-weight: 900;
+                    margin-left: 10px;
+                  }
+                  &:hover {
+                    color: #0d47a1;
+                    font-weight: bold;
+                    cursor: pointer;
+                  }
                 }
+                span.likes_color {
+                  &::before {
+                    content: "\f164";
+                    font-family: "Font Awesome 5 Free";
+                    font-weight: 900;
+                    margin-left: 10px;
+                    color: red;
+                  }
+                }
+              }
+              .name {
+                display: block;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+              }
+              .nickname {
+                display: block;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
               }
             }
           }

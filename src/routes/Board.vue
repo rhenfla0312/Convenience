@@ -39,6 +39,12 @@ export default {
       }).catch((error) => {
         console.log(error)
       })
+    },
+    loginCheck() {
+      if(!localStorage.getItem('name')) {
+        alert("로그인 후 사용할 수 있는 서비스 입니다.")
+        this.$router.push('/login')
+      } 
     }
   },
   mounted() {
@@ -105,7 +111,7 @@ export default {
           </table>
           <div class="pagenation">
             <div class="nextPage" @click="nextPage()">더보기</div>
-            <RouterLink to="/board/boardWrite" class="nextPage">글쓰기</RouterLink>
+            <RouterLink to="/board/boardWrite" @click="loginCheck()" class="nextPage">글쓰기</RouterLink>
           </div>
         </div>
     </div>
