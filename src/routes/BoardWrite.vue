@@ -17,21 +17,23 @@ export default {
       // error
       error_title : "",
       error_content : "",
+      imgFile : ""
     }
   },
   methods : {
     write() {
+      const formData = new FormData();
+      formData.append('username', this.name);
+      formData.append('title', this.title);
+      formData.append('content', this.content);
+      formData.append('image', this.imgFile);
       axios({
         url : "http://54.180.193.83:8081/board/",
         headers: {
           Authorization : `Bearer ${localStorage.getItem('access')}`
         },
         method : "POST",
-        data : {
-          username : this.name,
-          title : this.title,
-          content : this.content
-        }
+        data : formData
       }).then((res) => {
         console.log(res)
         this.$router.push('/board')
@@ -62,6 +64,11 @@ export default {
         this.error_title = error.response.data.title
       })
     },
+    imgFileChange(e) {
+      console.log(e)
+      this.imgFile = e.target.files[0]
+      console.log(this.imgFile)
+    }
   },
 }
 </script>
@@ -76,7 +83,7 @@ export default {
           <div class="textBox">
             <div class="text__name">
               <div class="__name">닉네임</div>
-              <input v-model="name" type="text" name="name" readonly placeholder="닉네임을 입력해주세요">
+              <input v-model="name" type="text" readonly name="name" placeholder="닉네임을 입력해주세요">
             </div>
             <div class="text__title">
               <div class="__title">제목</div>
@@ -88,8 +95,8 @@ export default {
             </div>
             <div class="error">{{ error_content }}</div>
             <div class="imgFile">
-              <div class="__file">첨부파일</div>
-              <input type="file" class="file">
+              <div class="__file">이미지</div>
+              <input type="file" class="file"  @change="imgFileChange">
             </div>
           </div>
           <div @click="update_title !== undefined ? update() : write()" class="textBtn">

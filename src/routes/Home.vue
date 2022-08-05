@@ -58,7 +58,7 @@ export default {
               <div class="__text">
                 내가 만든 조합을 유저들과 공유해주세요
               </div>
-              <RouterLink to="/myChoise" @click="loginCheck(), searchData()" class="__btn">조합만들기</RouterLink>
+              <RouterLink to="/myChoise" @click="searchData()" class="__btn">조합만들기</RouterLink>
             </div>
             <div class="imgBox"></div>
             <div class="imgBox2"></div>
@@ -87,8 +87,8 @@ export default {
                   <img src="../../public/three.png" v-if="index == 2" class="thred" />
                   <div class="itemHead">{{ index + 1 }}</div>
                   <img :src="bestData.image === null ? '/DRF/media/'+bestData.a[0].image : '/DRF'+bestData.image" class="best__img" />
-                  <div class="item __title">제목 : {{ bestData.title }}</div>
-                  <div class="item __name">닉네임 : {{ bestData.nickname }}</div>
+                  <div :title="bestData.title" class="item __title">제목 : {{ bestData.title }}</div>
+                  <div :title="bestData.nickname" class="item __name">닉네임 : {{ bestData.nickname }}</div>
                 </div>
               </div>
             </div>

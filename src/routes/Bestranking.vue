@@ -174,8 +174,8 @@ export default {
               <img src="../../public/three.png" v-if="index == 2" class="thred" />
               <div class="itemHead">{{ index + 1 }}</div>
               <img :src="bestData.image === null ? '/DRF/media/'+bestData.a[0].image : '/DRF'+bestData.image" class="best__img" />
-              <div class="item __title">제목 : {{ bestData.title }}</div>
-              <div class="item __name">닉네임 : {{ bestData.nickname }}</div>
+              <div :title="bestData.title" class="item __title">제목 : {{ bestData.title }}</div>
+              <div :title="bestData.nickname" class="item __name">닉네임 : {{ bestData.nickname }}</div>
               <div class="item __likes">좋아요 : {{ bestData.likes_cnt }}</div>
             </div>
             <div class="allBox" :class="{ active: isActive }">

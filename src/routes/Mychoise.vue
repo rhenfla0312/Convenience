@@ -89,7 +89,6 @@ export default {
       const formData = new FormData();
       formData.append('title', this.title);
       formData.append('content', this.content);
-      // formData.append('item', new Blob([JSON.stringify(this.checkboxDatas)],{ type: "application/json" }));
       formData.append('item', this.checkboxDatas);
       formData.append('nickname', localStorage.getItem('name'));
       formData.append('image', this.imgFile);
@@ -152,7 +151,13 @@ export default {
     imgFileChange(e) {
       console.log(e)
       this.imgFile = e.target.files[0]
-    }
+    },
+    loginCheck() {
+      if(!localStorage.getItem('name')) {
+        alert("로그인 후 사용할 수 있는 서비스 입니다.")
+        this.$router.push('/login')
+      } 
+    },
   },
   mounted() {
     axios.get("http://54.180.193.83:8081/objects/",{
@@ -185,11 +190,14 @@ export default {
           </div>
           <div v-if="errorTilteCount" class="errorTitle">{{ errorTitle }}</div>
         </div>
-        <!-- alias -->
+        <div class="imgFile">
+          <div class="__file">대표이미지</div>
+          <input type="file" class="file" @change="imgFileChange" />
+        </div>
         <div class="mychoise__alias">
           <div class="__alias" ref="alias">닉네임</div>
           <div class="alias__input">
-            <input type="text" :value="this.userName" readonly />
+            <input type="text" :value="this.userName" />
           </div>
         </div>
         <!-- 조합아이템 -->
@@ -222,13 +230,9 @@ export default {
           </div>
           <div v-if="errorContentCount" class="errorContent">{{ errorContent }}</div>
         </div>
-        <div class="imgFile">
-          <div class="__file">첨부파일</div>
-          <input type="file" class="file" @change="imgFileChange" />
-        </div>
         <!-- button -->
         <div class="mychoise__btn">
-          <button ref="click" @click="update_title !== undefined ? update() : checkboxDataClick()" class="__btn">{{ update_title !== undefined ? '수정' : '조합' }}</button>
+          <button ref="click" @click="loginCheck(), update_title !== undefined ? update() : checkboxDataClick()" class="__btn">{{ update_title !== undefined ? '수정' : '조합' }}</button>
         </div>
         <!-- description -->
         <div class="mychoise__description">
@@ -449,7 +453,7 @@ export default {
             height: 50px;
             padding: 10px;
             &:hover {
-              opacity: .8s;
+              opacity: .8;
             }
           }
         }

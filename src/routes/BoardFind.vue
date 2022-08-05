@@ -11,6 +11,7 @@ export default {
       comment_data : "",
       date : "",
       board_id : "",
+      image : "",
       localName: localStorage.getItem("name"),
       comment_update_idx: 0,
       comment_update: false,
@@ -174,6 +175,7 @@ export default {
       this.board_id = res.data.id
       this.title = res.data.title
       this.name = res.data.username
+      this.image = res.data.image
       this.content = res.data.content
       this.date = res.data.create_date
       this.comments = res.data.boardcomment
@@ -197,7 +199,10 @@ export default {
             <div class="__date">{{ date.slice(0,-22) }}</div>
           </div>
         </div>
-        <div class="__content">{{ content }}</div>
+        <div class="__textBox">
+          <div class="__content">{{ content }}</div>
+          <img class="__img" v-show="this.image !== null" :src="`/DRF/${image}`">
+        </div>
         <div class="__contentBtn">
           <div v-if="name == this.localName" @click="update()" class="__contentItem __contentUpdate">수정</div>
           <div v-if="name == this.localName" @click="deletes()" class="__contentItem __contentDelete">삭제</div>
@@ -323,10 +328,18 @@ export default {
             }
           }
         }
-        .__content {
-          height: 100%;
+        .__textBox {
           min-height: 500px;
-          margin-top: 50px;
+          .__content {
+            min-height: 50px;
+            margin-top: 50px;
+            white-space: pre-wrap;
+          }
+          .__img {
+            margin-bottom: 50px;
+            min-height: 50px;
+            max-width: 1200px;
+          }
         }
         .__contentBtn {
           display: flex;

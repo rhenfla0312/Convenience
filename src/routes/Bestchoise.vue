@@ -54,7 +54,7 @@ export default {
           }
         }).then((res) => {
           console.log(res)
-          // this.$router.go()
+          this.$router.go()
         }).catch((error) => {
           console.log(error)
         })
@@ -140,9 +140,9 @@ export default {
             <!-- <img class="__img" :src="data.image === null ? 'DRF/media/'+data.a[0].image : data.image" @click="paramId(data)" /> -->
             <img class="__img" :src="data.image === null ? 'DRF/media/'+data.a[0].image : searchId === undefined ? data.image : 'DRF/'+data.image" @click="paramId(data)" />
             <div class="__text">
-              <div class="name">제목 : {{ data.title }}</div>
-              <div class="nickname">닉네임 : {{ data.nickname }}</div>
-              <div class="star__name"><span @click="goodBtn(data.id, data.likes, data.likes.length,index)"></span>: {{ data.likes_cnt }}</div>
+              <div :title="data.title" class="name">제목 : {{ data.title }}</div>
+              <div :title="data.nickname" class="nickname">닉네임 : {{ data.nickname }}</div>
+              <div class="star__name"><span @click="goodBtn(data.id, data.likes, data.likes.length,index)"></span> : {{ data.likes_cnt }}</div>
             </div>
           </div>
         </div>
@@ -225,6 +225,7 @@ export default {
               }
             }
             .__text {
+              width: 306px;
               text-align: center;
               margin-right: 17px;
               background: #fff;

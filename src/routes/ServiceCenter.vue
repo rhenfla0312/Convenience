@@ -17,13 +17,17 @@ export default {
   },
   methods: {
     sendEmail() {
-      emailjs.sendForm('gmail', 'template_k9dk8yz', this.$refs.form, 'pUBvV41b8DCquCuoE')
-        .then((result) => {
-          alert("메일이 성공적으로 전송되었습니다.");
-          this.$router.go()
-        }, (error) => {
-          alert("메일을 보내는데 실패했습니다.")
-        });
+      if(this.name !== "" && this.email !== "" && this.title !== "" && this.text !== "") {
+        emailjs.sendForm('gmail', 'template_k9dk8yz', this.$refs.form, 'pUBvV41b8DCquCuoE')
+          .then((result) => {
+            alert("메일이 성공적으로 전송되었습니다.");
+            this.$router.go()
+          }, (error) => {
+            alert("메일을 보내는데 실패했습니다.")
+          });
+      } else {
+        alert("입력되지 않은 값이 있습니다")
+      }
     }
   },
   computed: {
@@ -48,11 +52,11 @@ export default {
             <div class="textBox">
               <div class="text__name">
                 <div class="__name">닉네임</div>
-                <input v-model="name" type="text" name="name" readonly placeholder="닉네임을 입력해주세요">
+                <input v-model="name" type="text" name="name" placeholder="닉네임을 입력해주세요">
               </div>
               <div class="text__email">
                 <div class="__email">이메일</div>
-                <input v-model="email" type="email" name="email" readonly placeholder="이메일을 입력해주세요">
+                <input v-model="email" type="email" name="email" placeholder="이메일을 입력해주세요">
               </div>
               <div class="text__title">
                 <div class="__title">제목</div>
