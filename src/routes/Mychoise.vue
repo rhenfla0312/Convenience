@@ -6,6 +6,7 @@ export default {
     const update_title = this.$route.params.title
     const update_item = this.$route.params.item 
     const update_content = this.$route.params.content
+    const update_image = this.$route.params.image
     return {
       // update
       update_id : update_id,
@@ -128,19 +129,21 @@ export default {
       })
     },
     update() {
+      const formData = new FormData();
+      formData.append('title', this.title);
+      formData.append('content', this.content);
+      formData.append('item', this.checkboxDatas);
+      formData.append('nickname', localStorage.getItem('name'));
+      if(this.imgFile !== null) {
+        formData.append('image', this.imgFile);
+      }
       axios({
         url : `http://54.180.193.83:8081/posts/${this.update_id}/`,
-        method: 'PUT',
+        method: 'PATCH',
         headers: {
           Authorization : `Bearer ${localStorage.getItem('access')}`
         },
-        data : {
-          title : this.title,
-          content : this.content,
-          item : this.checkboxDatas,
-          nickname : localStorage.getItem('name'),
-          image : this.imgFile
-        }
+        data : formData
       }).then((res) => {
         console.log(res)
         this.$router.push('/bestChoise')

@@ -4,6 +4,8 @@ export default {
   data() {
     return {
       id : this.$route.params.id,
+      default_id : this.$route.params.default_id,
+      default_type : false,
       title : "",
       name : "",
       content : "",
@@ -83,7 +85,7 @@ export default {
     },
     itemUpadate(comment_id) {
       axios({
-        method : 'PUT',
+        method : 'PATCH',
         url : `http://54.180.193.83:8081/boardcomment/${comment_id}/`,
         headers: {
           Authorization : `Bearer ${localStorage.getItem('access')}`
@@ -167,6 +169,27 @@ export default {
     }
   },
   mounted() {
+    if(this.default_id === undefined) {
+      this.default_type = true 
+    } else {
+      this.default_type = false
+    }
+    // 공지데이터
+    axios({
+      url : `http://54.180.193.83:8081/notice/${this.default_id}/`,
+      method : "GET"
+    }).then((res) => {
+      console.log(res)
+      this.board_id = res.data.id
+      this.title = res.data.title
+      this.name = res.data.username
+      this.image = res.data.image
+      this.content = res.data.content
+      this.date = res.data.create_date
+    }).catch((error) => {
+      console.log(error)
+    })
+    // 전체데이터
     axios({
       url : `http://54.180.193.83:8081/board/${this.id}/`,
       method : "GET"
@@ -209,7 +232,7 @@ export default {
           <div @click="backBtn()" class="__contentItem __contentBack">목록</div>
         </div>
         <!-- 댓글 -->
-        <div class="comment">
+        <div class="comment" v-if="default_type">
           <div class="comment__title">전체댓글{{comments.length }}개</div>
           <div class="if" v-for="(comment,index) in comments" :key="comment">
             <!-- 댓글 수정 -->

@@ -44,17 +44,21 @@ export default {
       })
     },
     update() {
+      const formData = new FormData();
+      formData.append('title', this.title);
+      formData.append('content', this.content);
+      formData.append('username', localStorage.getItem('name'));
+      formData.append('image', this.imgFile);
+      if(this.imgFile !== null) {
+        formData.append('image', this.imgFile);
+      }
       axios({
         url : `http://54.180.193.83:8081/board/${this.update_id}/`,
-        method: 'PUT',
+        method: 'PATCH',
         headers: {
           Authorization : `Bearer ${localStorage.getItem('access')}`
         },
-        data : {
-          title : this.title,
-          content : this.content,
-          username : localStorage.getItem('name')
-        }
+        data : formData
       }).then((res) => {
         console.log(res)
         this.$router.push('/board')

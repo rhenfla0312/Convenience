@@ -47,7 +47,7 @@ export default {
     },
     itemUpadate(comment_id) {
       axios({
-        method : 'PUT',
+        method : 'PATCH',
         url : `http://54.180.193.83:8081/comment/${comment_id}/`,
         headers: {
           Authorization : `Bearer ${localStorage.getItem('access')}`
@@ -154,7 +154,7 @@ export default {
           id : this.menus.id,
           title : this.menus.title,
           item : this.updateDatas,
-          content : this.menus.content,
+          content : this.menus.content
         }
       })
     },

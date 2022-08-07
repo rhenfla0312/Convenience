@@ -3,9 +3,10 @@ import axios from 'axios'
 export default {
   data() {
     return {
+      default_datas : [],
       board_datas : [],
       nextData : "",
-      search__data : ""
+      search__data : "",
     }
   },
   methods : {
@@ -26,6 +27,14 @@ export default {
         name: "BoardFind",
         params : {
           id : id
+        }
+      })
+    },
+    defaultFind(id) {
+      this.$router.push({
+        name: "BoardFind",
+        params : {
+          default_id : id 
         }
       })
     },
@@ -50,6 +59,7 @@ export default {
   mounted() {
     if(localStorage.getItem('search__data') !== "") {
       this.search__data = localStorage.getItem('search__data')
+      // 전체 데이터
       axios({
         url : `http://54.180.193.83:8081/board/?search=${this.search__data}`,
         method : "GET"
@@ -61,6 +71,17 @@ export default {
         console.log(error)
       })
     } else {
+      // 공지 데이터 - admin으로 작성할때만
+      axios({
+        url : 'http://54.180.193.83:8081/notice/',
+        method : "GET"
+      }).then((res) => {
+        console.log(res)
+        this.default_datas = res.data.results.slice(0,5)
+      }).catch((error) => {
+        console.log(error)
+      })
+      // 전체 데이터
       axios({
         url : 'http://54.180.193.83:8081/board/',
         method : "GET"
@@ -97,6 +118,13 @@ export default {
               </tr>
             </thead>
             <tbody class="tbody">
+              <tr class="tr tr__main tr__default" v-for="default_data in default_datas" :key="default_data" @click="defaultFind(default_data.id)">
+                <td>{{ default_data.id }}</td>
+                <td>{{ default_data.username}}</td>
+                <td>{{ default_data.content}}</td>
+                <td>{{ default_data.create_date.slice(0,-22) }}</td>
+                <td>{{ default_data.hits}}</td>
+              </tr>
               <tr class="tr tr__main" v-for="board_data in board_datas" :key="board_data" @click="boardFind(board_data.id)">
                 <td>{{ board_data.id }}</td>
                 <td>{{ board_data.username}}</td>
@@ -181,6 +209,10 @@ export default {
               box-shadow: 1px 1px 3px 1px;
               cursor: pointer;
             }
+          }
+          .tr__default {
+            background: #e57373;
+            color: #fff;
           }
         }
         .pagenation {
