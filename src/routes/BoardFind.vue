@@ -8,6 +8,7 @@ export default {
       default_type : false,
       title : "",
       name : "",
+      default_name : "",
       content : "",
       comments : [],
       comment_data : "",
@@ -66,22 +67,43 @@ export default {
       })
     },
     deletes() {
-      axios({
-        method: 'delete',
-        url : `http://54.180.193.83:8081/board/${this.board_id}/`,
-        headers: {
-          Authorization : `Bearer ${localStorage.getItem('access')}`
-        },
-        data : {
-          username : this.name
-        }
-      }).then((res) => {
-        console.log(res)
-        alert("삭제되었습니다")
-        this.$router.push('/board')
-      }).catch((error) => {
-        console.log(error)
-      })
+      if(this.localName === "admin") {
+        // 공지삭제
+        axios({
+          method: 'delete',
+          url : `http://54.180.193.83:8081/notice/${this.board_id}/`,
+          headers: {
+            Authorization : `Bearer ${localStorage.getItem('access')}`
+          },
+          data : {
+            username : this.name
+          }
+        }).then((res) => {
+          console.log(res)
+          alert("삭제되었습니다")
+          this.$router.push('/board')
+        }).catch((error) => {
+          console.log(error)
+        })
+      } else {
+        // 전체데이터삭제
+        axios({
+          method: 'delete',
+          url : `http://54.180.193.83:8081/board/${this.board_id}/`,
+          headers: {
+            Authorization : `Bearer ${localStorage.getItem('access')}`
+          },
+          data : {
+            username : this.name
+          }
+        }).then((res) => {
+          console.log(res)
+          alert("삭제되었습니다")
+          this.$router.push('/board')
+        }).catch((error) => {
+          console.log(error)
+        })
+      }
     },
     itemUpadate(comment_id) {
       axios({
@@ -169,42 +191,45 @@ export default {
     }
   },
   mounted() {
-    if(this.default_id === undefined) {
-      this.default_type = true 
-    } else {
+    if(this.default_id !== undefined) {
       this.default_type = false
+      // 공지데이터
+      axios({
+        url : `http://54.180.193.83:8081/notice/${this.default_id}/`,
+        method : "GET"
+      }).then((res) => {
+        console.log(res)
+        this.board_id = res.data.id
+        this.title = res.data.title
+        this.name = res.data.username
+        if(this.name === "admin") {
+          this.default_name = "관리자"
+        }
+        this.image = res.data.image
+        this.content = res.data.content
+        this.date = res.data.create_date
+      }).catch((error) => {
+        console.log(error)
+      })
+    } else {
+      this.default_type = true 
+      // 전체데이터
+      axios({
+        url : `http://54.180.193.83:8081/board/${this.id}/`,
+        method : "GET"
+      }).then((res) => {
+        console.log(res)
+        this.board_id = res.data.id
+        this.title = res.data.title
+        this.name = res.data.username
+        this.image = res.data.image
+        this.content = res.data.content
+        this.date = res.data.create_date
+        this.comments = res.data.boardcomment
+      }).catch((error) => {
+        console.log(error)
+      })
     }
-    // 공지데이터
-    axios({
-      url : `http://54.180.193.83:8081/notice/${this.default_id}/`,
-      method : "GET"
-    }).then((res) => {
-      console.log(res)
-      this.board_id = res.data.id
-      this.title = res.data.title
-      this.name = res.data.username
-      this.image = res.data.image
-      this.content = res.data.content
-      this.date = res.data.create_date
-    }).catch((error) => {
-      console.log(error)
-    })
-    // 전체데이터
-    axios({
-      url : `http://54.180.193.83:8081/board/${this.id}/`,
-      method : "GET"
-    }).then((res) => {
-      console.log(res)
-      this.board_id = res.data.id
-      this.title = res.data.title
-      this.name = res.data.username
-      this.image = res.data.image
-      this.content = res.data.content
-      this.date = res.data.create_date
-      this.comments = res.data.boardcomment
-    }).catch((error) => {
-      console.log(error)
-    })
   }
 }
 </script>
@@ -213,12 +238,12 @@ export default {
 <template>
   <div class="boardFind">
     <div class="boardFind__inner">
-      <div class="boardFind__name">상세보기</div>
+      <div class="boardFind__name">{{ name === "admin" ? "공지사항" : "상세보기"}}</div>
       <div class="boardFind__main">
         <div class="__dataBox">
           <div class="__title">{{ title }}</div>
           <div class="__infoBox">
-            <div class="__name">{{ name }}</div>
+            <div class="__name">{{ name === "admin" ? default_name : name }}</div>
             <div class="__date">{{ date.slice(0,-22) }}</div>
           </div>
         </div>
@@ -246,7 +271,7 @@ export default {
             <!-- 댓글 기본 -->
             <div class="comment__info" v-else>
               <div class="__nickname">{{ comment.username }}</div>
-              <div @click="comment_parent(index)" class="__comment">{{ comment.comment }}{{ comment.reply.length === 0 ? "" : `[${comment.reply.length}]`  }}</div>
+              <div :title="comment.comment" @click="comment_parent(index)" class="__comment">{{ comment.comment }}{{ comment.reply.length === 0 ? "" : `[${comment.reply.length}]`  }}</div>
               <div class="__date">{{ comment.create_date.slice(0,-22) }}</div>
               <div title="수정" class="__update" v-if="comment.username == this.localName" @click="itemUpdateBox(comment.comment, index)"><i class="fa-solid fa-pen-to-square"></i></div>
               <div title="삭제" class="__delete" v-if="comment.username == this.localName" @click="itemDelete(comment.id)"><i class="fa-solid fa-xmark"></i></div>
@@ -267,7 +292,7 @@ export default {
                 <div class="plusComment__default__info" v-else>
                   <div class="plusComment__arrow"><span class="material-symbols-outlined">turn_right</span></div>
                   <div class="__nickname">{{ plusComment.username }}</div>
-                  <div class="__comment">{{ plusComment.comment }}</div>
+                  <div :title="plusComment.comment" class="__comment">{{ plusComment.comment }}</div>
                   <div class="__date">{{ plusComment.create_date.slice(0,-22) }}</div>
                   <div title="수정" class="__update" v-if="plusComment.username == this.localName" @click="itemParent_UpdateBox(plusComment.comment, index)"><i class="fa-solid fa-pen-to-square"></i></div>
                   <div title="삭제" class="__delete" v-if="plusComment.username == this.localName" @click="itemDelete(plusComment.id)"><i class="fa-solid fa-xmark"></i></div>
@@ -407,6 +432,10 @@ export default {
                 position: absolute;
                 cursor: pointer;
                 left: 400px;
+                width: 400px;
+                overflow : hidden;
+                white-space : nowrap;
+                text-overflow: ellipsis;
               }
               .__updateComment {
                 cursor: auto;
@@ -440,6 +469,10 @@ export default {
                 position: absolute;
                 cursor: pointer;
                 left: 400px;
+                width: 400px;
+                overflow : hidden;
+                white-space : nowrap;
+                text-overflow: ellipsis;
               }
               .__updateComment {
                 cursor: auto;
@@ -503,6 +536,10 @@ export default {
                   .__comment {
                     position: absolute;
                     left: 400px;
+                    width: 400px;
+                    overflow : hidden;
+                    white-space : nowrap;
+                    text-overflow: ellipsis;
                   }
                   .__date {
                     position: absolute;
@@ -550,6 +587,10 @@ export default {
                   .__comment {
                     position: absolute;
                     left: 400px;
+                    width: 400px;
+                    overflow : hidden;
+                    white-space : nowrap;
+                    text-overflow: ellipsis;
                   }
                   .__date {
                     position: absolute;

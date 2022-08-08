@@ -119,9 +119,9 @@ export default {
             </thead>
             <tbody class="tbody">
               <tr class="tr tr__main tr__default" v-for="default_data in default_datas" :key="default_data" @click="defaultFind(default_data.id)">
-                <td>{{ default_data.id }}</td>
-                <td>{{ default_data.username}}</td>
-                <td>{{ default_data.content}}</td>
+                <td>공지<span class="material-symbols-outlined volume">volume_up</span></td>
+                <td>{{ default_data.username === "admin" ? "관리자" : "admin" }}</td>
+                <td>{{ default_data.title}}</td>
                 <td>{{ default_data.create_date.slice(0,-22) }}</td>
                 <td>{{ default_data.hits}}</td>
               </tr>
@@ -211,8 +211,11 @@ export default {
             }
           }
           .tr__default {
-            background: #e57373;
-            color: #fff;
+            color : #c62828;
+            font-weight: bold;
+            .volume {
+              position: absolute;
+            }
           }
         }
         .pagenation {

@@ -153,7 +153,7 @@ export default createRouter({
       component: ConvenienceDataFind
     },
     {
-      path: '/convenience/convenienceFind/:contentId?',
+      path: '/convenience/convenienceFind/:contentId?/:contentType/:contentPrice/:contentImg',
       name: "convenienceFind",
       component: ConvenienceFind
     },

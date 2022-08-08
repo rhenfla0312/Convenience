@@ -52,21 +52,39 @@ export default {
       if(this.imgFile !== null) {
         formData.append('image', this.imgFile);
       }
-      axios({
-        url : `http://54.180.193.83:8081/board/${this.update_id}/`,
-        method: 'PATCH',
-        headers: {
-          Authorization : `Bearer ${localStorage.getItem('access')}`
-        },
-        data : formData
-      }).then((res) => {
-        console.log(res)
-        this.$router.push('/board')
-      }).catch((error) => {
-        console.log(error)
-        this.error_content = error.response.data.content
-        this.error_title = error.response.data.title
-      })
+      if(this.name === "admin") {
+        axios({
+          url : `http://54.180.193.83:8081/notice/${this.update_id}/`,
+          method: 'PATCH',
+          headers: {
+            Authorization : `Bearer ${localStorage.getItem('access')}`
+          },
+          data : formData
+        }).then((res) => {
+          console.log(res)
+          this.$router.push('/board')
+        }).catch((error) => {
+          console.log(error)
+          this.error_content = error.response.data.content
+          this.error_title = error.response.data.title
+        })
+      } else {
+        axios({
+          url : `http://54.180.193.83:8081/board/${this.update_id}/`,
+          method: 'PATCH',
+          headers: {
+            Authorization : `Bearer ${localStorage.getItem('access')}`
+          },
+          data : formData
+        }).then((res) => {
+          console.log(res)
+          this.$router.push('/board')
+        }).catch((error) => {
+          console.log(error)
+          this.error_content = error.response.data.content
+          this.error_title = error.response.data.title
+        })
+      }
     },
     imgFileChange(e) {
       console.log(e)

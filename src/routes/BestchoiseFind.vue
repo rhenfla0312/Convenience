@@ -12,6 +12,7 @@ export default {
       localName: localStorage.getItem("name"),
       checkboxDatas : [],
       updateDatas : [],
+      fullDate : "",
 
       comment_update_idx: 0,
       comment_update: false,
@@ -175,6 +176,14 @@ export default {
       this.menus = res.data
       this.datas = res.data.a
 
+      // 시간변환 테스트
+      // const create_date = new Date(this.menus.create_date)
+      // const create_date_year = create_date.getFullYear()
+      // const create_date_month = create_date.getDate()
+      // const create_date_date = create_date.getDate()
+      // this.fullDate = create_date_year + '-' + create_date_month + '-' + create_date_date
+      // console.log(this.fullDate)
+
       let updateItem = res.data.a
       updateItem.forEach((item) => {
         this.updateDatas.push(item.objectss)
@@ -200,6 +209,7 @@ export default {
           <div class="__infoBox">
             <div class="__name">{{ menus.nickname }}</div>
             <div class="__date">{{ menus.create_date.slice(0,-22) }}</div>
+            <!-- <div class="__date">{{ menus.create_date }}</div> -->
           </div>
         </div>
 

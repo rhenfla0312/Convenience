@@ -11,6 +11,7 @@ export default {
       eventData: false,
       datas : [],
       Loading : false,
+      cuPrice : "",
 
       plusItem_index : 0
     }
@@ -244,11 +245,12 @@ export default {
       this.$router.push({
         // push로 파라미터를 날릴땐 path가 아닌 name으로 해야한다?
         name: 'cuConvenienceFind',
-        params: {
+        query: {
           contentId : totalData.name,
           contentImg : totalData.image,
           contentType : totalData.type,
-          contentPrice : totalData.price
+          contentPrice : totalData.price,
+          cuPrice : "원"
         }
       })
     },
@@ -264,6 +266,7 @@ export default {
     }
   },
   mounted() {
+    this.cuPrice = "원"
     if(localStorage.getItem('search__data') !== "") {
       this.Loading = false
       this.searchData = localStorage.getItem('search__data')
@@ -422,7 +425,7 @@ export default {
             <div class="item__type">{{ totalData.type }}</div>
             <img class="__img" :src="totalData.image" onerror="this.src='https://www.montvertcc.com/static/mo/images/common/no_img.png'" />
             <div class="item__name">{{ totalData.name }}</div>
-            <div class="item__price">{{ totalData.price }}</div>
+            <div class="item__price">{{ totalData.price }}{{ cuPrice }}</div>
           </div>
           <!-- 덤증정이 있을경우 그 아이템만 덤증정데이터 마우스올릴때 불러오기 -->
           <div class="itemBox" v-if="plusItem_index === index" style="display: none" :style="[totalData.GIFTimage ? { width : width } : totalData.image ]" :class="{ eventItemBox : eventItemBox }" @mouseleave="plusItem(index)">

@@ -246,7 +246,7 @@ export default {
       this.$router.push({
         // push로 파라미터를 날릴땐 path가 아닌 name으로 해야한다?
         name: 'gsConvenienceFind',
-        params: {
+        query: {
           contentId : totalData.name,
           contentImg : totalData.image,
           contentType : totalData.type,

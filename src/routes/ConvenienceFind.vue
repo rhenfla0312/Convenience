@@ -3,10 +3,11 @@ export default {
   data() {
     return {
       Loading : false,
-      name : this.$route.params.contentId,
-      img : this.$route.params.contentImg,
-      type : this.$route.params.contentType,
-      price : this.$route.params.contentPrice,
+      name : this.$route.query.contentId,
+      img : this.$route.query.contentImg,
+      type : this.$route.query.contentType,
+      price : this.$route.query.contentPrice,
+      cuPrice : this.$route.query.cuPrice
     }
   },
   mounted() {
@@ -34,7 +35,7 @@ export default {
           </div>
           <div class="convenienceFind__box">
             <div class="convenienceFind__title">가격</div>
-            <div class="convenienceFind__data">{{ price }}</div>
+            <div class="convenienceFind__data">{{ price }}{{ cuPrice }}</div>
           </div>
         </div>
       </div>
@@ -61,9 +62,6 @@ export default {
     position: relative;
     top: 125px;
     height: 750px;
-    // padding: 0 0 80px 0;
-    // min-width: 1900px;
-    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
     .convenienceFind__inner {
       width: 1200px;
       margin: auto;
@@ -83,6 +81,7 @@ export default {
           width: 500px;
           height: 500px;
           background: #fff;
+          box-shadow: 0 7px 25px #00000014;
           border-radius: 10px;
           padding: 20px;
         }
