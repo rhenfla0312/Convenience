@@ -177,12 +177,15 @@ export default {
       this.datas = res.data.a
 
       // 시간변환 테스트
-      // const create_date = new Date(this.menus.create_date)
+      const create_date = new Date(this.menus.create_date)
       // const create_date_year = create_date.getFullYear()
       // const create_date_month = create_date.getDate()
       // const create_date_date = create_date.getDate()
-      // this.fullDate = create_date_year + '-' + create_date_month + '-' + create_date_date
-      // console.log(this.fullDate)
+      const create_date_hours = create_date.getHours()
+      const create_date_minutes = create_date.getMinutes()
+      const create_date_seconds = create_date.getSeconds()
+
+      this.fullDate = this.menus.create_date.slice(0,-22)  +  create_date_hours + ":" + create_date_minutes + ":" + create_date_seconds
 
       let updateItem = res.data.a
       updateItem.forEach((item) => {
@@ -208,8 +211,8 @@ export default {
           <div class="__title">{{ menus.title }}</div>
           <div class="__infoBox">
             <div class="__name">{{ menus.nickname }}</div>
-            <div class="__date">{{ menus.create_date.slice(0,-22) }}</div>
-            <!-- <div class="__date">{{ menus.create_date }}</div> -->
+            <!-- <div class="__date">{{ menus.create_date.slice(0,-22) }}</div> -->
+            <div class="__date">{{ fullDate }}</div>
           </div>
         </div>
 
