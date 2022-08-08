@@ -154,7 +154,7 @@ export default {
                   <tr class="tr tr__main" v-for="myMixCommentData in myMixCommentDatas" :key="myMixCommentData" @click="myMixDataFind(myMixCommentData.post_id)">
                     <td>{{ myMixCommentData.id }}</td>
                     <td>{{ myMixCommentData.nickname }}</td>
-                    <td>{{ myMixCommentData.post_id === null ? myMixCommentData.comment + "[대댓글]" : myMixCommentData.comment }}</td>
+                    <td class="my__title">{{ myMixCommentData.post_id === null ? myMixCommentData.comment + "[대댓글]" : myMixCommentData.comment }}</td>
                     <td>{{ myMixCommentData.create_date.slice(0,-22) }}</td>
                   </tr>
                 </tbody>
@@ -246,6 +246,9 @@ a {
                 &:hover {
                   box-shadow: 1px 1px 3px 1px;
                   cursor: pointer;
+                }
+                .my__title {
+                  width: 400px;
                 }
               }
             }

@@ -185,7 +185,7 @@ export default {
       const create_date_minutes = create_date.getMinutes()
       const create_date_seconds = create_date.getSeconds()
 
-      this.fullDate = this.menus.create_date.slice(0,-22)  +  create_date_hours + ":" + create_date_minutes + ":" + create_date_seconds
+      this.fullDate = this.menus.create_date.slice(0,-22)  + "\u00A0" + create_date_hours + ":" + create_date_minutes + ":" + create_date_seconds
 
       let updateItem = res.data.a
       updateItem.forEach((item) => {

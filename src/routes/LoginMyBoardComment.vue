@@ -153,7 +153,7 @@ export default {
                   <tr class="tr tr__main" v-for="myBoardCommentData in myBoardCommentDatas" :key="myBoardCommentData" @click="myBoardFind(myBoardCommentData.board_id)">
                     <td>{{ myBoardCommentData.id }}</td>
                     <td>{{ myBoardCommentData.username }}</td>
-                    <td>{{ myBoardCommentData.board_id === null ? myBoardCommentData.comment + "[대댓글]" : myBoardCommentData.comment }}</td>
+                    <td class="board_comment">{{ myBoardCommentData.board_id === null ? myBoardCommentData.comment + "[대댓글]" : myBoardCommentData.comment }}</td>
                     <td>{{ myBoardCommentData.create_date.slice(0,-22) }}</td>
                   </tr>
                 </tbody>
@@ -245,6 +245,9 @@ a {
                 &:hover {
                   box-shadow: 1px 1px 3px 1px;
                   cursor: pointer;
+                }
+                .board_comment {
+                  width: 400px;
                 }
               }
             }

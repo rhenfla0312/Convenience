@@ -151,7 +151,7 @@ export default {
                   <tr class="tr tr__main" v-for="myMixData in myMixDatas" :key="myMixData" @click="myMixDataFind(myMixData.id)">
                     <td>{{ myMixData.id }}</td>
                     <td>{{ myMixData.nickname }}</td>
-                    <td>{{ myMixData.title }}</td>
+                    <td class="my__title">{{ myMixData.title }}</td>
                     <td>{{ myMixData.create_date.slice(0,-22) }}</td>
                     <td>{{ myMixData.likes_cnt }}</td>
                   </tr>
@@ -244,6 +244,9 @@ a {
                 &:hover {
                   box-shadow: 1px 1px 3px 1px;
                   cursor: pointer;
+                }
+                .my__title {
+                  width: 400px;
                 }
               }
             }

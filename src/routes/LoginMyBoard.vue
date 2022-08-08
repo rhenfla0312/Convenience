@@ -150,7 +150,7 @@ export default {
                   <tr class="tr tr__main" v-for="myBoardData in myBoardDatas" :key="myBoardData" @click="myBoardFind(myBoardData.id)">
                     <td>{{ myBoardData.id }}</td>
                     <td>{{ myBoardData.username }}</td>
-                    <td>{{ myBoardData.title }}</td>
+                    <td class="my__title">{{ myBoardData.title }}</td>
                     <td>{{ myBoardData.create_date.slice(0,-22) }}</td>
                     <td>{{ myBoardData.hits }}</td>
                   </tr>
@@ -243,6 +243,9 @@ a {
                 &:hover {
                   box-shadow: 1px 1px 3px 1px;
                   cursor: pointer;
+                }
+                .my__title {
+                  width: 400px;
                 }
               }
             }
