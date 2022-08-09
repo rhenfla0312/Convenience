@@ -3,8 +3,8 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      id : this.$route.params.id,
-      default_id : this.$route.params.default_id,
+      id : this.$route.query.id,
+      default_id : this.$route.query.default_id,
       default_type : false,
       title : "",
       name : "",
@@ -15,6 +15,7 @@ export default {
       date : "",
       board_id : "",
       image : "",
+      fullDate : "",
       localName: localStorage.getItem("name"),
       comment_update_idx: 0,
       comment_update: false,
@@ -208,6 +209,16 @@ export default {
         this.image = res.data.image
         this.content = res.data.content
         this.date = res.data.create_date
+
+        // 시간변환 테스트
+        const create_date = new Date(this.date)
+        // const create_date_year = create_date.getFullYear()
+        // const create_date_month = create_date.getDate()
+        // const create_date_date = create_date.getDate()
+        const create_date_hours = String(create_date.getHours()).padStart(2, "0")
+        const create_date_minutes = String(create_date.getMinutes()).padStart(2, "0")
+        // const create_date_seconds = create_date.getSeconds()
+        this.fullDate = this.date.slice(0,-22)  + "\u00A0" + create_date_hours + ":" + create_date_minutes
       }).catch((error) => {
         console.log(error)
       })
@@ -226,10 +237,21 @@ export default {
         this.content = res.data.content
         this.date = res.data.create_date
         this.comments = res.data.boardcomment
+
+        // 시간변환 테스트
+        const create_date = new Date(this.date)
+        // const create_date_year = create_date.getFullYear()
+        // const create_date_month = create_date.getDate()
+        // const create_date_date = create_date.getDate()
+        const create_date_hours = String(create_date.getHours()).padStart(2, "0")
+        const create_date_minutes = String(create_date.getMinutes()).padStart(2, "0")
+        // const create_date_seconds = create_date.getSeconds()
+        this.fullDate = this.date.slice(0,-22)  + "\u00A0" + create_date_hours + ":" + create_date_minutes
       }).catch((error) => {
         console.log(error)
       })
     }
+
   }
 }
 </script>
@@ -244,7 +266,7 @@ export default {
           <div class="__title">{{ title }}</div>
           <div class="__infoBox">
             <div class="__name">{{ name === "admin" ? default_name : name }}</div>
-            <div class="__date">{{ date.slice(0,-22) }}</div>
+            <div class="__date">{{ fullDate }}</div>
           </div>
         </div>
         <div class="__textBox">
@@ -314,8 +336,8 @@ export default {
           <!-- 페이지네이션 -->
           <div class="comment__page">
             <i class="fa-solid fa-1 first"></i>
-            <i class="fa-solid fa-2"></i>
-            <i class="fa-solid fa-3"></i>
+            <!-- <i class="fa-solid fa-2"></i> -->
+            <!-- <i class="fa-solid fa-3"></i> -->
           </div>
           <div class="comment__box">
             <div class="comment__text">

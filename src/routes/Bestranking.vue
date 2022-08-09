@@ -134,7 +134,7 @@ export default {
 <template>
   <div class="bestranking">
     <div class="inner">
-    <div class="bestranking__name">꿀조합 랭킹</div>
+    <div class="bestranking__name">조합 랭킹</div>
       <div class="bestranking__main">
         <!-- ranking_graph -->
         <div class="graphBox">

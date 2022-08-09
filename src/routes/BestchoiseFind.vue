@@ -176,23 +176,23 @@ export default {
       this.menus = res.data
       this.datas = res.data.a
 
-      // 시간변환 테스트
-      const create_date = new Date(this.menus.create_date)
-      // const create_date_year = create_date.getFullYear()
-      // const create_date_month = create_date.getDate()
-      // const create_date_date = create_date.getDate()
-      const create_date_hours = create_date.getHours()
-      const create_date_minutes = create_date.getMinutes()
-      const create_date_seconds = create_date.getSeconds()
-
-      this.fullDate = this.menus.create_date.slice(0,-22)  + "\u00A0" + create_date_hours + ":" + create_date_minutes + ":" + create_date_seconds
-
       let updateItem = res.data.a
       updateItem.forEach((item) => {
         this.updateDatas.push(item.objectss)
       })
       this.comments = res.data.post
       this.Loading = true
+      // 시간변환 테스트
+
+      const create_date = new Date(this.menus.create_date)
+      // const create_date_year = create_date.getFullYear()
+      // const create_date_month = create_date.getDate()
+      // const create_date_date = create_date.getDate()
+      const create_date_hours = String(create_date.getHours()).padStart(2, "0")
+      const create_date_minutes = String(create_date.getMinutes()).padStart(2, "0")
+      // const create_date_seconds = create_date.getSeconds()
+
+      this.fullDate = this.menus.create_date.slice(0,-22)  + "\u00A0" + create_date_hours + ":" + create_date_minutes
     }).catch((error) => {
       console.log(error)
       this.Loading = true
@@ -255,7 +255,7 @@ export default {
             <!-- 댓글 기본 -->
             <div class="comment__info" v-else>
               <div class="__nickname">{{ comment.nickname }}</div>
-              <div @click="comment_parent(index)" class="__comment">{{ comment.comment }}{{ comment.reply.length === 0 ? "" : `[${comment.reply.length}]`  }}</div>
+              <div :title="comment.comment" @click="comment_parent(index)" class="__comment">{{ comment.comment }}{{ comment.reply.length === 0 ? "" : `[${comment.reply.length}]`  }}</div>
               <div class="__date">{{ comment.create_date.slice(0,-22) }}</div>
               <div title="수정" class="__update" v-if="comment.nickname == this.localName" @click="itemUpdateBox(index)"><i class="fa-solid fa-pen-to-square"></i></div>
               <div title="삭제" class="__delete" v-if="comment.nickname == this.localName" @click="itemDelete(comment.id)"><i class="fa-solid fa-xmark"></i></div>
@@ -276,7 +276,7 @@ export default {
                 <div class="plusComment__default__info" v-else>
                   <div class="plusComment__arrow"><span class="material-symbols-outlined">turn_right</span></div>
                   <div class="__nickname">{{ plusComment.nickname }}</div>
-                  <div class="__comment">{{ plusComment.comment }}</div>
+                  <div :title="plusComment.comment" class="__comment">{{ plusComment.comment }}</div>
                   <div class="__date">{{ plusComment.create_date.slice(0,-22) }}</div>
                   <div title="수정" class="__update" v-if="plusComment.nickname == this.localName" @click="itemParent_UpdateBox(index)"><i class="fa-solid fa-pen-to-square"></i></div>
                   <div title="삭제" class="__delete" v-if="plusComment.nickname == this.localName" @click="itemDelete(plusComment.id)"><i class="fa-solid fa-xmark"></i></div>
@@ -298,8 +298,8 @@ export default {
           <!-- 페이지네이션 -->
           <div class="comment__page">
             <i class="fa-solid fa-1 first"></i>
-            <i class="fa-solid fa-2"></i>
-            <i class="fa-solid fa-3"></i>
+            <!-- <i class="fa-solid fa-2"></i> -->
+            <!-- <i class="fa-solid fa-3"></i> -->
           </div>
           <div class="comment__box">
             <div class="comment__text">
@@ -482,6 +482,10 @@ export default {
                 position: absolute;
                 cursor: pointer;
                 left: 400px;
+                width: 400px;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
               }
               .__updateComment {
                 cursor: auto;
@@ -515,6 +519,10 @@ export default {
                 position: absolute;
                 cursor: pointer;
                 left: 400px;
+                width: 400px;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
               }
               .__updateComment {
                 cursor: auto;
@@ -578,6 +586,10 @@ export default {
                   .__comment {
                     position: absolute;
                     left: 400px;
+                    width: 400px;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
                   }
                   .__date {
                     position: absolute;
@@ -625,6 +637,10 @@ export default {
                   .__comment {
                     position: absolute;
                     left: 400px;
+                    width: 400px;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
                   }
                   .__date {
                     position: absolute;

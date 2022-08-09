@@ -25,7 +25,7 @@ export default {
     boardFind(id) {
       this.$router.push({
         name: "BoardFind",
-        params : {
+        query : {
           id : id
         }
       })
@@ -33,7 +33,7 @@ export default {
     defaultFind(id) {
       this.$router.push({
         name: "BoardFind",
-        params : {
+        query : {
           default_id : id 
         }
       })

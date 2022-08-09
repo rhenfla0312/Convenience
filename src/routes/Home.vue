@@ -43,6 +43,7 @@ export default {
     }).catch((error) => {
       console.log(error)
     })
+    window.addEventListener('scroll', this.handleScroll)
   }
 }
 </script>
@@ -98,7 +99,7 @@ export default {
     </div>
   </div>
   <!-- scrollBtn -->
-  <div class="scrollBtn" @click="handleScrollBtn" v-if="scrollBtn"><i class="fa-solid fa-arrow-up arrow"></i></div>
+  <div class="scrollBtn" @click="handleScrollBtn" v-show="scrollBtn"><i class="fa-solid fa-arrow-up arrow"></i></div>
 </template>
 <style lang="scss">
 a {
