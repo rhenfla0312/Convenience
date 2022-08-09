@@ -66,40 +66,44 @@ export default {
       })
     },
     itemDelete(comment_id) {
-      axios({
-        method: 'DELETE',
-        url : `http://54.180.193.83:8081/comment/${comment_id}/`,
-        headers: {
-          Authorization : `Bearer ${localStorage.getItem('access')}`
-        },
-        data : {
-          nickname : localStorage.getItem('name')
-        }
-      }).then((res) => {
-        console.log(res)
-        alert("삭제되었습니다")
-        this.$router.go('')
-      }).catch((error) => {
-        console.log(error)
-      })
+      if(confirm('삭제하시겠습니까?')) {
+        axios({
+          method: 'DELETE',
+          url : `http://54.180.193.83:8081/comment/${comment_id}/`,
+          headers: {
+            Authorization : `Bearer ${localStorage.getItem('access')}`
+          },
+          data : {
+            nickname : localStorage.getItem('name')
+          }
+        }).then((res) => {
+          console.log(res)
+          alert("삭제되었습니다")
+          this.$router.go('')
+        }).catch((error) => {
+          console.log(error)
+        })
+      }
     },
     deletes() {
-      axios({
-        method: 'delete',
-        url : `http://54.180.193.83:8081/posts/${this.menus.id}/`,
-        headers: {
-          Authorization : `Bearer ${localStorage.getItem('access')}`
-        },
-        data : {
-          nickname : localStorage.getItem('name')
-        }
-      }).then((res) => {
-        console.log(res)
-        alert("삭제되었습니다")
-        this.$router.push('/bestChoise')
-      }).catch((error) => {
-        console.log(error)
-      })
+      if(confirm('삭제하시겠습니까?')) {      
+        axios({
+          method: 'delete',
+          url : `http://54.180.193.83:8081/posts/${this.menus.id}/`,
+          headers: {
+            Authorization : `Bearer ${localStorage.getItem('access')}`
+          },
+          data : {
+            nickname : localStorage.getItem('name')
+          }
+        }).then((res) => {
+          console.log(res)
+          alert("삭제되었습니다")
+          this.$router.push('/bestChoise')
+        }).catch((error) => {
+          console.log(error)
+        })
+      }
     },
     plus_Comment(id) {
       axios({

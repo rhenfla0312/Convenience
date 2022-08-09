@@ -196,7 +196,7 @@ export default {
           <div class="mychoise__alias">
             <div class="__alias" ref="alias">닉네임</div>
             <div class="alias__input">
-              <input type="text" :value="this.userName" />
+              <input type="text" :value="this.userName" readonly />
             </div>
           </div>
           <div class="imgFile">

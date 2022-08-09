@@ -50,60 +50,64 @@ export default {
       })
     },
     itemDelete(comment_id) {
-      axios({
-        method: 'DELETE',
-        url : `http://54.180.193.83:8081/boardcomment/${comment_id}/`,
-        headers: {
-          Authorization : `Bearer ${localStorage.getItem('access')}`
-        },
-        data : {
-          username : localStorage.getItem('name')
-        }
-      }).then((res) => {
-        console.log(res)
-        alert("삭제되었습니다")
-        this.$router.go('')
-      }).catch((error) => {
-        console.log(error)
-      })
+      if(confirm('삭제하시겠습니까?')) {
+        axios({
+          method: 'DELETE',
+          url : `http://54.180.193.83:8081/boardcomment/${comment_id}/`,
+          headers: {
+            Authorization : `Bearer ${localStorage.getItem('access')}`
+          },
+          data : {
+            username : localStorage.getItem('name')
+          }
+        }).then((res) => {
+          console.log(res)
+          alert("삭제되었습니다")
+          this.$router.go('')
+        }).catch((error) => {
+          console.log(error)
+        })
+      }
     },
     deletes() {
-      if(this.localName === "admin") {
-        // 공지삭제
-        axios({
-          method: 'delete',
-          url : `http://54.180.193.83:8081/notice/${this.board_id}/`,
-          headers: {
-            Authorization : `Bearer ${localStorage.getItem('access')}`
-          },
-          data : {
-            username : this.name
-          }
-        }).then((res) => {
-          console.log(res)
-          alert("삭제되었습니다")
-          this.$router.push('/board')
-        }).catch((error) => {
-          console.log(error)
-        })
-      } else {
-        // 전체데이터삭제
-        axios({
-          method: 'delete',
-          url : `http://54.180.193.83:8081/board/${this.board_id}/`,
-          headers: {
-            Authorization : `Bearer ${localStorage.getItem('access')}`
-          },
-          data : {
-            username : this.name
-          }
-        }).then((res) => {
-          console.log(res)
-          alert("삭제되었습니다")
-          this.$router.push('/board')
-        }).catch((error) => {
-          console.log(error)
-        })
+      if(confirm('삭제하시겠습니까?')) {
+        if(this.localName === "admin") {
+          // 공지삭제
+          axios({
+            method: 'delete',
+            url : `http://54.180.193.83:8081/notice/${this.board_id}/`,
+            headers: {
+              Authorization : `Bearer ${localStorage.getItem('access')}`
+            },
+            data : {
+              username : this.name
+            }
+          }).then((res) => {
+            console.log(res)
+            alert("삭제되었습니다")
+            this.$router.push('/board')
+          }).catch((error) => {
+            console.log(error)
+          })
+        } else {
+          // 전체데이터삭제
+          axios({
+            method: 'delete',
+            url : `http://54.180.193.83:8081/board/${this.board_id}/`,
+            headers: {
+              Authorization : `Bearer ${localStorage.getItem('access')}`
+            },
+            data : {
+              username : this.name
+            }
+          }).then((res) => {
+            console.log(res)
+            alert("삭제되었습니다")
+            this.$router.push('/board')
+          }).catch((error) => {
+            console.log(error)
+          })
+        }
       }
     },
     itemUpadate(comment_id) {

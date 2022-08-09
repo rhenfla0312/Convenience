@@ -39,6 +39,18 @@ export default {
         this.$router.go()
       },100)
     },
+    clickEffect(e){
+      console.log(e)
+      let d = document.createElement("div");
+      d.className = "clickEffect";
+      d.style.top = e.clientY + "px";
+      d.style.left = e.clientX + "px";
+      document.body.appendChild(d);
+      console.log(d)
+      d.addEventListener('animationend',function(){
+        d.parentElement.removeChild(d);
+      }.bind(this));
+    }
   },
   mounted() {
     // 1시간55분마다 엑세스토큰 갱신 (최초 엑세스 2시간 -> 1시간55분마다 갱신), (리프레시 1주일 -> 1주일동안 자동 로그아웃)
@@ -59,6 +71,8 @@ export default {
         this.logOut()
       })
     },1100000)
+    // mouse click event
+    document.addEventListener('click',this.clickEffect);	
   }
 }
 </script>
@@ -70,6 +84,29 @@ export default {
   <Footer />
 </template>
 
-<style lang="scss" scoped>
-  
+<style lang="scss">
+  div.clickEffect {
+    position: fixed;
+    box-sizing: border-box;
+    border-style: solid;
+    border-color: #000000;
+    border-radius: 50%;
+    animation: clickEffect 0.4s ease-out;
+    z-index: 99999;
+  }
+  @keyframes clickEffect{
+    0%{
+      opacity: 1;
+      width: 0.5em; height:0.5em;
+      margin: -0.25em;
+      border-width: 0.5rem;
+    }
+    100%{
+      opacity: 0.2;
+      width: 15em;
+      height: 15em;
+      margin: -7.5em;
+      border-width: 0.03rem;
+    }
+}
 </style>
