@@ -44,7 +44,7 @@ export default {
       } else {
         this.$router.push({
           name: "BoardFind",
-          params : {
+          query : {
             id : id
           }
         })

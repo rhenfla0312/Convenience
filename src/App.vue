@@ -23,7 +23,6 @@ export default {
       }).catch((error) => {
         console.log(error)
       })
-
       window.localStorage.removeItem('name');
       window.localStorage.removeItem('id');
       window.localStorage.removeItem('email');
@@ -39,18 +38,18 @@ export default {
         this.$router.go()
       },100)
     },
-    clickEffect(e){
-      console.log(e)
-      let d = document.createElement("div");
-      d.className = "clickEffect";
-      d.style.top = e.clientY + "px";
-      d.style.left = e.clientX + "px";
-      document.body.appendChild(d);
-      console.log(d)
-      d.addEventListener('animationend',function(){
-        d.parentElement.removeChild(d);
-      }.bind(this));
-    }
+    // clickEffect(e){
+    //   console.log(e)
+    //   let d = document.createElement("div");
+    //   d.className = "clickEffect";
+    //   d.style.top = e.clientY + "px";
+    //   d.style.left = e.clientX + "px";
+    //   document.body.appendChild(d);
+    //   console.log(d)
+    //   d.addEventListener('animationend',function(){
+    //     d.parentElement.removeChild(d);
+    //   }.bind(this));
+    // }
   },
   mounted() {
     // 1시간55분마다 엑세스토큰 갱신 (최초 엑세스 2시간 -> 1시간55분마다 갱신), (리프레시 1주일 -> 1주일동안 자동 로그아웃)
@@ -72,7 +71,7 @@ export default {
       })
     },1100000)
     // mouse click event
-    document.addEventListener('click',this.clickEffect);	
+    // document.addEventListener('click',this.clickEffect);	
   }
 }
 </script>

@@ -17,7 +17,8 @@ export default {
       // error
       error_title : "",
       error_content : "",
-      imgFile : ""
+      imgFile : "",
+      imgLabel : ""
     }
   },
   methods : {
@@ -89,7 +90,7 @@ export default {
     imgFileChange(e) {
       console.log(e)
       this.imgFile = e.target.files[0]
-      console.log(this.imgFile)
+      this.imgLabel = e.target.files[0].name
     }
   },
 }
@@ -118,7 +119,11 @@ export default {
             <div class="error">{{ error_content }}</div>
             <div class="imgFile">
               <div class="__file">이미지</div>
-              <input type="file" class="file"  @change="imgFileChange">
+              <div class="fileBox">
+                <input class="upload__name"  :value="imgLabel" readonly>
+                <label for="file">파일찾기</label>
+                <input type="file" class="file" id="file" @change="imgFileChange">
+              </div>
             </div>
           </div>
           <div @click="update_title !== undefined ? update() : write()" class="textBtn">
@@ -228,6 +233,40 @@ export default {
             }
             .imgFile {
               margin-top: 30px;
+              .fileBox {
+                margin-top: 10px;
+                .upload__name {
+                  display: inline-block;
+                  height: 40px;
+                  padding: 0 10px;
+                  vertical-align: middle;
+                  border: 1px solid #dddddd;
+                  width: 
+                  480px;
+                  color: #999999;
+                  &:focus {
+                    outline: none;
+                  }
+                }
+                label {
+                  display: inline-block;
+                  padding: 10px 20px;
+                  color: #fff;
+                  vertical-align: middle;
+                  background-color: #999999;
+                  cursor: pointer;
+                  height: 40px;
+                  margin-left: 10px;
+                }
+                input[type="file"] {
+                  position: absolute;
+                  width: 0;
+                  height: 0;
+                  padding: 0;
+                  overflow: hidden;
+                  border: 0;
+                }
+              }
               .__file {
                 margin-left: 10px;
                 font-size: 13px;

@@ -23,6 +23,7 @@ export default {
       content: update_content !== undefined ? update_content : "",
       userName: "",
       imgFile : "",
+      imgLabel : "",
 
       // errorData
       errorTitle: "제목을 입력해주세요.",
@@ -154,6 +155,8 @@ export default {
     imgFileChange(e) {
       console.log(e)
       this.imgFile = e.target.files[0]
+
+      this.imgLabel = e.target.files[0].name
     },
     loginCheck() {
       if(!localStorage.getItem('name')) {
@@ -175,6 +178,11 @@ export default {
       console.log(error)
     })
     this.userName = localStorage.getItem('name')
+
+    // $("#file").on('change',function(){
+    //   var fileName = $("#file").val();
+    //   $(".upload-name").val(fileName);
+    // });
   }
 }
 </script>
@@ -201,7 +209,11 @@ export default {
           </div>
           <div class="imgFile">
             <div class="__file">대표이미지</div>
-            <input type="file" class="file" @change="imgFileChange" />
+            <div class="fileBox">
+              <input class="upload__name"  :value="imgLabel" readonly>
+              <label for="file">파일찾기</label>
+              <input type="file" class="file"  id="file" @change="imgFileChange" />
+            </div>
           </div>
           <!-- 조합아이템 -->
           <div class="mychoise__itemBox">
@@ -277,10 +289,9 @@ export default {
         .inner {
           width: 1000px;
           margin: auto;
-          text-align: start;
+          text-align: center;
           .mycohise_title {
             margin-top: 30px;
-            display: flex;
             padding-top: 30px;
             .__title {
               font-size: 20px;
@@ -288,8 +299,8 @@ export default {
               padding-top: 10px;
             }
             .title__input {
-              margin-left: 70px;
               input {
+                text-align: center;
                 width: 500px;
                 border: none;
                 border-bottom: 1px solid #333;
@@ -306,15 +317,14 @@ export default {
           }
           .mychoise__alias {
             margin-top: 30px;
-            display: flex;
             .__alias {
               font-size: 20px;
               font-weight: bold;
               margin-top: 6px;
             }
             .alias__input {
-              margin-left: 48px;
               input {
+                text-align: center;
                 width: 500px;
                 border: none;
                 border-bottom: 1px solid #333;
@@ -334,8 +344,10 @@ export default {
               margin-top: 30px;
               font-size: 20px;
               display: flex;
+              justify-content: center;
               .menu {
                 cursor: pointer;
+                margin-left: 20px;
                 margin-right: 20px;
                 &:hover {
                   font-weight: bold;
@@ -358,7 +370,6 @@ export default {
               display: grid;
               grid-template-columns: repeat(5,1fr);
               text-align: center;
-              margin-left: -20px;
               .__item {
                 position: relative;
                 height: 250px;
@@ -437,15 +448,43 @@ export default {
           }
           .imgFile {
             margin-top: 30px;
-            display: flex;
+            .fileBox {
+              margin-top: 10px;
+              .upload__name {
+                display: inline-block;
+                height: 40px;
+                padding: 0 10px;
+                vertical-align: middle;
+                border: 1px solid #dddddd;
+                width: 390px;
+                color: #999999;
+                &:focus {
+                  outline: none;
+                }
+              }
+              label {
+                display: inline-block;
+                padding: 10px 20px;
+                color: #fff;
+                vertical-align: middle;
+                background-color: #999999;
+                cursor: pointer;
+                height: 40px;
+                margin-left: 10px;
+              }
+              input[type="file"] {
+                position: absolute;
+                width: 0;
+                height: 0;
+                padding: 0;
+                overflow: hidden;
+                border: 0;
+              }
+            }
             .__file {
               font-size: 20px;
               font-weight: bold;
               margin-top: 3px;
-            }
-            .file {
-              margin-left: 50px;
-              margin-top: 4px;
             }
           }
           .mychoise__btn {
