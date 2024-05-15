@@ -24,11 +24,10 @@
 
 
 ## 개발도구
-* FrontEnd - Vue3
-* BackEnd - Django(Python)
-* bundler - Vite
+* FrontEnd - Vue3 (vite)
+* BackEnd - Django(python)
 * DataBase - MySQL
-* server - AWS EC2, Nginx
+* server - AWS EC2
 
 ## 프로젝트 소개
 > #### 시나리오
